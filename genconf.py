@@ -13,14 +13,11 @@ BASE_DIR = "generated"
 def create_pure_sni_config(json_in_filename, haproxy_out_filename=None, dnsmasq_out_filename=None):
     content = get_contents(json_in_filename)
     json = json_decode(content)
-    iptables_location = json["iptables_location"]
-    public_ip = json["public_ip"]
-    dnsmasq_content = generate_dnsmasq(json)
 
+    dnsmasq_content = generate_dnsmasq(json)
     haproxy_content = generate_haproxy(json)
 
     print_firewall(json)
-    
     
     if haproxy_out_filename != None:
         put_contents(haproxy_out_filename, haproxy_content, base_dir=BASE_DIR)
@@ -33,7 +30,7 @@ def create_pure_sni_config(json_in_filename, haproxy_out_filename=None, dnsmasq_
     print ""
     print '***********************************************************************************************'
     print 'Caution: it\'s not recommended but it\'s possible to run a (recursive) DNS forwarder on your'
-    print 'remote server ' + public_ip + '. If you leave the DNS port wide open to everyone,'
+    print 'remote server ' + json["public_ip"] + '. If you leave the DNS port wide open to everyone,'
     print 'your server will get terminated sooner or later because of abuse (DDoS amplification attacks).'
     print '***********************************************************************************************'
 
@@ -51,10 +48,11 @@ def create_non_sni_config(json_in_filename, haproxy_out_filename=None, dnsmasq_o
 
     print 'Make sure the following IP addresses are available as virtual interfaces on your Ddnsmasq-server:'
     print current_ip
+    current_iplong = ip2long(current_ip)
     for proxy in json["proxies"]:
         if proxy["enabled"] and not proxy["catchall"]:
-            current_ip = long2ip(ip2long(current_ip) + 1)
-            print current_ip
+            current_iplong += 1
+            print long2ip(current_iplong)
 
     
     print_firewall(json, catchall=False)
@@ -93,6 +91,7 @@ def create_local_non_sni_config(json_in_filename, haproxy_out_filename=None, net
     if rinetd_out_filename != None:
         put_contents(rinetd_out_filename, rinetd_content, base_dir=BASE_DIR)
         print 'File generated: ' + rinetd_out_filename
+        
 def print_firewall(json, catchall=True):
     bind_ip = json["public_ip"]
     print 'If you are using an inbound firewall on ' + bind_ip + ':'
@@ -128,7 +127,7 @@ def main(cmd, args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate configuration files to setup a tunlr style smart DNS")
-    parser.add_argument("cmd", choices=["non-sni", "local", "pure-sni"], type=str, help="The type of configuration files to generate")
+    parser.add_argument("cmd", choices=["pure-sni", "non-sni", "local"], type=str, help="The type of configuration files to generate")
     parser.add_argument("-d", "--dns", type=str, default="dnsmasq-haproxy.conf", const=None, nargs="?", help="Specify the DNS configuration file name")
     parser.add_argument("-p", "--haproxy", type=str, default="haproxy.conf", const=None, nargs="?", help="Specify the haproxy configuration file name")
     parser.add_argument("-i", "--iptables", type=str, default="iptables-haproxy.sh", const=None, nargs="?", help="Specify the iptables configuration file name")
