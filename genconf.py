@@ -14,7 +14,6 @@ from generators.util import *
 BASE_DIR = "generated"
 
 
-
 def create_pure_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filename=None):
 
     dnsmasq_content = generate_dnsmasq(config)
@@ -39,7 +38,6 @@ def create_pure_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filena
     print '***********************************************************************************************'
 
 
-
 def create_non_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filename=None, iptables_out_filename=None):
     print "Please be aware that this is an advanced option. For most cases, pure-sni will be enough."
     if not config["base_ip"]:
@@ -48,7 +46,6 @@ def create_non_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filenam
 
     current_ip = config["base_ip"]
 
-
     print 'Make sure the following IP addresses are available as virtual interfaces on your Ddnsmasq-server:'
     print current_ip
     current_iplong = ip2long(current_ip)
@@ -56,7 +53,6 @@ def create_non_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filenam
         if proxy["enabled"] and not proxy["catchall"]:
             current_iplong += 1
             print long2ip(current_iplong)
-
 
     print_firewall(config, catchall=False)
 
@@ -75,7 +71,7 @@ def create_non_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filenam
         print 'File generated: ' + iptables_out_filename
 
 
-def create_local_non_sni_config(config, haproxy_out_filename=None, netsh_out_filename = None, hosts_out_filename = None, rinetd_out_filename = None):
+def create_local_non_sni_config(config, haproxy_out_filename=None, netsh_out_filename=None, hosts_out_filename=None, rinetd_out_filename=None):
     print "Please be aware that this is an advanced option. For most cases, pure-sni will be enough."
     if not config["base_ip"]:
         print "Missing base_ip! Update config.json and re-run the script."
@@ -90,7 +86,7 @@ def create_local_non_sni_config(config, haproxy_out_filename=None, netsh_out_fil
         print 'File generated: ' + haproxy_out_filename
     if hosts_out_filename != None:
         hosts_content = generate_hosts(config)
-        put_contents(hosts_out_filename,  hosts_content, base_dir=BASE_DIR)
+        put_contents(hosts_out_filename, hosts_content, base_dir=BASE_DIR)
         print 'File generated: ' + hosts_out_filename
     if netsh_out_filename != None:
         netsh_content = generate_netsh(config)
@@ -100,6 +96,7 @@ def create_local_non_sni_config(config, haproxy_out_filename=None, netsh_out_fil
         rinetd_content = generate_rinetd(config)
         put_contents(rinetd_out_filename, rinetd_content, base_dir=BASE_DIR)
         print 'File generated: ' + rinetd_out_filename
+
 
 def print_firewall(config, catchall=True):
     bind_ip = config["public_ip"]
@@ -115,13 +112,15 @@ def print_firewall(config, catchall=True):
 
         print config["iptables_location"] + ' -A INPUT -p tcp -m state --state NEW -m multiport -d ' + bind_ip + ' --dports ' + str(config["base_port"]) + ':' + str(port_range(config)) + ' -j ACCEPT'
 
+
 def port_range(config):
     start = config["base_port"]
     end = start + 2
     for proxy in config["proxies"]:
         if proxy["enabled"] and not proxy["catchall"]:
             end += len(proxy["modes"])
-    return start, end-1
+    return start, end - 1
+
 
 def read_config(args):
     if not os.path.isfile("config.json"):
@@ -150,13 +149,12 @@ def read_config(args):
         print("HAProxy stats password is %s, please make a note of it." % config["stats"]["password"])
 
     if args.save:
-        put_contents('config.json',json_encode(config))
+        put_contents('config.json', json_encode(config))
 
     proxies = json_decode(get_contents("proxies.json"))
     config["proxies"] = proxies
 
     return config
-
 
 
 def main(args):

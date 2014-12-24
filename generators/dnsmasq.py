@@ -1,6 +1,8 @@
 from util import long2ip, ip2long
 import os
-def generate(json, catchall = True, test = True):
+
+
+def generate(json, catchall=True, test=True):
     public_ip = json["public_ip"]
     current_ip = json["base_ip"]
     dnsmasq_content = ""
@@ -28,7 +30,7 @@ def generate(json, catchall = True, test = True):
 
     return dnsmasq_content
 
+
 def generate_dns(dest_addr, current_ip):
     result = 'address=/' + dest_addr + '/' + current_ip
     return result + os.linesep
-
