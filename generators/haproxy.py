@@ -1,4 +1,4 @@
-from util import config_format
+from util import config_format, port
 import os
 
 
@@ -30,15 +30,14 @@ def generate(config, catchall=True, test=True):
         haproxy_content += generate_stats(config["stats"], bind_ip)
 
     for proxy in config["proxies"]:
-        if proxy["enabled"]:
-            if catchall or (not catchall and proxy["catchall"]):
-                for mode in proxy["modes"]:
-                    if mode["mode"] == 'http':
-                        haproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["dest_addr"], mode["mode"])
-                        haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["dest_addr"], mode["mode"], mode["port"], server_options)
-                    elif mode["mode"] == 'https':
-                        haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["dest_addr"], mode["mode"])
-                        haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["dest_addr"], mode["mode"], mode["port"], server_options)
+        if catchall or (not catchall and proxy["catchall"]):
+            for protocol in proxy["protocols"]:
+                if protocol == 'http':
+                    haproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
+                    haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
+                elif protocol == 'https':
+                    haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
+                    haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
     if test:
         haproxy_catchall_frontend_content += generate_frontend_catchall_entry('proxy-test.trick77.com', 'http')
         haproxy_catchall_backend_content += generate_backend_catchall_entry('proxy-test.trick77.com', 'http', '80', server_options, 'trick77.com')
@@ -51,10 +50,10 @@ def generate(config, catchall=True, test=True):
     if not catchall:
         current_port += 2
         for proxy in config["proxies"]:
-            if proxy["enabled"] and not proxy["catchall"]:
-                for mode in proxy["modes"]:
-                    haproxy_content += generate_frontend(proxy["name"], mode["mode"], bind_ip, current_port, False)
-                    haproxy_content += generate_backend(proxy["name"], mode["mode"], proxy["dest_addr"], mode["port"], server_options, False)
+            if not proxy["catchall"]:
+                for protocol in proxy["protocols"]:
+                    haproxy_content += generate_frontend(proxy["alias"], protocol, bind_ip, current_port, False)
+                    haproxy_content += generate_backend(proxy["alias"], protocol, proxy["domain"], port(protocol), server_options, False)
                     current_port += 1
 
     haproxy_content += generate_deadend('http')
@@ -63,29 +62,29 @@ def generate(config, catchall=True, test=True):
     return haproxy_content
 
 
-def generate_frontend_catchall_entry(dest_addr, mode):
+def generate_frontend_catchall_entry(domain, mode):
     if mode == 'http':
-        return config_format('use_backend b_catchall_' + mode + ' if { hdr_dom(host) -i ' + dest_addr + ' }')
+        return config_format('use_backend b_catchall_' + mode + ' if { hdr_dom(host) -i ' + domain + ' }')
 
     elif mode == 'https':
-        return config_format('use_backend b_catchall_' + mode + ' if { req_ssl_sni -i ' + dest_addr + ' }')
+        return config_format('use_backend b_catchall_' + mode + ' if { req_ssl_sni -i ' + domain + ' }')
 
     return None
 
 
-def generate_backend_catchall_entry(dest_addr, mode, port, server_options, override_dest_addr=None):
+def generate_backend_catchall_entry(domain, mode, port, server_options, override_domain=None):
     result = None
     if mode == 'http':
-        result = config_format('use-server ' + dest_addr + ' if { hdr_dom(host) -i ' + dest_addr + ' }')
-        if override_dest_addr is None:
-            result += config_format('server ' + dest_addr + ' ' + dest_addr + ':' + str(port) + ' ' + server_options + os.linesep)
+        result = config_format('use-server ' + domain + ' if { hdr_dom(host) -i ' + domain + ' }')
+        if override_domain is None:
+            result += config_format('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
 
         else:
-            result += config_format('server ' + dest_addr + ' ' + override_dest_addr + ':' + str(port) + ' ' + server_options + os.linesep)
+            result += config_format('server ' + domain + ' ' + override_domain + ':' + str(port) + ' ' + server_options + os.linesep)
 
     elif mode == 'https':
-        result = config_format('use-server ' + dest_addr + ' if { req_ssl_sni -i ' + dest_addr + ' }')
-        result += config_format('server ' + dest_addr + ' ' + dest_addr + ':' + str(port) + ' ' + server_options + os.linesep)
+        result = config_format('use-server ' + domain + ' if { req_ssl_sni -i ' + domain + ' }')
+        result += config_format('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
 
     return result
 
@@ -178,7 +177,7 @@ def generate_frontend(proxy_name, mode, bind_ip, current_port, is_catchall):
     return result
 
 
-def generate_backend(proxy_name, mode, dest_addr, port, server_options, is_catchall):
+def generate_backend(proxy_name, mode, domain, port, server_options, is_catchall):
     result = config_format('backend b_' + proxy_name + '_' + mode, False)
 
     if mode == 'http':
@@ -191,6 +190,6 @@ def generate_backend(proxy_name, mode, dest_addr, port, server_options, is_catch
         result += config_format('option tcplog')
 
     if not is_catchall:
-        result += config_format('server ' + dest_addr + ' ' + dest_addr + ':' + str(port) + ' ' + server_options)
+        result += config_format('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options)
 
     return result + os.linesep

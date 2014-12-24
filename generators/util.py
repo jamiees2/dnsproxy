@@ -16,3 +16,10 @@ def config_format(line, do_ident=True):
     if (do_ident):
         return INDENT + line + os.linesep
     return line + os.linesep
+
+
+def port(protocol):
+    if protocol == "http":
+        return 80
+    elif protocol == "https":
+        return 443

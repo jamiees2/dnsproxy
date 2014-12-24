@@ -20,12 +20,12 @@ def create_pure_sni_config(config, args):
 
     print ""
 
-    if "haproxy" not in args.skip:
+    if "haproxy" not in args.skip_conf:
         haproxy_content = generators.generate_haproxy(config)
         util.put_contents(args.haproxy, haproxy_content, base_dir=args.base_dir)
         print 'File generated: ' + args.haproxy
 
-    if "dnsmasq" not in args.skip:
+    if "dnsmasq" not in args.skip_conf:
         dnsmasq_content = generators.generate_dnsmasq(config)
         util.put_contents(args.dnsmasq, dnsmasq_content, base_dir=args.base_dir)
         print 'File generated: ' + args.dnsmasq
@@ -53,22 +53,22 @@ def create_non_sni_config(config, args):
     print current_ip
     current_iplong = ip2long(current_ip)
     for proxy in config["proxies"]:
-        if proxy["enabled"] and not proxy["catchall"]:
+        if not proxy["catchall"]:
             current_iplong += 1
             print long2ip(current_iplong)
 
     print_firewall(config, catchall=False)
 
     print ""
-    if "haproxy" not in args.skip:
+    if "haproxy" not in args.skip_conf:
         haproxy_content = generators.generate_haproxy(config, catchall=False)
         util.put_contents(args.haproxy, haproxy_content, base_dir=args.base_dir)
         print 'File generated: ' + args.haproxy
-    if "dnsmasq" not in args.skip:
+    if "dnsmasq" not in args.skip_conf:
         dnsmasq_content = generators.generate_dnsmasq(config, catchall=False)
         util.put_contents(args.dnsmasq, dnsmasq_content, base_dir=args.base_dir)
         print 'File generated: ' + args.dnsmasq
-    if "iptables" not in args.skip:
+    if "iptables" not in args.skip_conf:
         iptables_content = generators.generate_iptables(config)
         util.put_contents(args.iptables, iptables_content, base_dir=args.base_dir)
         print 'File generated: ' + args.iptables
@@ -86,19 +86,19 @@ def create_local_non_sni_config(config, args):
     print_firewall(config, catchall=False)
 
     print ""
-    if "haproxy" not in args.skip:
+    if "haproxy" not in args.skip_conf:
         haproxy_content = generators.generate_haproxy(config, catchall=False)
         util.put_contents(args.haproxy, haproxy_content, base_dir=args.base_dir)
         print 'File generated: ' + args.haproxy
-    if "hosts" not in args.skip:
+    if "hosts" not in args.skip_conf:
         hosts_content = generators.generate_hosts(config)
         util.put_contents(args.hosts, hosts_content, base_dir=args.base_dir)
         print 'File generated: ' + args.hosts
-    if "netsh" not in args.skip:
+    if "netsh" not in args.skip_conf:
         netsh_content = generators.generate_netsh(config)
         util.put_contents(args.netsh, netsh_content, base_dir=args.base_dir)
         print 'File generated: ' + args.netsh
-    if "rinetd" not in args.skip:
+    if "rinetd" not in args.skip_conf:
         rinetd_content = generators.generate_rinetd(config)
         util.put_contents(args.netsh, rinetd_content, base_dir=args.base_dir)
         print 'File generated: ' + args.netsh
@@ -123,8 +123,8 @@ def port_range(config):
     start = config["base_port"]
     end = start + 2
     for proxy in config["proxies"]:
-        if proxy["enabled"] and not proxy["catchall"]:
-            end += len(proxy["modes"])
+        if not proxy["catchall"]:
+            end += len(proxy["protocols"])
     return start, end - 1
 
 
@@ -158,7 +158,23 @@ def read_config(args):
         util.put_contents('config.json', util.json_encode(config))
 
     proxies = util.json_decode(util.get_contents("proxies.json"))
-    config["proxies"] = proxies
+    proxy_data = []
+    if args.only:
+        for item in args.only:
+            if item not in proxies:
+                print "Nonexistent Item: %s, exiting" % item
+                sys.exit()
+            proxy_data += proxies[item]["proxies"]
+    elif args.skip:
+        skip = set(args.skip)
+        for item, data in proxies.iteritems():
+            if item not in skip:
+                proxy_data += data["proxies"]
+    else:
+        for item, data in proxies.iteritems():
+            proxy_data += data["proxies"]
+
+    config["proxies"] = proxy_data
 
     return config
 
@@ -195,7 +211,9 @@ if __name__ == "__main__":
     parser.add_argument("--save", action="store_true", help="Specify wether to save the configuration")
     parser.add_argument("--base-dir", type=str, default="output", help="Specify the output directory")
 
-    parser.add_argument("--skip", default=[], choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd"], nargs="*", help="Specify the configurations to skip")
+    parser.add_argument("--skip-conf", default=[], choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd"], nargs="*", help="Specify the configuration files to skip generating")
+    parser.add_argument("--only", default=None, nargs="*", help="Specify the proxies to use while generating")
+    parser.add_argument("--skip", default=None, nargs="*", help="Specify the proxies to not use while generating")
 
     args = parser.parse_args()
     main(args)

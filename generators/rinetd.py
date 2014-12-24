@@ -1,5 +1,5 @@
 import os
-from util import long2ip, ip2long
+from util import long2ip, ip2long, port
 
 
 def generate(json):
@@ -13,10 +13,10 @@ def generate(json):
     current_port += 1
 
     for proxy in json["proxies"]:
-        if proxy["enabled"] and not proxy["catchall"]:
+        if not proxy["catchall"]:
             current_ip = long2ip(ip2long(current_ip) + 1)
-            for mode in proxy["modes"]:
-                rinetd_content += generate_rinetd(mode["port"], public_ip, current_ip, current_port)
+            for protocol in proxy["protocols"]:
+                rinetd_content += generate_rinetd(port(protocol), public_ip, current_ip, current_port)
                 current_port += 1
     return rinetd_content
 

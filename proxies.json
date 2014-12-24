@@ -1,1862 +1,848 @@
-[
-  {
-    "name":"humble-bundle",
-    "dest_addr":"www.humblebundle.com",
-    "modes":[
+{
+  "netflix": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-signup",
+        "domain":"signup.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"hulu-secure",
-    "dest_addr":"s.hulu.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"hulu-play",
-    "dest_addr":"play.hulu.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-signup",
-    "dest_addr":"signup.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-www",
-    "dest_addr":"www.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-appboot",
-    "dest_addr":"appboot.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-cbp-us",
-    "dest_addr":"cbp-us.nccp.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-akamai",
-    "dest_addr":"a248.e.akamai.net",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-api-global",
-    "dest_addr":"api-global.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-movies",
-    "dest_addr":"movies.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-movies1",
-    "dest_addr":"movies1.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-www",
+        "domain":"www.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-secure",
-    "dest_addr":"secure.netflix.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-appboot",
+        "domain":"appboot.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-moviecontrol",
-    "dest_addr":"moviecontrol.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-cbp-us",
+        "domain":"cbp-us.nccp.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-api",
-    "dest_addr":"api.netflix.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-akamai",
+        "domain":"a248.e.akamai.net",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-api-us",
-    "dest_addr":"api-us.netflix.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-api-global",
+        "domain":"api-global.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-uiboot",
-    "dest_addr":"uiboot.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-movies",
+        "domain":"movies.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-cbp",
-    "dest_addr":"cbp.nccp.netflix.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-movies1",
+        "domain":"movies1.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-ios",
-    "dest_addr":"ios.nccp.netflix.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-secure",
+        "domain":"secure.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"netflix-xbox",
-    "dest_addr":"xbox.nccp.netflix.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-moviecontrol",
+        "domain":"moviecontrol.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-nrdp-31",
-    "dest_addr":"nccp-nrdp-31.cloud.netflix.net",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-api",
+        "domain":"api.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-nintendo",
-    "dest_addr":"nintendo.nccp.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-api-us",
+        "domain":"api-us.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-playstation",
-    "dest_addr":"playstation.nccp.netflix.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-uiboot",
+        "domain":"uiboot.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-nrdp",
-    "dest_addr":"nrdp.nccp.netflix.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-cbp",
+        "domain":"cbp.nccp.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-android",
-    "dest_addr":"android.nccp.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-ios",
+        "domain":"ios.nccp.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"netflix-playstation-net",
-    "dest_addr":"video.dl.playstation.net",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-xbox",
+        "domain":"xbox.nccp.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-ssm",
-    "dest_addr":"ssm.internet.sony.tv",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-nrdp-31",
+        "domain":"nccp-nrdp-31.cloud.netflix.net",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-ssm1",
-    "dest_addr":"ssm1.internet.sony.tv",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-nintendo",
+        "domain":"nintendo.nccp.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-ssm2",
-    "dest_addr":"ssm2.internet.sony.tv",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-playstation",
+        "domain":"playstation.nccp.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-ssm3",
-    "dest_addr":"ssm3.internet.sony.tv",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-nrdp",
+        "domain":"nrdp.nccp.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-treb",
-    "dest_addr":"treb.internet.sony.tv",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-android",
+        "domain":"android.nccp.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-wdtv",
-    "dest_addr":"www.wdtvlive.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"pandora-www",
-    "dest_addr":"www.pandora.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-playstation-net",
+        "domain":"video.dl.playstation.net",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"pandora-tuner",
-    "dest_addr":"tuner.pandora.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-ssm",
+        "domain":"ssm.internet.sony.tv",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"pandora-mediaserver",
-    "dest_addr":"mediaserver-sv5-rt-1.pandora.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"abc-go",
-    "dest_addr":"abc.go.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-ssm1",
+        "domain":"ssm1.internet.sony.tv",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"abc-disney",
-    "dest_addr":"api.watchdisneyxd.go.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-ssm2",
+        "domain":"ssm2.internet.sony.tv",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"abc-watchabc",
-    "dest_addr":"api.watchabc.go.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-ssm3",
+        "domain":"ssm3.internet.sony.tv",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"crackle-www",
-    "dest_addr":"www.crackle.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-treb",
+        "domain":"treb.internet.sony.tv",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"crackle-api",
-    "dest_addr":"api.crackle.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-wdtv",
+        "domain":"www.wdtvlive.com",
+        "protocols": ["http"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"crackle-ios",
-    "dest_addr":"ios-api.crackle.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"netflix-htmltvui-api",
+        "domain":"htmltvui-api.netflix.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"bivl-netflix-com",
+        "domain":"bivl.netflix.com",
+        "protocols": ["https"],
+        "catchall":false
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"crackle-ios-us",
-    "dest_addr":"ios-api-us.crackle.com",
-    "modes":[
+  "hulu": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"hulu-secure",
+        "domain":"s.hulu.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"hulu-play",
+        "domain":"play.hulu.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"crackle-appletv",
-    "dest_addr":"appletv.crackle.com",
-    "modes":[
+  "pandora": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"pandora-www",
+        "domain":"www.pandora.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"crackle-android",
-    "dest_addr":"android-api-us.crackle.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"pandora-tuner",
+        "domain":"tuner.pandora.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"crackle-xboxone",
-    "dest_addr":"xboxone-api-us.crackle.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"pandora-mediaserver",
+        "domain":"mediaserver-sv5-rt-1.pandora.com",
+        "protocols": ["http"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"bivl-pandora-com",
+        "domain":"bivl.pandora.com",
+        "protocols": ["http"],
+        "catchall":false
       }
-    ],
-    "catchall":false,
-    "enabled":true
+    ]
   },
-  {
-    "name":"crackle-ps3",
-    "dest_addr":"ps3-api-us.crackle.com",
-    "modes":[
+  "crackle": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-www",
+        "domain":"www.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"crackle-roku",
-    "dest_addr":"roku-api.crackle.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-api",
+        "domain":"api.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"crackle-uplynk",
-    "dest_addr":"content.uplynk.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-ios",
+        "domain":"ios-api.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"mylifetime",
-    "dest_addr":"c.brightcove.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"cbs",
-    "dest_addr":"release.theplatform.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-ios-us",
+        "domain":"ios-api-us.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"crunchyroll-www",
-    "dest_addr":"www.crunchyroll.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-appletv",
+        "domain":"appletv.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"crunchyroll-api",
-    "dest_addr":"api.crunchyroll.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-android",
+        "domain":"android-api-us.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"dramafever-www",
-    "dest_addr":"www.dramafever.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-xboxone",
+        "domain":"xboxone-api-us.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"dramafever-token",
-    "dest_addr":"token.dramafever.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-ps3",
+        "domain":"ps3-api-us.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"discovery",
-    "dest_addr":"static.discoverymedia.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crackle-roku",
+        "domain":"roku-api.crackle.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"crackle-uplynk",
+        "domain":"content.uplynk.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"fox",
-    "dest_addr":"link.theplatform.com",
-    "modes":[
+  "hbogo": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"hbogo.com",
+        "domain":"hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"iheart",
-    "dest_addr":"www.iheart.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"www.hbogo.com",
+        "domain":"www.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"lastfm-www",
-    "dest_addr":"www.last.fm",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"devicecast.hbogo.com",
+        "domain":"devicecast.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"lastfm-audioscrobbler",
-    "dest_addr":"ws.audioscrobbler.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"catalog.lv3.hbogo.com",
+        "domain":"catalog.lv3.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"lastfm-ext",
-    "dest_addr":"ext.last.fm",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"profile.hbogo.com",
+        "domain":"profile.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"logotv-www",
-    "dest_addr":"www.logotv.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"pro.hbogo.com",
+        "domain":"pro.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"logotv-flux",
-    "dest_addr":"activity.flux.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"hls.hbo.lv3.hbogo.com",
+        "domain":"hls.hbo.lv3.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"maxmind",
-    "dest_addr":"j.maxmind.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"i.hbo.lv3.hbogo.com",
+        "domain":"i.hbo.lv3.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"mog",
-    "dest_addr":"mog.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"pdl.misc.lv3.hbogo.com",
+        "domain":"pdl.misc.lv3.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"mtv-www",
-    "dest_addr":"www.mtv.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"smooth.misc.lv3.hbogo.com",
+        "domain":"smooth.misc.lv3.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"mtv-udat",
-    "dest_addr":"udat.mtvnservices.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"smooth.pro17.lv3.hbogo.com",
+        "domain":"smooth.pro17.lv3.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"mtv-media",
-    "dest_addr":"media.mtvnservices.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"reporting.hbogo.com",
+        "domain":"reporting.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"register.hbogo.com",
+        "domain":"register.hbogo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"nbc-uni",
-    "dest_addr":"video.nbcuni.com",
-    "modes":[
+  "hbo": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"hbo.com",
+        "domain":"hbo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"nbc-nbc",
-    "dest_addr":"video.nbc.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"www.hbo.com",
+        "domain":"www.hbo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"store.hbo.com",
+        "domain":"store.hbo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"nbc-syfy",
-    "dest_addr":"video.syfy.com",
-    "modes":[
+  "abc": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"abc-go",
+        "domain":"abc.go.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"pbs",
-    "dest_addr":"urs.pbs.org",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"smithsonian-www",
-    "dest_addr":"www.smithsonianchannel.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"abc-disney",
+        "domain":"api.watchdisneyxd.go.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"abc-watchabc",
+        "domain":"api.watchabc.go.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"smithsonian-unicorn",
-    "dest_addr":"once.unicornmedia.com",
-    "modes":[
+  "yahoo": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"yahoo-screen",
+        "domain":"screen.yahoo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"spike-www",
-    "dest_addr":"www.spike.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"yahoo-geo",
+        "domain":"geo.yahoo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"thewb-www",
-    "dest_addr":"www.thewb.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"thewb-cwtv",
-    "dest_addr":"www.cwtv.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"yahoo-geo-query",
+        "domain":"geo.query.yahoo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"thewb-cwtv-media",
-    "dest_addr":"media.cwtv.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"thewb-pdl",
-    "dest_addr":"pdl.warnerbros.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"thewb-cdn",
-    "dest_addr":"cdn.wwtv.warnerbros.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"vevo-www",
-    "dest_addr":"www.vevo.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"yahoo-mvid",
+        "domain":"mvid.yql.yahoo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"yahoo-hls",
+        "domain":"hls.video.query.yahoo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"vevo-sb",
-    "dest_addr":"sb.vevo.com",
-    "modes":[
+  "thewb": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"thewb-www",
+        "domain":"www.thewb.com",
+        "protocols": ["http"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"vevo-videoplayer",
-    "dest_addr":"videoplayer.vevo.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"thewb-cwtv",
+        "domain":"www.cwtv.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"vh1",
-    "dest_addr":"www.vh1.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"thewb-cwtv-media",
+        "domain":"media.cwtv.com",
+        "protocols": ["http"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"yahoo-screen",
-    "dest_addr":"screen.yahoo.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"thewb-pdl",
+        "domain":"pdl.warnerbros.com",
+        "protocols": ["http"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"yahoo-geo",
-    "dest_addr":"geo.yahoo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"thewb-cdn",
+        "domain":"cdn.wwtv.warnerbros.com",
+        "protocols": ["http"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"hlsioscwtv-warnerbros-com",
+        "domain":"hlsioscwtv.warnerbros.com",
+        "protocols": ["http"],
+        "catchall":false
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"yahoo-geo-query",
-    "dest_addr":"geo.query.yahoo.com",
-    "modes":[
+  "vevo": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"vevo-www",
+        "domain":"www.vevo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"yahoo-mvid",
-    "dest_addr":"mvid.yql.yahoo.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"vevo-sb",
+        "domain":"sb.vevo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"vevo-videoplayer",
+        "domain":"videoplayer.vevo.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"yahoo-hls",
-    "dest_addr":"hls.video.query.yahoo.com",
-    "modes":[
+  "mtv": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"mtv-www",
+        "domain":"www.mtv.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"usopen-geo",
-    "dest_addr":"usgageo.edgesuite.net",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"mtv-udat",
+        "domain":"udat.mtvnservices.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"mtv-media",
+        "domain":"media.mtvnservices.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"nbc-akamai-ipad",
-    "dest_addr":"tve_nbc-vh.akamaihd.net",
-    "modes":[
+  "sony": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"www-sony-net",
+        "domain":"www.sony.net",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"cbs-akamai-ipad",
-    "dest_addr":"ipad-streaming.cbs.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"internet-sony-tv",
+        "domain":"internet.sony.tv",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"www-sony-net",
-    "dest_addr":"www.sony.net",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"applicast-ga-sony-net",
+        "domain":"applicast.ga.sony.net",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"internet-sony-tv",
-    "dest_addr":"internet.sony.tv",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"bravia-dl-playstation-net",
+        "domain":"bravia.dl.playstation.net",
+        "protocols": ["http", "https"],
+        "catchall":false
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"bravia-e-dl-playstation-net",
+        "domain":"bravia-e.dl.playstation.net",
+        "protocols": ["http", "https"],
+        "catchall":false
       }
-    ],
-    "catchall":false,
-    "enabled":true
+    ]
   },
-  {
-    "name":"applicast-ga-sony-net",
-    "dest_addr":"applicast.ga.sony.net",
-    "modes":[
+  "crunchyroll": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"crunchyroll-www",
+        "domain":"www.crunchyroll.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"crunchyroll-api",
+        "domain":"api.crunchyroll.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":false,
-    "enabled":true
+    ]
   },
-  {
-    "name":"bravia-dl-playstation-net",
-    "dest_addr":"bravia.dl.playstation.net",
-    "modes":[
+  "lastfm": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"lastfm-www",
+        "domain":"www.last.fm",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"bravia-e-dl-playstation-net",
-    "dest_addr":"bravia-e.dl.playstation.net",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"lastfm-audioscrobbler",
+        "domain":"ws.audioscrobbler.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"bivl-netflix-com",
-    "dest_addr":"bivl.netflix.com",
-    "modes":[
       {
-        "port":443,
-        "mode":"https"
+        "alias":"lastfm-ext",
+        "domain":"ext.last.fm",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":false,
-    "enabled":true
+    ]
   },
-  {
-    "name":"bivl-pandora-com",
-    "dest_addr":"bivl.pandora.com",
-    "modes":[
+  "nbc": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"netflix-htmltvui-api",
-    "dest_addr":"htmltvui-api.netflix.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"nbc-uni",
+        "domain":"video.nbcuni.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
-      {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"hlsioscwtv-warnerbros-com",
-    "dest_addr":"hlsioscwtv.warnerbros.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      }
-    ],
-    "catchall":false,
-    "enabled":true
-  },
-  {
-    "name":"hbo.com",
-    "dest_addr":"hbo.com",
-    "modes":[
       {
-        "port":80,
-        "mode":"http"
+        "alias":"nbc-nbc",
+        "domain":"video.nbc.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
-      }
-    ],
-    "catchall":true,
-    "enabled":true
-  },
-  {
-    "name":"www.hbo.com",
-    "dest_addr":"www.hbo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
+        "alias":"nbc-syfy",
+        "domain":"video.syfy.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"nbc-akamai-ipad",
+        "domain":"tve_nbc-vh.akamaihd.net",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"store.hbo.com",
-    "dest_addr":"store.hbo.com",
-    "modes":[
+  "logotv": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"logotv-www",
+        "domain":"www.logotv.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"logotv-flux",
+        "domain":"activity.flux.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"itsh.bo",
-    "dest_addr":"itsh.bo",
-    "modes":[
+  "showtime": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"showtimeanytime.com",
+        "domain":"showtimeanytime.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"www.showtimeanytime.com",
+        "domain":"www.showtimeanytime.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"showtimeanytime.com",
-    "dest_addr":"showtimeanytime.com",
-    "modes":[
+  "dramafever": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"dramafever-www",
+        "domain":"www.dramafever.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"dramafever-token",
+        "domain":"token.dramafever.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"www.showtimeanytime.com",
-    "dest_addr":"www.showtimeanytime.com",
-    "modes":[
+  "smithsonians": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"smithsonian-www",
+        "domain":"www.smithsonianchannel.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"smithsonian-unicorn",
+        "domain":"once.unicornmedia.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"hbogo.com",
-    "dest_addr":"hbogo.com",
-    "modes":[
+  "cbs": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
+        "alias":"cbs",
+        "domain":"release.theplatform.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       },
       {
-        "port":443,
-        "mode":"https"
+        "alias":"cbs-akamai-ipad",
+        "domain":"ipad-streaming.cbs.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"www.hbogo.com",
-    "dest_addr":"www.hbogo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "humblebundle": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"humble-bundle",
+        "domain":"www.humblebundle.com",
+        "protocols": ["http", "https"],
+        "catchall":false
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"devicecast.hbogo.com",
-    "dest_addr":"devicecast.hbogo.com",
-    "modes":[
+  "mylifetime": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
+        "alias":"mylifetime",
+        "domain":"c.brightcove.com",
+        "protocols": ["http"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"catalog.lv3.hbogo.com",
-    "dest_addr":"catalog.lv3.hbogo.com",
-    "modes":[
+  "discovery": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
+        "alias":"discovery",
+        "domain":"static.discoverymedia.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"profile.hbogo.com",
-    "dest_addr":"profile.hbogo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "fox": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"fox",
+        "domain":"link.theplatform.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"pro.hbogo.com",
-    "dest_addr":"pro.hbogo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "iheart": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"iheart",
+        "domain":"www.iheart.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"hls.hbo.lv3.hbogo.com",
-    "dest_addr":"hls.hbo.lv3.hbogo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "maxmind": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"maxmind",
+        "domain":"j.maxmind.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"i.hbo.lv3.hbogo.com",
-    "dest_addr":"i.hbo.lv3.hbogo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "mog": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"mog",
+        "domain":"mog.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"pdl.misc.lv3.hbogo.com",
-    "dest_addr":"pdl.misc.lv3.hbogo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "pbs": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"pbs",
+        "domain":"urs.pbs.org",
+        "protocols": ["http"],
+        "catchall":false
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"smooth.misc.lv3.hbogo.com",
-    "dest_addr":"smooth.misc.lv3.hbogo.com",
-    "modes":[
+  "spike": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
+        "alias":"spike-www",
+        "domain":"www.spike.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"smooth.pro17.lv3.hbogo.com",
-    "dest_addr":"smooth.pro17.lv3.hbogo.com",
-    "modes":[
+  "vh1": {
+    "proxies": [
       {
-        "port":80,
-        "mode":"http"
-      },
-      {
-        "port":443,
-        "mode":"https"
+        "alias":"vh1",
+        "domain":"www.vh1.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"reporting.hbogo.com",
-    "dest_addr":"reporting.hbogo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "usopen": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"usopen-geo",
+        "domain":"usgageo.edgesuite.net",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"register.hbogo.com",
-    "dest_addr":"register.hbogo.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "itsh": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"itsh.bo",
+        "domain":"itsh.bo",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   },
-  {
-    "name":"southpark.cc.com",
-    "dest_addr":"southpark.cc.com",
-    "modes":[
-      {
-        "port":80,
-        "mode":"http"
-      },
+  "southpark": {
+    "proxies": [
       {
-        "port":443,
-        "mode":"https"
+        "alias":"southpark.cc.com",
+        "domain":"southpark.cc.com",
+        "protocols": ["http", "https"],
+        "catchall":true
       }
-    ],
-    "catchall":true,
-    "enabled":true
+    ]
   }
-]
+}
