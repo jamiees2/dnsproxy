@@ -3,7 +3,6 @@ import os
 
 
 def generate(config, catchall=True, test=True):
-    public_ip = config["public_ip"]
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
     if "base_port" in config:
@@ -36,10 +35,10 @@ def generate(config, catchall=True, test=True):
                 for mode in proxy["modes"]:
                     if mode["mode"] == 'http':
                         haproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["dest_addr"], mode["mode"])
-                        haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["dest_addr"], mode["mode"], mode["port"],server_options)
+                        haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["dest_addr"], mode["mode"], mode["port"], server_options)
                     elif mode["mode"] == 'https':
                         haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["dest_addr"], mode["mode"])
-                        haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["dest_addr"], mode["mode"], mode["port"],server_options)
+                        haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["dest_addr"], mode["mode"], mode["port"], server_options)
     if test:
         haproxy_catchall_frontend_content += generate_frontend_catchall_entry('proxy-test.trick77.com', 'http')
         haproxy_catchall_backend_content += generate_backend_catchall_entry('proxy-test.trick77.com', 'http', '80', server_options, 'trick77.com')
@@ -57,7 +56,6 @@ def generate(config, catchall=True, test=True):
                     haproxy_content += generate_frontend(proxy["name"], mode["mode"], bind_ip, current_port, False)
                     haproxy_content += generate_backend(proxy["name"], mode["mode"], proxy["dest_addr"], mode["port"], server_options, False)
                     current_port += 1
-
 
     haproxy_content += generate_deadend('http')
     haproxy_content += generate_deadend('https')

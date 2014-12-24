@@ -1,17 +1,24 @@
 import json
 import re
 from os import path
+
+
 def get_contents(filename):
     with open(filename) as f:
         return f.read()
-def put_contents(filename, data, base_dir = None):
-    if base_dir != None:
+
+
+def put_contents(filename, data, base_dir=None):
+    if base_dir:
         filename = path.join(base_dir, filename)
     with open(filename, 'w') as f:
         f.write(data)
+
+
 def json_decode(data):
-    data = re.sub("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t]//.*)|(^//.*)#","",data)
+    data = re.sub("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t]//.*)|(^//.*)#", "", data)
     return json.loads(data)
 
+
 def json_encode(data):
-	return json.dumps(data, sort_keys=True, indent=2, separators=(',', ': '))
+    return json.dumps(data, sort_keys=True, indent=2, separators=(',', ': '))
