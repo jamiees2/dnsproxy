@@ -1,7 +1,5 @@
 import os
 from util import long2ip, ip2long
-
-
 def generate(json):
 
     iptables_location = json["iptables_location"]
@@ -21,8 +19,10 @@ def generate(json):
                 rinetd_content += generate_rinetd(mode["port"], public_ip, current_ip, current_port)
                 current_port += 1
     return rinetd_content
+            
 
 
 def generate_rinetd(port, public_ip, current_ip, current_port):
     result = current_ip + ' ' + str(port) + ' ' + public_ip + ' ' + str(current_port) + os.linesep
     return result
+
