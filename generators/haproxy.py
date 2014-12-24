@@ -2,11 +2,14 @@ from util import config_format
 import os
 
 
-def generate(json, catchall = True, test = True):
-    public_ip = json["public_ip"]
-    bind_ip = json["bind_ip"]
-    server_options = json["server_options"]
-    current_port = json["base_port"]
+def generate(config, catchall = True, test = True):
+    public_ip = config["public_ip"]
+    bind_ip = config["bind_ip"]
+    server_options = config["server_options"]
+    if "base_port" in config:
+        current_port = config["base_port"]
+    else if not catchall:
+        return
 
     haproxy_content = generate_global()
     haproxy_content += generate_defaults()
@@ -24,10 +27,10 @@ def generate(json, catchall = True, test = True):
     haproxy_catchall_frontend_ssl_content = generate_frontend('catchall', 'https', bind_ip, https_port, True)
     haproxy_catchall_backend_ssl_content = generate_backend('catchall', 'https', None, None, None, True)
 
-    if json["stats"]["enabled"]:
-        haproxy_content += generate_stats(json["stats"], bind_ip)
+    if config["stats"]["enabled"]:
+        haproxy_content += generate_stats(config["stats"], bind_ip)
 
-    for proxy in json["proxies"]:
+    for proxy in config["proxies"]:
         if proxy["enabled"]:
             if catchall or (not catchall and proxy["catchall"]):
                 for mode in proxy["modes"]:
@@ -49,7 +52,7 @@ def generate(json, catchall = True, test = True):
     current_port += 2
 
     if not catchall:
-        for proxy in json["proxies"]:
+        for proxy in config["proxies"]:
             if proxy["enabled"] and not proxy["catchall"]:
                 for mode in proxy["modes"]:
                     haproxy_content += generate_frontend(proxy["name"], mode["mode"], bind_ip, current_port, False)
