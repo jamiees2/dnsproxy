@@ -29,13 +29,39 @@ If you would like to add a service, please send a pull request.
 
 Usage: 
 ```
-genconf.py [-h] [-d [DNS]] [-p [HAPROXY]] [-i [IPTABLES]] [-n [NETSH]]
-                  [-t [HOSTS]] [-r [RINETD]]
-                  {pure-sni,non-sni,local}
- ```
- `-d`, `-p`, `-i`, `-n`, `-t` and `-r` all allow you to specify a custom filename for each specific configuration file, or leave them blank if you would like to skip generating them.
+genconf.py [-h] [--dnsmasq [DNSMASQ]] [--haproxy [HAPROXY]]
+                  [--iptables [IPTABLES]] [--netsh [NETSH]] [--hosts [HOSTS]]
+                  [--rinetd [RINETD]] [--ip IP] [--bind-ip BIND_IP] [--save]
+                  [{pure-sni,non-sni,local}]
 
+Generate configuration files to setup a tunlr style smart DNS
+
+positional arguments:
+  {pure-sni,non-sni,local}
+                        The mode of configuration files to generate
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dnsmasq [DNSMASQ]   Specify the DNS configuration file name (leave blank
+                        to skip)
+  --haproxy [HAPROXY]   Specify the haproxy configuration file name (leave
+                        blank to skip)
+  --iptables [IPTABLES]
+                        Specify the iptables configuration file name (leave
+                        blank to skip)
+  --netsh [NETSH]       Specify the netsh configuration file name (leave blank
+                        to skip)
+  --hosts [HOSTS]       Specify the hosts configuration file name (leave blank
+                        to skip)
+  --rinetd [RINETD]     Specify the rinetd configuration file name (leave
+                        blank to skip)
+  --ip IP               Specify the public ip to use
+  --bind-ip BIND_IP     Specify the ip that haproxy should bind to
+  --save                Specify wether to save the configuration.
+ ```
 #### pure-sni (Simple Setup)
+
+This is also the default option.
 
 Use this setup if all your multimedia players are SNI-capable. (This is usually the case.)
 
@@ -44,7 +70,7 @@ Requires a U.S. based server (a 128 MB low end VPS is enough) and preferrably a 
 In pure-sni mode, you don't have to worry about the `base_ip` and the `base_port` options. Those options are not used, just leave them at their defaults. Make sure `iptables_location` points to the iptables executable and enter your VPS' IP address in `public_ip`. Make sure the ports 80 and 443 on your VPS are not being used by some other software like Apache2. Use ```netstat -tulpn``` to make sure.
 
 For this mode, call the generator like this:
-```python genconf.py pure-sni```
+```python genconf.py```
 
 The generator will create two files based on the information in config.json:
 - generated/haproxy.conf
@@ -63,17 +89,22 @@ Non-conclusive list of devices which don't understand SNI:
 - All Sony Bravia TVs and Blu-ray players 
 - Older Samsung TVs
 
+The generator will create three files based on the information in config.json:
+- generated/haproxy.conf
+- generated/dnsmasq-haproxy.conf
+- generated/iptables-haproxy.sh
+
 #### local (Advanced Setup)
 
 local mode enables DNS-unblocking on a single device which can't handle SNI but still using just a single IP address and without using another server on the network.
 The generator will create four files based on the information in json.config:
-- haproxy.conf (for the remote server)
-- netsh-haproxy.cmd (for Windows)
-- rinetd-haproxy.conf (for Linux)
-- hosts-haproxy.txt (for Linux/Windows)
+- generated/haproxy.conf (for the remote server)
+- generated/netsh-haproxy.cmd (for Windows)
+- generated/rinetd-haproxy.conf (for Linux)
+- generated/hosts-haproxy.txt (for Linux/Windows)
 
 For Windows:
-- Run notepad as administrator and open %SystemRoot%\system32\drivers\etc\hosts (usually c:\windows\system32\drivers\etc\hosts), copy the contents of hosts-haproxy.txt
+- Run notepad as administrator and open %SystemRoot%\system32\drivers\etc\hosts (usually c:\windows\system32\drivers\etc\hosts), append the contents of hosts-haproxy.txt
 - Run netsh-haproxy.cmd as administrator
 
 - To reset: delete contents of %SystemRoot%\system32\drivers\etc\hosts, run as administrator 'netsh interface portproxy reset'

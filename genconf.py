@@ -175,12 +175,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate configuration files to setup a tunlr style smart DNS")
     parser.add_argument("cmd", choices=["pure-sni", "non-sni", "local"], nargs="?", default="pure-sni", type=str, help="The mode of configuration files to generate")
 
-    parser.add_argument("--dnsmasq", type=str, default="dnsmasq-haproxy.conf", const=None, nargs="?", help="Specify the DNS configuration file name")
-    parser.add_argument("--haproxy", type=str, default="haproxy.conf", const=None, nargs="?", help="Specify the haproxy configuration file name")
-    parser.add_argument("--iptables", type=str, default="iptables-haproxy.sh", const=None, nargs="?", help="Specify the iptables configuration file name")
-    parser.add_argument("--netsh", type=str, default="netsh-haproxy.cmd", const=None, nargs="?", help="Specify the iptables configuration file name")
-    parser.add_argument("--hosts", type=str, default="hosts-haproxy.txt", const=None, nargs="?", help="Specify the hosts configuration file name")
-    parser.add_argument("--rinetd", type=str, default="rinetd-haproxy.conf", const=None, nargs="?", help="Specify the rinetd configuration file name")
+    parser.add_argument("--dnsmasq", type=str, default="dnsmasq-haproxy.conf", const=None, nargs="?", help="Specify the DNS configuration file name (leave blank to skip)")
+    parser.add_argument("--haproxy", type=str, default="haproxy.conf", const=None, nargs="?", help="Specify the haproxy configuration file name (leave blank to skip)")
+    parser.add_argument("--iptables", type=str, default="iptables-haproxy.sh", const=None, nargs="?", help="Specify the iptables configuration file name (leave blank to skip)")
+    parser.add_argument("--netsh", type=str, default="netsh-haproxy.cmd", const=None, nargs="?", help="Specify the netsh configuration file name (leave blank to skip)")
+    parser.add_argument("--hosts", type=str, default="hosts-haproxy.txt", const=None, nargs="?", help="Specify the hosts configuration file name (leave blank to skip)")
+    parser.add_argument("--rinetd", type=str, default="rinetd-haproxy.conf", const=None, nargs="?", help="Specify the rinetd configuration file name (leave blank to skip)")
 
     parser.add_argument("--ip", type=str, default=None, help="Specify the public ip to use")
     parser.add_argument("--bind-ip", type=str, default=None, help="Specify the ip that haproxy should bind to")
