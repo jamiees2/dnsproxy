@@ -49,9 +49,8 @@ def generate(config, catchall = True, test = True):
     haproxy_content += haproxy_catchall_frontend_ssl_content + os.linesep
     haproxy_content += haproxy_catchall_backend_ssl_content
 
-    current_port += 2
-
     if not catchall:
+        current_port += 2
         for proxy in config["proxies"]:
             if proxy["enabled"] and not proxy["catchall"]:
                 for mode in proxy["modes"]:
