@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import sys
 import argparse
@@ -163,6 +165,10 @@ def main(args):
     config = read_config(args)
 
     print ""
+
+    # Create the output dir if it doesn't exist
+    if not os.path.exists(BASE_DIR):
+        os.mkdir(BASE_DIR)
 
     if args.cmd == "pure-sni":
         create_pure_sni_config(config, args.haproxy, args.dnsmasq)
