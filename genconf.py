@@ -3,7 +3,7 @@ import sys
 import argparse
 import urllib2
 import time
-import random
+from random import SystemRandom
 import string
 
 from util import *
@@ -12,6 +12,7 @@ from generators import *
 from generators.util import *
 
 BASE_DIR = "generated"
+random = SystemRandom()
 
 
 def create_pure_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filename=None):
@@ -22,11 +23,11 @@ def create_pure_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filena
     print_firewall(config)
 
     print ""
-    if haproxy_out_filename != None:
+    if haproxy_out_filename is not None:
         put_contents(haproxy_out_filename, haproxy_content, base_dir=BASE_DIR)
         print 'File generated: ' + haproxy_out_filename
 
-    if dnsmasq_out_filename != None:
+    if dnsmasq_out_filename is not None:
         put_contents(dnsmasq_out_filename, dnsmasq_content, base_dir=BASE_DIR)
         print 'File generated: ' + dnsmasq_out_filename
 
@@ -57,15 +58,15 @@ def create_non_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filenam
     print_firewall(config, catchall=False)
 
     print ""
-    if haproxy_out_filename != None:
+    if haproxy_out_filename is not None:
         haproxy_content = generate_haproxy(config, catchall=False)
         put_contents(haproxy_out_filename, haproxy_content, base_dir=BASE_DIR)
         print 'File generated: ' + haproxy_out_filename
-    if dnsmasq_out_filename != None:
+    if dnsmasq_out_filename is not None:
         dnsmasq_content = generate_dnsmasq(config, catchall=False)
         put_contents(dnsmasq_out_filename, dnsmasq_content, base_dir=BASE_DIR)
         print 'File generated: ' + dnsmasq_out_filename
-    if iptables_out_filename != None:
+    if iptables_out_filename is not None:
         iptables_content = generate_iptables(config)
         put_contents(iptables_out_filename, iptables_content, base_dir=BASE_DIR)
         print 'File generated: ' + iptables_out_filename
@@ -80,19 +81,19 @@ def create_local_non_sni_config(config, haproxy_out_filename=None, netsh_out_fil
     print_firewall(config, catchall=False)
 
     print ""
-    if haproxy_out_filename != None:
+    if haproxy_out_filename is not None:
         haproxy_content = generate_haproxy(config, catchall=False)
         put_contents(haproxy_out_filename, haproxy_content, base_dir=BASE_DIR)
         print 'File generated: ' + haproxy_out_filename
-    if hosts_out_filename != None:
+    if hosts_out_filename is not None:
         hosts_content = generate_hosts(config)
         put_contents(hosts_out_filename, hosts_content, base_dir=BASE_DIR)
         print 'File generated: ' + hosts_out_filename
-    if netsh_out_filename != None:
+    if netsh_out_filename is not None:
         netsh_content = generate_netsh(config)
         put_contents(netsh_out_filename, netsh_content, base_dir=BASE_DIR)
         print 'File generated: ' + netsh_out_filename
-    if rinetd_out_filename != None:
+    if rinetd_out_filename is not None:
         rinetd_content = generate_rinetd(config)
         put_contents(rinetd_out_filename, rinetd_content, base_dir=BASE_DIR)
         print 'File generated: ' + rinetd_out_filename
