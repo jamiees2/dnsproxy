@@ -1,5 +1,5 @@
-tunlr-style-dns-unblocking
-==========================
+dnsproxy
+========
 
 This is heavily based on @trick77's original work on [tunlr-style-dns-unblocking](https://github.com/trick77/tunlr-style-dns-unblocking/)
 
