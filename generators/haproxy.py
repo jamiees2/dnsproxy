@@ -2,7 +2,7 @@ from util import config_format
 import os
 
 
-def generate(config, catchall = True, test = True):
+def generate(config, catchall=True, test=True):
     public_ip = config["public_ip"]
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
