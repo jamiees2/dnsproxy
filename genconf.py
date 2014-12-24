@@ -47,6 +47,9 @@ def create_non_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filenam
     if not config["base_ip"]:
         print "Missing base_ip! Update config.json and re-run the script."
         sys.exit(1)
+    if not config["base_port"]:
+        print "Missing base_port! Update config.json and re-run the script."
+        sys.exit(1)
 
     current_ip = config["base_ip"]
 
@@ -81,6 +84,9 @@ def create_local_non_sni_config(config, haproxy_out_filename=None, netsh_out_fil
     print "Please be aware that this is an advanced option. For most cases, pure-sni will be enough."
     if not config["base_ip"]:
         print "Missing base_ip! Update config.json and re-run the script."
+        sys.exit(1)
+    if not config["base_port"]:
+        print "Missing base_port! Update config.json and re-run the script."
         sys.exit(1)
 
     print_firewall(config, catchall=False)
