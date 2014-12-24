@@ -30,35 +30,30 @@ If you would like to add a service, please send a pull request.
 
 Usage: 
 ```
-genconf.py [-h] [--dnsmasq [DNSMASQ]] [--haproxy [HAPROXY]]
-                  [--iptables [IPTABLES]] [--netsh [NETSH]] [--hosts [HOSTS]]
-                  [--rinetd [RINETD]] [--ip IP] [--bind-ip BIND_IP] [--save]
-                  [{pure-sni,non-sni,local}]
+genconf.py [-h] [-m {pure-sni,non-sni,local}] [--dnsmasq DNSMASQ]
+                  [--haproxy HAPROXY] [--iptables IPTABLES] [--netsh NETSH]
+                  [--hosts HOSTS] [--rinetd RINETD] [--ip IP]
+                  [--bind-ip BIND_IP] [--save] [--base-dir BASE_DIR]
+                  [--skip [{dnsmasq,haproxy,netsh,hosts,rinetd} [{dnsmasq,haproxy,netsh,hosts,rinetd} ...]]]
 
 Generate configuration files to setup a tunlr style smart DNS
 
-positional arguments:
-  {pure-sni,non-sni,local}
-                        The mode of configuration files to generate
-
 optional arguments:
   -h, --help            show this help message and exit
-  --dnsmasq [DNSMASQ]   Specify the DNS configuration file name (leave blank
-                        to skip)
-  --haproxy [HAPROXY]   Specify the haproxy configuration file name (leave
-                        blank to skip)
-  --iptables [IPTABLES]
-                        Specify the iptables configuration file name (leave
-                        blank to skip)
-  --netsh [NETSH]       Specify the netsh configuration file name (leave blank
-                        to skip)
-  --hosts [HOSTS]       Specify the hosts configuration file name (leave blank
-                        to skip)
-  --rinetd [RINETD]     Specify the rinetd configuration file name (leave
-                        blank to skip)
+  -m {pure-sni,non-sni,local}, --mode {pure-sni,non-sni,local}
+                        The mode of configuration files to generate
+  --dnsmasq DNSMASQ     Specify the DNS configuration file name
+  --haproxy HAPROXY     Specify the haproxy configuration file name
+  --iptables IPTABLES   Specify the iptables configuration file name
+  --netsh NETSH         Specify the netsh configuration file name
+  --hosts HOSTS         Specify the hosts configuration file name
+  --rinetd RINETD       Specify the rinetd configuration file name
   --ip IP               Specify the public ip to use
   --bind-ip BIND_IP     Specify the ip that haproxy should bind to
-  --save                Specify wether to save the configuration.
+  --save                Specify wether to save the configuration
+  --base-dir BASE_DIR   Specify the output directory
+  --skip [{dnsmasq,haproxy,netsh,hosts,rinetd} [{dnsmasq,haproxy,netsh,hosts,rinetd} ...]]
+                        Specify the configurations to skip
  ```
 #### pure-sni (Simple Setup)
 
