@@ -21,7 +21,7 @@ def create_pure_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filena
     haproxy_content = generate_haproxy(config)
 
     print_firewall(config)
-    
+
     print ""
     if haproxy_out_filename != None:
         put_contents(haproxy_out_filename, haproxy_content, base_dir=BASE_DIR)
@@ -57,14 +57,14 @@ def create_non_sni_config(config, haproxy_out_filename=None, dnsmasq_out_filenam
             current_iplong += 1
             print long2ip(current_iplong)
 
-    
+
     print_firewall(config, catchall=False)
 
     print ""
     if haproxy_out_filename != None:
         haproxy_content = generate_haproxy(config, catchall=False)
         put_contents(haproxy_out_filename, haproxy_content, base_dir=BASE_DIR)
-        print 'File generated: ' + haproxy_out_filename 
+        print 'File generated: ' + haproxy_out_filename
     if dnsmasq_out_filename != None:
         dnsmasq_content = generate_dnsmasq(config, catchall=False)
         put_contents(dnsmasq_out_filename, dnsmasq_content, base_dir=BASE_DIR)
@@ -100,21 +100,21 @@ def create_local_non_sni_config(config, haproxy_out_filename=None, netsh_out_fil
         rinetd_content = generate_rinetd(config)
         put_contents(rinetd_out_filename, rinetd_content, base_dir=BASE_DIR)
         print 'File generated: ' + rinetd_out_filename
-        
+
 def print_firewall(config, catchall=True):
     bind_ip = config["public_ip"]
     print 'If you are using an inbound firewall on ' + bind_ip + ':'
     if catchall:
         if config["stats"]["enabled"]:
             print config["iptables_location"] + ' -A INPUT -p tcp -m state --state NEW -d ' + bind_ip + ' --dport ' + str(config["stats"]["port"]) + ' -j ACCEPT'
-        
+
         print config["iptables_location"] + ' -A INPUT -p tcp -m state --state NEW -m multiport -d ' + bind_ip + ' --dports ' + "80" + ',' + "443" + ' -j ACCEPT'
     else:
         if config["stats"]["enabled"]:
             print config["iptables_location"] + ' -A INPUT -p tcp -m state --state NEW -d ' + bind_ip + ' --dport ' + str(config["stats"]["port"]) + ' -j ACCEPT'
-        
-        print config["iptables_location"] + ' -A INPUT -p tcp -m state --state NEW -m multiport -d ' + bind_ip + ' --dports ' + str(config["base_port"]) + ':' + str(port_range(config)) + ' -j ACCEPT' 
-    
+
+        print config["iptables_location"] + ' -A INPUT -p tcp -m state --state NEW -m multiport -d ' + bind_ip + ' --dports ' + str(config["base_port"]) + ':' + str(port_range(config)) + ' -j ACCEPT'
+
 def port_range(config):
     start = config["base_port"]
     end = start + 2
@@ -158,7 +158,7 @@ def read_config(args):
     return config
 
 
-    
+
 def main(args):
     config = read_config(args)
 
