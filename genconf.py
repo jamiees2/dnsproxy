@@ -13,7 +13,7 @@ from util import *
 from generators import *
 from generators.util import *
 
-BASE_DIR = "generated"
+BASE_DIR = "output"
 
 
 
