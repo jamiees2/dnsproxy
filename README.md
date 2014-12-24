@@ -6,7 +6,8 @@ This is heavily based on @trick77's original work on [tunlr-style-dns-unblocking
 Prerequisites:
 - python
 - haproxy
-For `pure-sni` and `non-sni`
+
+For `pure-sni` and `non-sni`:
 - dnsmasq
 
 
