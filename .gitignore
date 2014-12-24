@@ -53,4 +53,6 @@ docs/_build/
 # PyBuilder
 target/
 
+config.json
+
 *.conf

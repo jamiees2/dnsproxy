@@ -12,3 +12,6 @@ def put_contents(filename, data, base_dir = None):
 def json_decode(data):
     data = re.sub("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t]//.*)|(^//.*)#","",data)
     return json.loads(data)
+
+def json_encode(data):
+	return json.dumps(data, sort_keys=True, indent=2, separators=(',', ': '))

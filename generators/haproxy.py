@@ -140,8 +140,6 @@ def generate_deadend(mode):
 
 
 def generate_stats(stats, bind_ip):
-    if stats["password"] == "":
-        stats["password"] = raw_input("Please enter a password for the HAproxy stats: ")
     result = config_format('listen stats', False)
     result += config_format('bind ' + bind_ip + ':' + str(stats["port"]))
     result += config_format('mode http')
