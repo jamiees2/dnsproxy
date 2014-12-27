@@ -82,6 +82,18 @@
         "domain": "ibl.api.bbci.co.uk",
         "protocols": ["http", "https"],
         "catchall": true
+      },
+      {
+        "alias": "bbc01-sa",
+        "domain": "bbc01.sitestat.com",
+        "protocols": ["http", "https"],
+        "catchall": true
+      },
+      {
+        "alias": "bbc-sa",
+        "domain": "sa.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "catchall": true
       }
     ]
   }
