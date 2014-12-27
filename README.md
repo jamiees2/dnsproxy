@@ -13,7 +13,7 @@ For `pure-sni` and `non-sni`:
 
 THIS IS NOT A TUTORIAL!
 
-The configuration generator (genconf.py) offers three different modes:
+The configuration generator (dnsproxy.py) offers three different modes:
 - pure-sni (Simple Setup)
 - non-sni (Advanced Setup)
 - local (Advanced Setup)
@@ -30,11 +30,13 @@ If you would like to add a service, please send a pull request.
 
 Usage: 
 ```
-genconf.py [-h] [-m {pure-sni,non-sni,local}] [--dnsmasq DNSMASQ]
-                  [--haproxy HAPROXY] [--iptables IPTABLES] [--netsh NETSH]
-                  [--hosts HOSTS] [--rinetd RINETD] [--ip IP]
-                  [--bind-ip BIND_IP] [--save] [--base-dir BASE_DIR]
-                  [--skip [{dnsmasq,haproxy,netsh,hosts,rinetd} [{dnsmasq,haproxy,netsh,hosts,rinetd} ...]]]
+dnsproxy.py [-h] [-m {pure-sni,non-sni,local}] [-c COUNTRY]
+                   [--dnsmasq DNSMASQ] [--haproxy HAPROXY]
+                   [--iptables IPTABLES] [--netsh NETSH] [--hosts HOSTS]
+                   [--rinetd RINETD] [--ip IP] [--bind-ip BIND_IP] [--save]
+                   [--base-dir BASE_DIR]
+                   [--skip-conf [{dnsmasq,haproxy,netsh,hosts,rinetd} [{dnsmasq,haproxy,netsh,hosts,rinetd} ...]]]
+                   [--only [ONLY [ONLY ...]]] [--skip [SKIP [SKIP ...]]]
 
 Generate configuration files to setup a tunlr style smart DNS
 
@@ -42,6 +44,8 @@ optional arguments:
   -h, --help            show this help message and exit
   -m {pure-sni,non-sni,local}, --mode {pure-sni,non-sni,local}
                         The mode of configuration files to generate
+  -c COUNTRY, --country COUNTRY
+                        The country to use for generating the configuration
   --dnsmasq DNSMASQ     Specify the DNS configuration file name
   --haproxy HAPROXY     Specify the haproxy configuration file name
   --iptables IPTABLES   Specify the iptables configuration file name
@@ -52,8 +56,12 @@ optional arguments:
   --bind-ip BIND_IP     Specify the ip that haproxy should bind to
   --save                Specify wether to save the configuration
   --base-dir BASE_DIR   Specify the output directory
-  --skip [{dnsmasq,haproxy,netsh,hosts,rinetd} [{dnsmasq,haproxy,netsh,hosts,rinetd} ...]]
-                        Specify the configurations to skip
+  --skip-conf [{dnsmasq,haproxy,netsh,hosts,rinetd} [{dnsmasq,haproxy,netsh,hosts,rinetd} ...]]
+                        Specify the configuration files to skip generating
+  --only [ONLY [ONLY ...]]
+                        Specify the proxies to use while generating
+  --skip [SKIP [SKIP ...]]
+                        Specify the proxies to not use while generating
  ```
 #### pure-sni (Simple Setup)
 
@@ -66,7 +74,7 @@ Requires a U.S. based server (a 128 MB low end VPS is enough) and preferrably a 
 In pure-sni mode, you don't have to worry about the `base_ip` and the `base_port` options. Those options are not used, just leave them at their defaults. Make sure `iptables_location` points to the iptables executable and enter your VPS' IP address in `public_ip`. Make sure the ports 80 and 443 on your VPS are not being used by some other software like Apache2. Use ```netstat -tulpn``` to make sure.
 
 For this mode, call the generator like this:
-```python genconf.py```
+```python dnsproxy.py```
 
 The generator will create two files based on the information in config.json:
 - generated/haproxy.conf

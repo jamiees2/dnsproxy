@@ -132,6 +132,9 @@ def read_config(args):
     if not os.path.isfile("config.json"):
         print "config.json does not exist! Please copy config-sample.json to config.json and edit to your liking, then run the script."
         sys.exit(1)
+    if not os.path.isfile("proxies/proxies-%s.json" % args.country.lower()):
+        print "The proxy configuration file proxies-%s.json does not exist! Exiting." % args.country.lower()
+        sys.exit(1)
     content = util.get_contents("config.json")
     config = util.json_decode(content)
     if args.ip:
@@ -157,7 +160,7 @@ def read_config(args):
     if args.save:
         util.put_contents('config.json', util.json_encode(config))
 
-    proxies = util.json_decode(util.get_contents("proxies.json"))
+    proxies = util.json_decode(util.get_contents("proxies/proxies-%s.json" % args.country.lower()))
     proxy_data = []
     if args.only:
         for item in args.only:
@@ -198,6 +201,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate configuration files to setup a tunlr style smart DNS")
     parser.add_argument("-m", "--mode", choices=["pure-sni", "non-sni", "local"], default="pure-sni", type=str, help="The mode of configuration files to generate")
+    parser.add_argument("-c", "--country", default="us", type=str, help="The country to use for generating the configuration")
 
     parser.add_argument("--dnsmasq", type=str, default="dnsmasq-haproxy.conf", help="Specify the DNS configuration file name")
     parser.add_argument("--haproxy", type=str, default="haproxy.conf", help="Specify the haproxy configuration file name")

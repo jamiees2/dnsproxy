@@ -1,0 +1,70 @@
+{
+  "itv": {
+    "proxies": [
+      {
+        "alias":"itv-www",
+        "domain":"www.itv.com",
+        "protocols": ["http", "https"],
+        "catchall":true
+      },
+      {
+        "alias":"itv-mercury",
+        "domain":"mercury.itv.com",
+        "protocols": ["http", "https"],
+        "catchall":true
+      },
+      {
+        "alias":"itv-secure",
+        "domain":"secure.mercury.itv.com",
+        "protocols": ["http", "https"],
+        "catchall":true
+      },
+      {
+        "alias":"itv-ned",
+        "domain":"ned.itv.com",
+        "protocols": ["http", "https"],
+        "catchall":true
+      },
+      {
+        "alias":"itv-tom",
+        "domain":"tom.itv.com",
+        "protocols": ["http", "https"],
+        "catchall":true
+      }
+    ]
+  },
+  "bbc": {
+    "proxies":[
+      {
+        "alias":"bbc-www",
+        "domain":"www.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "catchall":true
+      },
+      {
+        "alias":"bbc-ssl",
+        "domain":"ssl.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "catchall":true
+      },
+      {
+        "alias":"bbc-livestream",
+        "domain":"vs-hds-uk-live.edgesuite.net",
+        "protocols": ["http", "https"],
+        "catchall":true
+      },
+      {
+        "alias":"bbc-livestream-llnwd",
+        "domain":"vs-hds-uk-live.bbcfmt.vo.llnwd.net",
+        "protocols": ["http", "https"],
+        "catchall":true
+      },
+      {
+        "alias":"bbc-open-live",
+        "domain":"open.live.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "catchall":true
+      }
+    ]
+  }
+}
