@@ -66,8 +66,8 @@
         "catchall":true
       },
       {
-        "alias": "bbc-sa",
-        "domain": "sa.bbc.co.uk",
+        "alias": "bbc-securegate",
+        "domain": "securegate.iplayer.bbc.co.uk",
         "protocols": ["http", "https"],
         "catchall": true
       },
