@@ -76,6 +76,12 @@
         "domain": "ingest.rum.bbc.co.uk",
         "protocols": ["http", "https"],
         "catchall": true
+      },
+      {
+        "alias": "ibl-api",
+        "domain": "ibl.api.bbci.co.uk",
+        "protocols": ["http", "https"],
+        "catchall": true
       }
     ]
   }
