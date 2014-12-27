@@ -64,6 +64,18 @@
         "domain":"open.live.bbc.co.uk",
         "protocols": ["http", "https"],
         "catchall":true
+      },
+      {
+        "alias": "bbc-sa",
+        "domain": "sa.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "catchall": true
+      },
+      {
+        "alias": "bbc-ingest-rum",
+        "domain": "ingest.rum.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "catchall": true
       }
     ]
   }
