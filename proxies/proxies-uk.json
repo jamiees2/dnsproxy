@@ -84,18 +84,6 @@
         "catchall": true
       },
       {
-        "alias": "bbc01-sa",
-        "domain": "bbc01.sitestat.com",
-        "protocols": ["http", "https"],
-        "catchall": true
-      },
-      {
-        "alias": "bbc-sa",
-        "domain": "sa.bbc.co.uk",
-        "protocols": ["http", "https"],
-        "catchall": true
-      },
-      {
         "alias": "bbc-akamai",
         "domain": "cp143012-i.akamaihd.net",
         "protocols": ["http", "https"],
