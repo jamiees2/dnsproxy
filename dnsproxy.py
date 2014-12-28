@@ -52,10 +52,11 @@ def create_non_sni_config(config, args):
     print 'Make sure the following IP addresses are available as virtual interfaces on your Ddnsmasq-server:'
     print current_ip
     current_iplong = ip2long(current_ip)
-    for proxy in config["proxies"]:
-        if not proxy["catchall"]:
-            current_iplong += 1
-            print long2ip(current_iplong)
+    for group in config["groups"].values():
+        for proxy in group["proxies"]:
+            if not proxy["catchall"]:
+                current_iplong += 1
+                print long2ip(current_iplong)
 
     print_firewall(config, catchall=False)
 
@@ -122,9 +123,10 @@ def print_firewall(config, catchall=True):
 def port_range(config):
     start = config["base_port"]
     end = start + 2
-    for proxy in config["proxies"]:
-        if not proxy["catchall"]:
-            end += len(proxy["protocols"])
+    for group in config["groups"].values():
+        for proxy in group["proxies"]:
+            if not proxy["catchall"]:
+                end += len(proxy["protocols"])
     return start, end - 1
 
 
@@ -160,24 +162,22 @@ def read_config(args):
     if args.save:
         util.put_contents('config.json', util.json_encode(config))
 
-    proxies = util.json_decode(util.get_contents("proxies/proxies-%s.json" % args.country.lower()))
-    proxy_data = []
+    groups = util.json_decode(util.get_contents("proxies/proxies-%s.json" % args.country.lower()))
+
     if args.only:
+        only = set(args.only)
         for item in args.only:
-            if item not in proxies:
+            if item not in groups:
                 print "Nonexistent Item: %s, exiting" % item
                 sys.exit()
-            proxy_data += proxies[item]["proxies"]
+        for item in groups.keys():
+            if item not in only:
+                del groups[item]
     elif args.skip:
-        skip = set(args.skip)
-        for item, data in proxies.iteritems():
-            if item not in skip:
-                proxy_data += data["proxies"]
-    else:
-        for item, data in proxies.iteritems():
-            proxy_data += data["proxies"]
+        for item in args.skip:
+            del groups[item]
 
-    config["proxies"] = proxy_data
+    config["groups"] = groups
 
     return config
 

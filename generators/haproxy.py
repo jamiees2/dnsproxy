@@ -28,16 +28,16 @@ def generate(config, catchall=True, test=True):
 
     if config["stats"]["enabled"]:
         haproxy_content += generate_stats(config["stats"], bind_ip)
-
-    for proxy in config["proxies"]:
-        if catchall or (not catchall and proxy["catchall"]):
-            for protocol in proxy["protocols"]:
-                if protocol == 'http':
-                    haproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
-                    haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
-                elif protocol == 'https':
-                    haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
-                    haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
+    for group in config["groups"].values():
+        for proxy in group["proxies"]:
+            if catchall or (not catchall and proxy["catchall"]):
+                for protocol in proxy["protocols"]:
+                    if protocol == 'http':
+                        haproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
+                        haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
+                    elif protocol == 'https':
+                        haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
+                        haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
     if test:
         haproxy_catchall_frontend_content += generate_frontend_catchall_entry('proxy-test.trick77.com', 'http')
         haproxy_catchall_backend_content += generate_backend_catchall_entry('proxy-test.trick77.com', 'http', '80', server_options, 'trick77.com')
@@ -49,12 +49,13 @@ def generate(config, catchall=True, test=True):
 
     if not catchall:
         current_port += 2
-        for proxy in config["proxies"]:
-            if not proxy["catchall"]:
-                for protocol in proxy["protocols"]:
-                    haproxy_content += generate_frontend(proxy["alias"], protocol, bind_ip, current_port, False)
-                    haproxy_content += generate_backend(proxy["alias"], protocol, proxy["domain"], port(protocol), server_options, False)
-                    current_port += 1
+        for group in config["groups"].values():
+            for proxy in group["proxies"]:
+                if not proxy["catchall"]:
+                    for protocol in proxy["protocols"]:
+                        haproxy_content += generate_frontend(proxy["alias"], protocol, bind_ip, current_port, False)
+                        haproxy_content += generate_backend(proxy["alias"], protocol, proxy["domain"], port(protocol), server_options, False)
+                        current_port += 1
 
     haproxy_content += generate_deadend('http')
     haproxy_content += generate_deadend('https')

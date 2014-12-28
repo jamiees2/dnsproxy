@@ -2,22 +2,23 @@ import os
 from util import long2ip, ip2long, port
 
 
-def generate(json):
-    public_ip = json["public_ip"]
-    current_ip = json["base_ip"]
-    current_port = json["base_port"]
+def generate(config):
+    public_ip = config["public_ip"]
+    current_ip = config["base_ip"]
+    current_port = config["base_port"]
 
     netsh_content = generate_netsh('80', public_ip, current_ip, current_port)
     current_port += 1
     netsh_content += generate_netsh('443', public_ip, current_ip, current_port)
     current_port += 1
 
-    for proxy in json["proxies"]:
-        if not proxy["catchall"]:
-            current_ip = long2ip(ip2long(current_ip) + 1)
-            for protocol in proxy["protocols"]:
-                netsh_content += generate_netsh(port(protocol), public_ip, current_ip, current_port)
-                current_port += 1
+    for group in config["groups"].values():
+        for proxy in group["proxies"]:
+            if not proxy["catchall"]:
+                current_ip = long2ip(ip2long(current_ip) + 1)
+                for protocol in proxy["protocols"]:
+                    netsh_content += generate_netsh(port(protocol), public_ip, current_ip, current_port)
+                    current_port += 1
     return netsh_content
 
 

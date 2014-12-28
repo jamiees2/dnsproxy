@@ -1,16 +1,22 @@
-from util import long2ip, ip2long
+from util import long2ip, ip2long, chunks
 import os
 
 
-def generate(json, catchall=True, test=True):
-    public_ip = json["public_ip"]
-    current_ip = json["base_ip"]
+def generate(config, catchall=True, test=True):
+    public_ip = config["public_ip"]
+    current_ip = config["base_ip"]
     dnsmasq_content = ""
-    for proxy in json["proxies"]:
+    for group in config["groups"].values():
         if catchall:
-            dnsmasq_content += generate_dns(proxy["domain"], public_ip)
-        elif proxy["catchall"]:
-            dnsmasq_content += generate_dns(proxy["domain"], current_ip)
+            c = chunks([proxy["domain"] for proxy in group["proxies"]], 5)
+        else:
+            c = chunks([proxy["domain"] for proxy in group["proxies"] if proxy["catchall"]], 5)
+
+        for chunk in c:
+            if catchall:
+                dnsmasq_content += generate_dns(chunk, public_ip)
+            else:
+                dnsmasq_content += generate_dns(chunk, current_ip)
 
     if test:
         if catchall:
@@ -21,14 +27,18 @@ def generate(json, catchall=True, test=True):
             dnsmasq_content += generate_dns('dns-test.trick77.com', current_ip)
 
     if not catchall:
-        for proxy in json["proxies"]:
-            if not proxy["catchall"]:
-                current_ip = long2ip(ip2long(current_ip) + 1)
-                dnsmasq_content += generate_dns(proxy["domain"], current_ip)
+        for group in config["groups"].values():
+            for proxy in group["proxies"]:
+                if not proxy["catchall"]:
+                    current_ip = long2ip(ip2long(current_ip) + 1)
+                    dnsmasq_content += generate_dns(proxy["domain"], current_ip)
 
     return dnsmasq_content
 
 
-def generate_dns(dest_addr, current_ip):
-    result = 'address=/' + dest_addr + '/' + current_ip
+def generate_dns(dest_addrs, current_ip):
+    if isinstance(dest_addrs, list):
+        result = 'address=/' + "/".join(dest_addrs) + '/' + current_ip
+    else:
+        result = 'address=/' + dest_addrs + '/' + current_ip
     return result + os.linesep

@@ -23,3 +23,7 @@ def port(protocol):
         return 80
     elif protocol == "https":
         return 443
+
+
+def chunks(l, n):
+    return [l[i:i + n] for i in range(0, len(l), n)]
