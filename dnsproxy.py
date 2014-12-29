@@ -14,39 +14,7 @@ import generators
 from generators.util import long2ip, ip2long
 
 
-def create_pure_sni_config(config, args):
-
-    print_firewall(config)
-
-    print ""
-
-    if "haproxy" not in args.skip_conf:
-        haproxy_content = generators.generate_haproxy(config)
-        util.put_contents(args.haproxy, haproxy_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.haproxy
-
-    if "dnsmasq" not in args.skip_conf:
-        dnsmasq_content = generators.generate_dnsmasq(config)
-        util.put_contents(args.dnsmasq, dnsmasq_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.dnsmasq
-
-    print ""
-    print '***********************************************************************************************'
-    print 'Caution: it\'s not recommended but it\'s possible to run a (recursive) DNS forwarder on your'
-    print 'remote server ' + config["public_ip"] + '. If you leave the DNS port wide open to everyone,'
-    print 'your server will get terminated sooner or later because of abuse (DDoS amplification attacks).'
-    print '***********************************************************************************************'
-
-
-def create_non_sni_config(config, args):
-    print "Please be aware that this is an advanced option. For most cases, pure-sni will be enough."
-    if not config["base_ip"]:
-        print "Missing base_ip! Update config.json and re-run the script."
-        sys.exit(1)
-    if not config["base_port"]:
-        print "Missing base_port! Update config.json and re-run the script."
-        sys.exit(1)
-
+def print_ips(config):
     current_ip = config["base_ip"]
 
     print 'Make sure the following IP addresses are available as virtual interfaces on your Ddnsmasq-server:'
@@ -57,52 +25,6 @@ def create_non_sni_config(config, args):
             if not proxy["catchall"]:
                 current_iplong += 1
                 print long2ip(current_iplong)
-
-    print_firewall(config, catchall=False)
-
-    print ""
-    if "haproxy" not in args.skip_conf:
-        haproxy_content = generators.generate_haproxy(config, catchall=False)
-        util.put_contents(args.haproxy, haproxy_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.haproxy
-    if "dnsmasq" not in args.skip_conf:
-        dnsmasq_content = generators.generate_dnsmasq(config, catchall=False)
-        util.put_contents(args.dnsmasq, dnsmasq_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.dnsmasq
-    if "iptables" not in args.skip_conf:
-        iptables_content = generators.generate_iptables(config)
-        util.put_contents(args.iptables, iptables_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.iptables
-
-
-def create_local_non_sni_config(config, args):
-    print "Please be aware that this is an advanced option. For most cases, pure-sni will be enough."
-    if not config["base_ip"]:
-        print "Missing base_ip! Update config.json and re-run the script."
-        sys.exit(1)
-    if not config["base_port"]:
-        print "Missing base_port! Update config.json and re-run the script."
-        sys.exit(1)
-
-    print_firewall(config, catchall=False)
-
-    print ""
-    if "haproxy" not in args.skip_conf:
-        haproxy_content = generators.generate_haproxy(config, catchall=False)
-        util.put_contents(args.haproxy, haproxy_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.haproxy
-    if "hosts" not in args.skip_conf:
-        hosts_content = generators.generate_hosts(config)
-        util.put_contents(args.hosts, hosts_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.hosts
-    if "netsh" not in args.skip_conf:
-        netsh_content = generators.generate_netsh(config)
-        util.put_contents(args.netsh, netsh_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.netsh
-    if "rinetd" not in args.skip_conf:
-        rinetd_content = generators.generate_rinetd(config)
-        util.put_contents(args.netsh, rinetd_content, base_dir=args.base_dir)
-        print 'File generated: ' + args.netsh
 
 
 def print_firewall(config, catchall=True):
@@ -191,33 +113,92 @@ def main(args):
     if not os.path.exists(args.base_dir):
         os.mkdir(args.base_dir)
 
+    # Choose from the available modes
     if args.mode == "pure-sni":
-        create_pure_sni_config(config, args)
+        files = ["haproxy", "dnsmasq", "hosts"]
+        catchall = False
     elif args.mode == "non-sni":
-        create_non_sni_config(config, args)
+        files = ["haproxy", "dnsmasq", "hosts", "iptables"]
+        catchall = True
     elif args.mode == "local":
-        create_local_non_sni_config(config, args)
+        files = ["haproxy", "hosts", "rinetd", "netsh"]
+        catchall = True
+    else:
+        files = args.conf
+        catchall = args.catchall
+
+    # Set non-sni specific options
+    if not catchall:
+        print "Please be aware that this is an advanced option. For most cases, pure-sni will be enough."
+        if not config["base_ip"]:
+            print "Missing base_ip! Update config.json and re-run the script."
+            sys.exit(1)
+        if not config["base_port"]:
+            print "Missing base_port! Update config.json and re-run the script."
+            sys.exit(1)
+        catchall = False
+        print_ips(config)
+
+    for conf in files:
+        if conf == "haproxy":
+            print_firewall(config, catchall=catchall)
+            print ""
+            haproxy_content = generators.generate_haproxy(config, catchall=catchall)
+            util.put_contents(args.haproxy_filename, haproxy_content, base_dir=args.base_dir)
+            print 'File generated: ' + args.haproxy_filename
+        elif conf == "dnsmasq":
+            print ""
+            print '***********************************************************************************************'
+            print 'Caution: It\'s possible to run a (recursive) DNS forwarder on your remote server ' + config["public_ip"] + '.'
+            print 'If you leave the DNS port wide open to everyone, your server will most likely get terminated sooner or later'
+            print 'because of abuse (DDoS amplification attacks).'
+            print '***********************************************************************************************'
+            print ""
+
+            dnsmasq_content = generators.generate_dnsmasq(config)
+            util.put_contents(args.dnsmasq_filename, dnsmasq_content, base_dir=args.base_dir)
+            print 'File generated: ' + args.dnsmasq_filename
+        elif conf == "hosts":
+            hosts_content = generators.generate_hosts(config, catchall=catchall)
+            util.put_contents(args.hosts_filename, hosts_content, base_dir=args.base_dir)
+            print 'File generated: ' + args.hosts_filename
+        elif catchall:
+            continue
+        if conf == "iptables":
+            iptables_content = generators.generate_iptables(config)
+            util.put_contents(args.iptables_filename, iptables_content, base_dir=args.base_dir)
+            print 'File generated: ' + args.iptables_filename
+        elif conf == "netsh":
+            netsh_content = generators.generate_netsh(config)
+            util.put_contents(args.netsh_filename, netsh_content, base_dir=args.base_dir)
+            print 'File generated: ' + args.netsh_filename
+        elif conf == "rinetd":
+            rinetd_content = generators.generate_rinetd(config)
+            util.put_contents(args.rinetd_filename, rinetd_content, base_dir=args.base_dir)
+            print 'File generated: ' + args.rinetd_filename
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate configuration files to setup a tunlr style smart DNS")
-    parser.add_argument("-m", "--mode", choices=["pure-sni", "non-sni", "local"], default="pure-sni", type=str, help="The mode of configuration files to generate")
-    parser.add_argument("-c", "--country", default="us", type=str, help="The country to use for generating the configuration")
 
-    parser.add_argument("--dnsmasq", type=str, default="dnsmasq-haproxy.conf", help="Specify the DNS configuration file name")
-    parser.add_argument("--haproxy", type=str, default="haproxy.conf", help="Specify the haproxy configuration file name")
-    parser.add_argument("--iptables", type=str, default="iptables-haproxy.sh", help="Specify the iptables configuration file name")
-    parser.add_argument("--netsh", type=str, default="netsh-haproxy.cmd", help="Specify the netsh configuration file name")
-    parser.add_argument("--hosts", type=str, default="hosts-haproxy.txt", help="Specify the hosts configuration file name")
-    parser.add_argument("--rinetd", type=str, default="rinetd-haproxy.conf", help="Specify the rinetd configuration file name")
+    parser.add_argument("-m", "--mode", choices=["manual", "pure-sni", "non-sni", "local"], default="manual", type=str, help="Which mode to use when generating configuration files.")
+    parser.add_argument("-o", "--conf", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], nargs="+", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
+    parser.add_argument("-c", "--country", default="us", type=str, help="The country to use for generating the configuration.")
+    parser.add_argument("-n", "--catchall", action="store_false", help="Specify to generate configuration for a non-sni based setup. This is ignored when not in manual mode.")
 
     parser.add_argument("--ip", type=str, default=None, help="Specify the public ip to use")
     parser.add_argument("--bind-ip", type=str, default=None, help="Specify the ip that haproxy should bind to")
     parser.add_argument("--save", action="store_true", help="Specify wether to save the configuration")
     parser.add_argument("--base-dir", type=str, default="output", help="Specify the output directory")
 
-    parser.add_argument("--skip-conf", default=[], choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd"], nargs="*", help="Specify the configuration files to skip generating")
     parser.add_argument("--only", default=None, nargs="*", help="Specify the proxies to use while generating")
     parser.add_argument("--skip", default=None, nargs="*", help="Specify the proxies to not use while generating")
+
+    parser.add_argument("--dnsmasq-filename", type=str, default="dnsmasq-haproxy.conf", help="Specify the DNS configuration file name")
+    parser.add_argument("--haproxy-filename", type=str, default="haproxy.conf", help="Specify the haproxy configuration file name")
+    parser.add_argument("--iptables-filename", type=str, default="iptables-haproxy.sh", help="Specify the iptables configuration file name")
+    parser.add_argument("--netsh-filename", type=str, default="netsh-haproxy.cmd", help="Specify the netsh configuration file name")
+    parser.add_argument("--hosts-filename", type=str, default="hosts-haproxy.txt", help="Specify the hosts configuration file name")
+    parser.add_argument("--rinetd-filename", type=str, default="rinetd-haproxy.conf", help="Specify the rinetd configuration file name")
 
     args = parser.parse_args()
     main(args)
