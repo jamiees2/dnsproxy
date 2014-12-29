@@ -123,13 +123,11 @@ The generator will create the following files:
 
 For Windows:
 - Run notepad as administrator and open `%SystemRoot%\system32\drivers\etc\hosts` (usually `c:\windows\system32\drivers\etc\hosts`), append the contents of `hosts-haproxy.txt`
-- Run netsh-haproxy.cmd as administrator
-
-- To reset: delete contents of %SystemRoot%\system32\drivers\etc\hosts, run as administrator `netsh interface portproxy reset`
+- Run `netsh-haproxy.cmd` as administrator
+- To reset: delete contents of `%SystemRoot%\system32\drivers\etc\hosts`, run as administrator `netsh interface portproxy reset`
 
 For Linux:
 - Run `sudo tee -a /etc/hosts < hosts-haproxy.txt` (or append hots-haproxy.txt to /etc/hosts)
 - Run `sudo cp rinetd-haproxy.conf /etc/rinetd.conf && sudo service rinetd start`
-
 - To reset: `sudo sed -i '/### GENERATED/d' /etc/hosts` and `sudo service rinetd stop && sudo rm /etc/rinetd.conf`
 
