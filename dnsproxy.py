@@ -114,13 +114,13 @@ def main(args):
         os.mkdir(args.base_dir)
 
     # Choose from the available modes
-    if args.mode == "pure-sni":
+    if args.mode is "sni":
         files = ["haproxy", "dnsmasq", "hosts"]
         dnat = False
-    elif args.mode == "non-sni":
+    elif args.mode is "dnat":
         files = ["haproxy", "dnsmasq", "hosts", "iptables"]
         dnat = True
-    elif args.mode == "local":
+    elif args.mode is "local":
         files = ["haproxy", "hosts", "rinetd", "netsh"]
         dnat = True
     else:
@@ -183,7 +183,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate configuration files to setup a tunlr style smart DNS")
 
-    parser.add_argument("-m", "--mode", choices=["manual", "pure-sni", "non-sni", "local"], default="manual", type=str, help="Presets for configuration file generation.")
+    parser.add_argument("-m", "--mode", choices=["manual", "sni", "dnat", "local"], default="manual", type=str, help="Presets for configuration file generation.")
     parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], nargs="+", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
     parser.add_argument("-c", "--country", default="us", type=str, help="The country to use for generating the configuration.")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
