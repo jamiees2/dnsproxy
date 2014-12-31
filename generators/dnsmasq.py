@@ -2,34 +2,34 @@ from util import long2ip, ip2long, chunks
 import os
 
 
-def generate(config, catchall=True, test=True):
+def generate(config, dnat=True, test=True):
     public_ip = config["public_ip"]
     current_ip = config["base_ip"]
     dnsmasq_content = ""
     for group in config["groups"].values():
-        if catchall:
+        if not dnat:
             c = chunks([proxy["domain"] for proxy in group["proxies"]], 5)
         else:
-            c = chunks([proxy["domain"] for proxy in group["proxies"] if proxy["catchall"]], 5)
+            c = chunks([proxy["domain"] for proxy in group["proxies"] if proxy["dnat"]], 5)
 
         for chunk in c:
-            if catchall:
+            if dnat:
                 dnsmasq_content += generate_dns(chunk, public_ip)
             else:
                 dnsmasq_content += generate_dns(chunk, current_ip)
 
     if test:
-        if catchall:
+        if not dnat:
             dnsmasq_content += generate_dns('proxy-test.trick77.com', public_ip)
             dnsmasq_content += generate_dns('dns-test.trick77.com', public_ip)
         else:
             dnsmasq_content += generate_dns('proxy-test.trick77.com', current_ip)
             dnsmasq_content += generate_dns('dns-test.trick77.com', current_ip)
 
-    if not catchall:
+    if dnat:
         for group in config["groups"].values():
             for proxy in group["proxies"]:
-                if not proxy["catchall"]:
+                if not proxy["dnat"]:
                     current_ip = long2ip(ip2long(current_ip) + 1)
                     dnsmasq_content += generate_dns(proxy["domain"], current_ip)
 

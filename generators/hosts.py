@@ -2,24 +2,24 @@ from util import long2ip, ip2long
 import os
 
 
-def generate(config, catchall=True, test=True):
+def generate(config, dnat=True, test=True):
     public_ip = config["public_ip"]
     current_ip = config["base_ip"]
     hosts = dict()
     for group in config["groups"].values():
         for proxy in group["proxies"]:
-            if catchall:
+            if not dnat:
                 add_hosts(hosts, proxy["domain"], public_ip)
-            elif proxy["catchall"]:
+            elif proxy["dnat"]:
                 add_hosts(hosts, proxy["domain"], current_ip)
 
     if test:
         add_hosts(hosts, 'proxy-test.trick77.com', current_ip)
         add_hosts(hosts, 'dns-test.trick77.com', current_ip)
-    if not catchall:
+    if dnat:
         for group in config["groups"].values():
             for proxy in group["proxies"]:
-                if not proxy["catchall"]:
+                if not proxy["dnat"]:
                     current_ip = long2ip(ip2long(current_ip) + 1)
                     add_hosts(hosts, proxy["domain"], current_ip)
 

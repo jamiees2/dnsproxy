@@ -2,18 +2,18 @@ from util import config_format, port
 import os
 
 
-def generate(config, catchall=True, test=True):
+def generate(config, dnat=True, test=True):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
     if "base_port" in config:
         current_port = config["base_port"]
-    elif not catchall:
+    elif not dnat:
         return
 
     haproxy_content = generate_global()
     haproxy_content += generate_defaults()
 
-    if catchall:
+    if not dnat:
         http_port = 80
         https_port = 443
     else:
@@ -28,9 +28,10 @@ def generate(config, catchall=True, test=True):
 
     if config["stats"]["enabled"]:
         haproxy_content += generate_stats(config["stats"], bind_ip)
+
     for group in config["groups"].values():
         for proxy in group["proxies"]:
-            if catchall or (not catchall and proxy["catchall"]):
+            if not dnat or (dnat and proxy["dnat"]):
                 for protocol in proxy["protocols"]:
                     if protocol == 'http':
                         haproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
@@ -47,11 +48,11 @@ def generate(config, catchall=True, test=True):
     haproxy_content += haproxy_catchall_frontend_ssl_content + os.linesep
     haproxy_content += haproxy_catchall_backend_ssl_content
 
-    if not catchall:
+    if dnat:
         current_port += 2
         for group in config["groups"].values():
             for proxy in group["proxies"]:
-                if not proxy["catchall"]:
+                if proxy["dnat"]:
                     for protocol in proxy["protocols"]:
                         haproxy_content += generate_frontend(proxy["alias"], protocol, bind_ip, current_port, False)
                         haproxy_content += generate_backend(proxy["alias"], protocol, proxy["domain"], port(protocol), server_options, False)

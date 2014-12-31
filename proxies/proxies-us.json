@@ -5,181 +5,181 @@
         "alias":"netflix-signup",
         "domain":"signup.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-www",
         "domain":"www.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-appboot",
         "domain":"appboot.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-cbp-us",
         "domain":"cbp-us.nccp.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-akamai",
         "domain":"a248.e.akamai.net",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-api-global",
         "domain":"api-global.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-movies",
         "domain":"movies.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-movies1",
         "domain":"movies1.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-secure",
         "domain":"secure.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-moviecontrol",
         "domain":"moviecontrol.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-api",
         "domain":"api.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-api-us",
         "domain":"api-us.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-uiboot",
         "domain":"uiboot.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-cbp",
         "domain":"cbp.nccp.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-ios",
         "domain":"ios.nccp.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"netflix-xbox",
         "domain":"xbox.nccp.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-nrdp-31",
         "domain":"nccp-nrdp-31.cloud.netflix.net",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-nintendo",
         "domain":"nintendo.nccp.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-playstation",
         "domain":"playstation.nccp.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-nrdp",
         "domain":"nrdp.nccp.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-android",
         "domain":"android.nccp.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"netflix-playstation-net",
         "domain":"video.dl.playstation.net",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-ssm",
         "domain":"ssm.internet.sony.tv",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-ssm1",
         "domain":"ssm1.internet.sony.tv",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-ssm2",
         "domain":"ssm2.internet.sony.tv",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-ssm3",
         "domain":"ssm3.internet.sony.tv",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-treb",
         "domain":"treb.internet.sony.tv",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-wdtv",
         "domain":"www.wdtvlive.com",
         "protocols": ["http"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"netflix-htmltvui-api",
         "domain":"htmltvui-api.netflix.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"bivl-netflix-com",
         "domain":"bivl.netflix.com",
         "protocols": ["https"],
-        "catchall":false
+        "dnat": true
       }
     ]
   },
@@ -189,13 +189,13 @@
         "alias":"hulu-secure",
         "domain":"s.hulu.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"hulu-play",
         "domain":"play.hulu.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       }
     ]
   },
@@ -205,25 +205,25 @@
         "alias":"pandora-www",
         "domain":"www.pandora.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"pandora-tuner",
         "domain":"tuner.pandora.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"pandora-mediaserver",
         "domain":"mediaserver-sv5-rt-1.pandora.com",
         "protocols": ["http"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"bivl-pandora-com",
         "domain":"bivl.pandora.com",
         "protocols": ["http"],
-        "catchall":false
+        "dnat": true
       }
     ]
   },
@@ -233,61 +233,61 @@
         "alias":"crackle-www",
         "domain":"www.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"crackle-api",
         "domain":"api.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"crackle-ios",
         "domain":"ios-api.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"crackle-ios-us",
         "domain":"ios-api-us.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"crackle-appletv",
         "domain":"appletv.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"crackle-android",
         "domain":"android-api-us.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"crackle-xboxone",
         "domain":"xboxone-api-us.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"crackle-ps3",
         "domain":"ps3-api-us.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"crackle-roku",
         "domain":"roku-api.crackle.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"crackle-uplynk",
         "domain":"content.uplynk.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       }
     ]
   },
@@ -297,79 +297,79 @@
         "alias":"hbogo.com",
         "domain":"hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"www.hbogo.com",
         "domain":"www.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"devicecast.hbogo.com",
         "domain":"devicecast.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"catalog.lv3.hbogo.com",
         "domain":"catalog.lv3.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"profile.hbogo.com",
         "domain":"profile.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"pro.hbogo.com",
         "domain":"pro.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"hls.hbo.lv3.hbogo.com",
         "domain":"hls.hbo.lv3.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"i.hbo.lv3.hbogo.com",
         "domain":"i.hbo.lv3.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"pdl.misc.lv3.hbogo.com",
         "domain":"pdl.misc.lv3.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"smooth.misc.lv3.hbogo.com",
         "domain":"smooth.misc.lv3.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"smooth.pro17.lv3.hbogo.com",
         "domain":"smooth.pro17.lv3.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"reporting.hbogo.com",
         "domain":"reporting.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"register.hbogo.com",
         "domain":"register.hbogo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -379,19 +379,19 @@
         "alias":"hbo.com",
         "domain":"hbo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"www.hbo.com",
         "domain":"www.hbo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"store.hbo.com",
         "domain":"store.hbo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -401,19 +401,19 @@
         "alias":"abc-go",
         "domain":"abc.go.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"abc-disney",
         "domain":"api.watchdisneyxd.go.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"abc-watchabc",
         "domain":"api.watchabc.go.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -423,31 +423,31 @@
         "alias":"yahoo-screen",
         "domain":"screen.yahoo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"yahoo-geo",
         "domain":"geo.yahoo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"yahoo-geo-query",
         "domain":"geo.query.yahoo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"yahoo-mvid",
         "domain":"mvid.yql.yahoo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"yahoo-hls",
         "domain":"hls.video.query.yahoo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -457,37 +457,37 @@
         "alias":"thewb-www",
         "domain":"www.thewb.com",
         "protocols": ["http"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"thewb-cwtv",
         "domain":"www.cwtv.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"thewb-cwtv-media",
         "domain":"media.cwtv.com",
         "protocols": ["http"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"thewb-pdl",
         "domain":"pdl.warnerbros.com",
         "protocols": ["http"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"thewb-cdn",
         "domain":"cdn.wwtv.warnerbros.com",
         "protocols": ["http"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"hlsioscwtv-warnerbros-com",
         "domain":"hlsioscwtv.warnerbros.com",
         "protocols": ["http"],
-        "catchall":false
+        "dnat": true
       }
     ]
   },
@@ -497,19 +497,19 @@
         "alias":"vevo-www",
         "domain":"www.vevo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"vevo-sb",
         "domain":"sb.vevo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"vevo-videoplayer",
         "domain":"videoplayer.vevo.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -519,19 +519,19 @@
         "alias":"mtv-www",
         "domain":"www.mtv.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"mtv-udat",
         "domain":"udat.mtvnservices.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"mtv-media",
         "domain":"media.mtvnservices.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -541,31 +541,31 @@
         "alias":"www-sony-net",
         "domain":"www.sony.net",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"internet-sony-tv",
         "domain":"internet.sony.tv",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"applicast-ga-sony-net",
         "domain":"applicast.ga.sony.net",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"bravia-dl-playstation-net",
         "domain":"bravia.dl.playstation.net",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       },
       {
         "alias":"bravia-e-dl-playstation-net",
         "domain":"bravia-e.dl.playstation.net",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       }
     ]
   },
@@ -575,13 +575,13 @@
         "alias":"crunchyroll-www",
         "domain":"www.crunchyroll.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"crunchyroll-api",
         "domain":"api.crunchyroll.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -591,19 +591,19 @@
         "alias":"lastfm-www",
         "domain":"www.last.fm",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"lastfm-audioscrobbler",
         "domain":"ws.audioscrobbler.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"lastfm-ext",
         "domain":"ext.last.fm",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -613,25 +613,25 @@
         "alias":"nbc-uni",
         "domain":"video.nbcuni.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"nbc-nbc",
         "domain":"video.nbc.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"nbc-syfy",
         "domain":"video.syfy.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"nbc-akamai-ipad",
         "domain":"tve_nbc-vh.akamaihd.net",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -641,13 +641,13 @@
         "alias":"logotv-www",
         "domain":"www.logotv.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"logotv-flux",
         "domain":"activity.flux.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -657,13 +657,13 @@
         "alias":"showtimeanytime.com",
         "domain":"showtimeanytime.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"www.showtimeanytime.com",
         "domain":"www.showtimeanytime.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -673,13 +673,13 @@
         "alias":"dramafever-www",
         "domain":"www.dramafever.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"dramafever-token",
         "domain":"token.dramafever.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -689,13 +689,13 @@
         "alias":"smithsonian-www",
         "domain":"www.smithsonianchannel.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"smithsonian-unicorn",
         "domain":"once.unicornmedia.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -705,13 +705,13 @@
         "alias":"cbs",
         "domain":"release.theplatform.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"cbs-akamai-ipad",
         "domain":"ipad-streaming.cbs.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -721,7 +721,7 @@
         "alias":"humble-bundle",
         "domain":"www.humblebundle.com",
         "protocols": ["http", "https"],
-        "catchall":false
+        "dnat": true
       }
     ]
   },
@@ -731,7 +731,7 @@
         "alias":"mylifetime",
         "domain":"c.brightcove.com",
         "protocols": ["http"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -741,7 +741,7 @@
         "alias":"discovery",
         "domain":"static.discoverymedia.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -751,7 +751,7 @@
         "alias":"fox",
         "domain":"link.theplatform.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -761,7 +761,7 @@
         "alias":"iheart",
         "domain":"www.iheart.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -771,7 +771,7 @@
         "alias":"maxmind",
         "domain":"j.maxmind.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -781,7 +781,7 @@
         "alias":"mog",
         "domain":"mog.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -791,7 +791,7 @@
         "alias":"pbs",
         "domain":"urs.pbs.org",
         "protocols": ["http"],
-        "catchall":false
+        "dnat": true
       }
     ]
   },
@@ -801,7 +801,7 @@
         "alias":"spike-www",
         "domain":"www.spike.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -811,7 +811,7 @@
         "alias":"vh1",
         "domain":"www.vh1.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -821,7 +821,7 @@
         "alias":"usopen-geo",
         "domain":"usgageo.edgesuite.net",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -831,7 +831,7 @@
         "alias":"itsh.bo",
         "domain":"itsh.bo",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -841,7 +841,7 @@
         "alias":"southpark.cc.com",
         "domain":"southpark.cc.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   }

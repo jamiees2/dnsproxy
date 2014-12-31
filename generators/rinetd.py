@@ -14,7 +14,7 @@ def generate(config):
 
     for group in config["groups"].values():
         for proxy in group["proxies"]:
-            if not proxy["catchall"]:
+            if proxy["dnat"]:
                 current_ip = long2ip(ip2long(current_ip) + 1)
                 for protocol in proxy["protocols"]:
                     rinetd_content += generate_rinetd(port(protocol), public_ip, current_ip, current_port)

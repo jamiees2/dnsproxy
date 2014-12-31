@@ -5,31 +5,31 @@
         "alias":"itv-www",
         "domain":"www.itv.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"itv-mercury",
         "domain":"mercury.itv.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"itv-secure",
         "domain":"secure.mercury.itv.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"itv-ned",
         "domain":"ned.itv.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"itv-tom",
         "domain":"tom.itv.com",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       }
     ]
   },
@@ -39,55 +39,55 @@
         "alias":"bbc-www",
         "domain":"www.bbc.co.uk",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"bbc-ssl",
         "domain":"ssl.bbc.co.uk",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"bbc-livestream",
         "domain":"vs-hds-uk-live.edgesuite.net",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"bbc-livestream-llnwd",
         "domain":"vs-hds-uk-live.bbcfmt.vo.llnwd.net",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias":"bbc-open-live",
         "domain":"open.live.bbc.co.uk",
         "protocols": ["http", "https"],
-        "catchall":true
+        "dnat": false
       },
       {
         "alias": "bbc-securegate",
         "domain": "securegate.iplayer.bbc.co.uk",
         "protocols": ["http", "https"],
-        "catchall": true
+        "dnat": false
       },
       {
         "alias": "bbc-ingest-rum",
         "domain": "ingest.rum.bbc.co.uk",
         "protocols": ["http", "https"],
-        "catchall": true
+        "dnat": false
       },
       {
         "alias": "ibl-api",
         "domain": "ibl.api.bbci.co.uk",
         "protocols": ["http", "https"],
-        "catchall": true
+        "dnat": false
       },
       {
         "alias": "bbc-akamai",
         "domain": "cp143012-i.akamaihd.net",
         "protocols": ["http", "https"],
-        "catchall": true
+        "dnat": false
       }
     ]
   }
