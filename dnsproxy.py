@@ -155,7 +155,7 @@ def main(args):
             print '***********************************************************************************************'
             print ""
 
-            dnsmasq_content = generators.generate_dnsmasq(config)
+            dnsmasq_content = generators.generate_dnsmasq(config, catchall=catchall)
             util.put_contents(args.dnsmasq_filename, dnsmasq_content, base_dir=args.base_dir)
             print 'File generated: ' + args.dnsmasq_filename
         elif conf == "hosts":
