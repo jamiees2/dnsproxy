@@ -116,13 +116,13 @@ def main(args):
     # Choose from the available modes
     if args.mode == "pure-sni":
         files = ["haproxy", "dnsmasq", "hosts"]
-        catchall = False
+        catchall = True
     elif args.mode == "non-sni":
         files = ["haproxy", "dnsmasq", "hosts", "iptables"]
-        catchall = True
+        catchall = False
     elif args.mode == "local":
         files = ["haproxy", "hosts", "rinetd", "netsh"]
-        catchall = True
+        catchall = False
     else:
         files = args.conf
         catchall = args.catchall
