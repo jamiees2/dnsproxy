@@ -17,7 +17,7 @@ from generators.util import long2ip, ip2long
 def print_ips(config):
     current_ip = config["base_ip"]
 
-    print 'Make sure the following IP addresses are available as virtual interfaces on your Ddnsmasq-server:'
+    print 'Make sure the following IP addresses are available as virtual interfaces on your iptables router:'
     print current_ip
     current_iplong = ip2long(current_ip)
     for group in config["groups"].values():

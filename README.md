@@ -98,31 +98,7 @@ You can either setup dnsmasq, or use a hosts file, which you simply append to `/
  
 #### DNAT (Advanced Setup)
 
-DNAT mode enables DNS-unblocking for multimedia players (or applications) which can't handle SNI but still using just a single IP address using some netfilter trickery. See [here](http://trick77.com/2014/04/02/netflix-dns-unblocking-without-sni-xbox-360-ps3-samsung-tv/) for more information on this mode:
-
-Test your new setup with http://trick77.com/dns-unblocking-setup-tester/
-
-Non-conclusive list of devices which don't understand SNI:
-- Xbox 360 
-- PS3
-- All Sony Bravia TVs and Blu-ray players 
-- Older Samsung TVs
-
-Use the generator as follows:
-```python dnsproxy.py -m dnat```
-The generator will create these three files:
-- output/haproxy.conf
-- output/dnsmasq-haproxy.conf
-- output/hosts-haproxy.txt 
-- output/iptables-haproxy.sh
-
-To setup haproxy, copy `output/haproxy.conf` to `/etc/haproxy.cfg`.
-
-To setup dnsmasq, copy `output/dnsmasq-haproxy.conf` to `/etc/dnsmasq.d/`.
-
-You can either setup dnsmasq, or use a hosts file, which you simply append to `/etc/hosts` on your desktop. If you intend to just use this for a single client, that might be easier. It is better to setup dnsmasq if you intend to have multiple clients or an entire network use your proxy.
-
-You can setup iptables by running `iptables-haproxy.sh` on your router, but keep in mind that those changes will not persist after restarting. Be sure to add it to the startup scripts so that it will persist.
+See the Wiki: https://github.com/jamiees2/dnsproxy/wiki/DNAT-Setup.
 
 
 #### local (Semi-Advanced Setup)
