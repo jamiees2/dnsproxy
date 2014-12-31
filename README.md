@@ -24,9 +24,9 @@ If you would like to add a service, please send a pull request.
 
 Usage: 
 ```
-dnsproxy.py [-h] [-m {manual,pure-sni,non-sni,local}]
+dnsproxy.py        [-h] [-m {manual,pure-sni,non-sni,local}]
                    [-o {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...]]
-                   [-c COUNTRY] [-n] [--ip IP] [--bind-ip BIND_IP] [--save]
+                   [-c COUNTRY] [-d] [--ip IP] [--bind-ip BIND_IP] [--save]
                    [--base-dir BASE_DIR] [--only [ONLY [ONLY ...]]]
                    [--skip [SKIP [SKIP ...]]]
                    [--dnsmasq-filename DNSMASQ_FILENAME]
@@ -41,14 +41,14 @@ Generate configuration files to setup a tunlr style smart DNS
 optional arguments:
   -h, --help            show this help message and exit
   -m {manual,pure-sni,non-sni,local}, --mode {manual,pure-sni,non-sni,local}
-                        Which mode to use when generating configuration files.
-  -o {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...], --conf {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...]
+                        Presets for configuration file generation.
+  -o {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...], --output {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...]
                         Which configuration file(s) to generate. This is
                         ignored when not in manual mode.
   -c COUNTRY, --country COUNTRY
                         The country to use for generating the configuration.
-  -n, --catchall        Specify to generate configuration for a non-sni based
-                        setup. This is ignored when not in manual mode.
+  -d, --dnat            Specify to use DNAT instead of SNI (Advanced). This is
+                        ignored when not in manual mode.
   --ip IP               Specify the public ip to use
   --bind-ip BIND_IP     Specify the ip that haproxy should bind to
   --save                Specify wether to save the configuration
