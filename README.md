@@ -15,12 +15,13 @@ The configuration generator (dnsproxy.py) offers three different possibilities f
 - sni (Simple Setup)
 - dnat (Advanced Setup)
 - local (Advanced Setup)
+- manual
 
 See here for additional information: 
 - http://trick77.com/2014/03/01/tunlr-style-dns-unblocking-pandora-netflix-hulu-et-al/
 - http://trick77.com/2014/03/02/dns-unblocking-using-dnsmasq-haproxy/
 
-If you would like to add a service, please send a pull request.
+*If you would like to add a service, please send a pull request.*
 
 Output of `dnsproxy.py -h`:
 ```
@@ -72,29 +73,12 @@ optional arguments:
  ```
 
 You can generate each configuration file separately with `-m manual`. Example:
-```python dnsproxy.py -m manual -o haproxy```
+```python dnsproxy.py -m manual -o haproxy```. `-m manual` is also default, so this can be simplified to ```python dnsproxy.py -o haproxy```.
 
 
 #### SNI (Simple Setup)
 
-Use this setup if all your multimedia players are SNI-capable. (This is usually the case.)
-
-Requires a U.S. based server (a 128 MB low end VPS is enough) and preferrably a local Dnsmasq DNS forwarder. DD-WRT routers or a Raspberry Pi will do. You can run Dnsmasq on the remote server as well but please be aware of the security and latency issues.
-
-In SNI mode, you don't have to worry about the `base_ip` and the `base_port` options. Those options are not used, just leave them at their defaults. Make sure `iptables_location` points to the iptables executable and enter your VPS' IP address in `public_ip`. Make sure the ports 80 and 443 on your VPS are not being used by some other software like Apache2. Use ```netstat -tulpn``` to make sure.
-
-For this mode, call the generator like this:
-```python dnsproxy.py -m sni```
-
-The generator will create these two files:
-- output/haproxy.conf
-- output/dnsmasq-haproxy.conf
-
-To setup haproxy, copy `output/haproxy.conf` to `/etc/haproxy.cfg`.
-
-To setup dnsmasq, copy `output/dnsmasq-haproxy.conf` to `/etc/dnsmasq.d/`.
-
-You can either setup dnsmasq, or use a hosts file, which you simply append to `/etc/hosts` on your desktop. If you intend to just use this for a single client, that might be easier. It is better to setup dnsmasq if you intend to have multiple clients or an entire network use your proxy.
+See the Wiki: https://github.com/jamiees2/dnsproxy/wiki/SNI-Setup.
  
 #### DNAT (Advanced Setup)
 
@@ -103,23 +87,5 @@ See the Wiki: https://github.com/jamiees2/dnsproxy/wiki/DNAT-Setup.
 
 #### local (Semi-Advanced Setup)
 
-Local mode enables DNS-unblocking on a single device which can't handle SNI but only uses a single IP address and without using another server on the network.
-Use the generator as follows:
-```python dnsproxy.py -m local```
-
-The generator will create the following files:
-- output/haproxy.conf (for the remote server)
-- output/netsh-haproxy.cmd (for Windows)
-- output/rinetd-haproxy.conf (for Linux)
-- output/hosts-haproxy.txt (for Linux/Windows)
-
-For Windows:
-- Run notepad as administrator and open `%SystemRoot%\system32\drivers\etc\hosts` (usually `c:\windows\system32\drivers\etc\hosts`), append the contents of `hosts-haproxy.txt`
-- Run `netsh-haproxy.cmd` as administrator
-- To reset: delete contents of `%SystemRoot%\system32\drivers\etc\hosts`, run as administrator `netsh interface portproxy reset`
-
-For Linux:
-- Run `sudo tee -a /etc/hosts < hosts-haproxy.txt` (or append hots-haproxy.txt to /etc/hosts)
-- Run `sudo cp rinetd-haproxy.conf /etc/rinetd.conf && sudo service rinetd start`
-- To reset: `sudo sed -i '/### GENERATED/d' /etc/hosts` and `sudo service rinetd stop && sudo rm /etc/rinetd.conf`
+See the Wiki: https://github.com/jamiees2/dnsproxy/wiki/Local-Setup.
 
