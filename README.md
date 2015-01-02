@@ -1,9 +1,13 @@
 dnsproxy
 ========
 
+This project is still in beta! It currently works well, but some changes may be expected.
+
 This is based on @trick77's original work on [tunlr-style-dns-unblocking](https://github.com/trick77/tunlr-style-dns-unblocking/)
 
-The reason for this project is to make it easy to set up a smart DNS service on your own. It is possible to get a US VPS for 1$/mo which is well under the current 4$/mo for most smart DNS services. Another reason is privacy. By changing your DNS servers, you allow whoever is on the other side to see almost all the websites you visit. Some providers explicitly state in their TOS that they log everything, which gives them control over your data. The third reason is speed. Having your own proxy all to yourself can make things alot faster.
+The purpose for this project is to make it easy to set up a fast smart DNS service on your own. It is possible to get a US VPS for 1$/mo which is well under the current 4$/mo for most smart DNS services. It is also potentially alot faster, as you then have a whole proxy server to yourself.
+
+Another purpose is privacy. By changing your DNS servers, you allow whoever is on the other side to see almost all the websites you visit. Some providers explicitly state in their TOS that they log everything, which gives them control over your data. A better option is that you control those servers.
 
 Prerequisites:
 - A VPS based in the country you want, preferrably running Ubuntu 14.04. A 128MB server is enough.
@@ -26,7 +30,7 @@ You can generate each configuration file separately with `-m manual`. Example:
 
 It is also possible to specify which proxy list you would like to use, based on country. You can specify that by passing `-c <country>`, where `<country>` is a suffix of any file in the `proxies/` directory. For example, if you wish to generate configuration for a uk based SNI proxy, you can run `python dnsproxy.py -c uk -m sni`. The default country is `us`.
 
-See here for additional information: 
+Check the wiki for additional information, along with these links by @trick77:
 - http://trick77.com/2014/03/01/tunlr-style-dns-unblocking-pandora-netflix-hulu-et-al/
 - http://trick77.com/2014/03/02/dns-unblocking-using-dnsmasq-haproxy/
 
