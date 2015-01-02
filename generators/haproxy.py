@@ -1,4 +1,4 @@
-from util import config_format, port
+from util import fmt, port
 import os
 
 
@@ -66,10 +66,9 @@ def generate(config, dnat=True, test=True):
 
 def generate_frontend_catchall_entry(domain, mode):
     if mode == 'http':
-        return config_format('use_backend b_catchall_' + mode + ' if { hdr_dom(host) -i ' + domain + ' }')
-
+        return fmt('use_backend b_catchall_' + mode + ' if { hdr_dom(host) -i ' + domain + ' }')
     elif mode == 'https':
-        return config_format('use_backend b_catchall_' + mode + ' if { req_ssl_sni -i ' + domain + ' }')
+        return fmt('use_backend b_catchall_' + mode + ' if { req_ssl_sni -i ' + domain + ' }')
 
     return None
 
@@ -77,121 +76,119 @@ def generate_frontend_catchall_entry(domain, mode):
 def generate_backend_catchall_entry(domain, mode, port, server_options, override_domain=None):
     result = None
     if mode == 'http':
-        result = config_format('use-server ' + domain + ' if { hdr_dom(host) -i ' + domain + ' }')
+        result = fmt('use-server ' + domain + ' if { hdr_dom(host) -i ' + domain + ' }')
         if override_domain is None:
-            result += config_format('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
-
+            result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
         else:
-            result += config_format('server ' + domain + ' ' + override_domain + ':' + str(port) + ' ' + server_options + os.linesep)
-
+            result += fmt('server ' + domain + ' ' + override_domain + ':' + str(port) + ' ' + server_options + os.linesep)
     elif mode == 'https':
-        result = config_format('use-server ' + domain + ' if { req_ssl_sni -i ' + domain + ' }')
-        result += config_format('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
+        result = fmt('use-server ' + domain + ' if { req_ssl_sni -i ' + domain + ' }')
+        result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
 
     return result
 
 
 def generate_global():
-    result = config_format('global', False)
-    result += config_format('daemon')
-    result += config_format('maxconn 20000')
-    result += config_format('user haproxy')
-    result += config_format('group haproxy')
-    result += config_format('stats socket /var/run/haproxy.sock mode 0600 level admin')
-    result += config_format('log /dev/log local0 debug')
-    result += config_format('pidfile /var/run/haproxy.pid')
-    result += config_format('spread-checks 5')
+    result = fmt('global', indent=None)
+    result += fmt('daemon')
+    result += fmt('maxconn 20000')
+    result += fmt('user haproxy')
+    result += fmt('group haproxy')
+    result += fmt('stats socket /var/run/haproxy.sock mode 0600 level admin')
+    result += fmt('log /dev/log local0 debug')
+    result += fmt('pidfile /var/run/haproxy.pid')
+    result += fmt('spread-checks 5')
     result += os.linesep
     return result
 
 
 def generate_defaults():
-    result = config_format('defaults', False)
-    result += config_format('maxconn 19500')
-    result += config_format('log global')
-    result += config_format('mode http')
-    result += config_format('option httplog')
-    result += config_format('option abortonclose')
-    result += config_format('option http-server-close')
-    result += config_format('option persist')
-    result += config_format('timeout connect 20s')
-    result += config_format('timeout client 120s')
-    result += config_format('timeout server 120s')
-    result += config_format('timeout queue 120s')
-    result += config_format('timeout check 10s')
-    result += config_format('retries 3')
+    result = fmt('defaults', indent=None)
+    result += fmt('maxconn 19500')
+    result += fmt('log global')
+    result += fmt('mode http')
+    result += fmt('option httplog')
+    result += fmt('option abortonclose')
+    result += fmt('option http-server-close')
+    result += fmt('option persist')
+    result += fmt('timeout connect 20s')
+    result += fmt('timeout client 120s')
+    result += fmt('timeout server 120s')
+    result += fmt('timeout queue 120s')
+    result += fmt('timeout check 10s')
+    result += fmt('retries 3')
     result += os.linesep
     return result
 
 
 def generate_deadend(mode):
-    result = config_format('backend b_deadend_' + mode, False)
+    result = fmt('backend b_deadend_' + mode, indent=None)
     if mode == 'http':
-        result += config_format('mode http')
-        result += config_format('option httplog')
-        result += config_format('option accept-invalid-http-response')
-        result += config_format('option http-server-close')
+        result += fmt('mode http')
+        result += fmt('option httplog')
+        result += fmt('option accept-invalid-http-response')
+        result += fmt('option http-server-close')
 
     elif mode == 'https':
-        result += config_format('mode tcp')
-        result += config_format('option tcplog')
+        result += fmt('mode tcp')
+        result += fmt('option tcplog')
 
     result += os.linesep
     return result
 
 
 def generate_stats(stats, bind_ip):
-    result = config_format('listen stats', False)
-    result += config_format('bind ' + bind_ip + ':' + str(stats["port"]))
-    result += config_format('mode http')
-    result += config_format('stats enable')
-    result += config_format('stats realm Protected\\ Area')
-    result += config_format('stats uri /')
-    result += config_format('stats auth ' + stats["user"] + ':' + stats["password"])
+    result = fmt('listen stats', indent=None)
+    result += fmt('bind ' + bind_ip + ':' + str(stats["port"]))
+    result += fmt('mode http')
+    result += fmt('stats enable')
+    result += fmt('stats realm Protected\\ Area')
+    result += fmt('stats uri /')
+    result += fmt('stats auth ' + stats["user"] + ':' + stats["password"])
     result += os.linesep
     return result
 
 
 def generate_frontend(proxy_name, mode, bind_ip, current_port, is_catchall):
-    result = config_format('frontend f_' + proxy_name + '_' + mode, False)
-    result += config_format('bind ' + bind_ip + ':' + str(current_port))
+    result = fmt('frontend f_' + proxy_name + '_' + mode, indent=None)
+    result += fmt('bind ' + bind_ip + ':' + str(current_port))
 
     if mode == 'http':
-        result += config_format('mode http')
-        result += config_format('option httplog')
-        result += config_format('capture request header Host len 50')
-        result += config_format('capture request header User-Agent len 150')
+        result += fmt('mode http')
+        result += fmt('option httplog')
+        result += fmt('capture request header Host len 50')
+        result += fmt('capture request header User-Agent len 150')
 
     elif mode == 'https':
-        result += config_format('mode tcp')
-        result += config_format('option tcplog')
+        result += fmt('mode tcp')
+        result += fmt('option tcplog')
         if is_catchall:
-            result += config_format('tcp-request inspect-delay 5s')
-            result += config_format('tcp-request content accept if { req_ssl_hello_type 1 }')
+            result += fmt('tcp-request inspect-delay 5s')
+            result += fmt('tcp-request content accept if { req_ssl_hello_type 1 }')
 
     if is_catchall:
-        result += config_format('default_backend b_deadend_' + mode)
+        result += fmt('default_backend b_deadend_' + mode)
 
     else:
-        result += config_format('default_backend b_' + proxy_name + '_' + mode)
+        result += fmt('default_backend b_' + proxy_name + '_' + mode)
 
     result += os.linesep
     return result
 
 
 def generate_backend(proxy_name, mode, domain, port, server_options, is_catchall):
-    result = config_format('backend b_' + proxy_name + '_' + mode, False)
+    result = fmt('backend b_' + proxy_name + '_' + mode, indent=None)
 
     if mode == 'http':
-        result += config_format('mode http')
-        result += config_format('option httplog')
-        result += config_format('option accept-invalid-http-response')
+        result += fmt('mode http')
+        result += fmt('option httplog')
+        result += fmt('option accept-invalid-http-response')
 
     elif mode == 'https':
-        result += config_format('mode tcp')
-        result += config_format('option tcplog')
+        result += fmt('mode tcp')
+        result += fmt('option tcplog')
 
     if not is_catchall:
-        result += config_format('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options)
+        result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options)
 
     return result + os.linesep

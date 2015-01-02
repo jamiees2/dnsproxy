@@ -27,8 +27,9 @@ Output of `dnsproxy.py -h`:
 ```
 usage: dnsproxy.py [-h] [-m {manual,sni,dnat,local}]
                    [-o {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...]]
-                   [-c COUNTRY] [-d] [--ip IP] [--bind-ip BIND_IP] [--save]
-                   [--base-dir BASE_DIR] [--only [ONLY [ONLY ...]]]
+                   [-c COUNTRY] [-d] [--no-test] [--ip IP] [--bind-ip BIND_IP]
+                   [--base-ip BASE_IP] [--base-port BASE_PORT] [--save]
+                   [--output-dir OUTPUT_DIR] [--only [ONLY [ONLY ...]]]
                    [--skip [SKIP [SKIP ...]]]
                    [--dnsmasq-filename DNSMASQ_FILENAME]
                    [--haproxy-filename HAPROXY_FILENAME]
@@ -50,10 +51,20 @@ optional arguments:
                         The country to use for generating the configuration.
   -d, --dnat            Specify to use DNAT instead of SNI (Advanced). This is
                         ignored when not in manual mode.
-  --ip IP               Specify the public ip to use
-  --bind-ip BIND_IP     Specify the ip that haproxy should bind to
-  --save                Specify wether to save the configuration
-  --base-dir BASE_DIR   Specify the output directory
+  --no-test             Specify to skip generating test configuration. This
+                        means that you will not be able to test your setup
+                        with the setup tester.
+  --ip IP               Specify the public IP to use
+  --bind-ip BIND_IP     Specify the IP that haproxy should bind to
+  --base-ip BASE_IP     Specify the base IP from which DNAT should start
+                        generating.
+  --base-port BASE_PORT
+                        Specify the base port from which DNAT should start
+                        generating.
+  --save                Specify wether to save the configuration to
+                        config.json
+  --output-dir OUTPUT_DIR
+                        Specify the output directory
   --only [ONLY [ONLY ...]]
                         Specify the proxies to use while generating
   --skip [SKIP [SKIP ...]]
@@ -75,6 +86,7 @@ optional arguments:
 You can generate each configuration file separately with `-m manual`. Example:
 ```python dnsproxy.py -m manual -o haproxy```. `-m manual` is also default, so this can be simplified to ```python dnsproxy.py -o haproxy```.
 
+It is also possible to specify which proxy list you would like to use, based on country. You can specify that by passing `-c <country>`, where `<country>` is a suffix of any file in the `proxies/` directory. For example, if you wish to generate configuration for a uk based SNI proxy, you can run `python dnsproxy.py -c uk -m sni`.
 
 #### SNI (Simple Setup)
 

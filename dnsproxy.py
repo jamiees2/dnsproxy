@@ -7,6 +7,7 @@ import urllib2
 import time
 import random
 import string
+import shutil
 
 import util
 
@@ -65,21 +66,21 @@ def read_config(args):
         config["public_ip"] = args.ip
     if args.bind_ip:
         config["bind_ip"] = args.ip
+    if args.base_ip:
+        config["base_ip"] = args.base_ip
+    if args.base_port:
+        config["base_port"] = args.base_port
 
     if not config["public_ip"]:
         try:
             print("Autodetecting public IP address...")
             public_ip = urllib2.urlopen("http://curlmyip.com/").read().strip()
-            print("Detected public IP as %s. If it's wrong, please cancel the script now and set it in config.json" % public_ip)
+            print("Detected public IP as %s. If it's wrong, please cancel the script now and set it in config.json or specify with --ip" % public_ip)
             time.sleep(1)
             config["public_ip"] = public_ip
         except:
-            print("Could not detect public IP. Please change the public_ip setting in config.json before building.")
+            print("Could not detect public IP. Please update the public_ip setting in config.json or specify with --ip.")
             sys.exit(1)
-    if config["stats"]["enabled"] and not config["stats"]["password"]:
-        print "Missing haproxy stats password! Autogenerating one..."
-        config["stats"]["password"] = ''.join(random.choice(string.ascii_letters + string.digits) for _ in xrange(10))
-        print("HAProxy stats password is %s, please make a note of it." % config["stats"]["password"])
 
     if args.save:
         util.put_contents('config.json', util.json_encode(config))
@@ -109,9 +110,11 @@ def main(args):
 
     print ""
 
+    # Empty the output directory
+    shutil.rmtree(args.output_dir, ignore_errors=True)
     # Create the output dir if it doesn't exist
-    if not os.path.exists(args.base_dir):
-        os.mkdir(args.base_dir)
+    if not os.path.exists(args.output_dir):
+        os.mkdir(args.output_dir)
 
     # Choose from the available modes
     if args.mode is "sni":
@@ -127,7 +130,7 @@ def main(args):
         files = args.output
         dnat = args.dnat
 
-    # Set non-sni specific options
+    # Set dnat specific options, make sure required configuration is present
     if dnat:
         print "Please be aware that this is an advanced option. For most cases, pure-sni will be enough."
         if not config["base_ip"]:
@@ -142,9 +145,14 @@ def main(args):
     for output in files:
         if output == "haproxy":
             print_firewall(config, dnat=dnat)
+            if config["stats"]["enabled"] and not config["stats"]["password"]:
+                print ""
+                print "Missing haproxy stats password! Autogenerating one..."
+                config["stats"]["password"] = ''.join(random.choice(string.ascii_letters + string.digits) for _ in xrange(10))
+                print("HAProxy stats password is %s, please make a note of it." % config["stats"]["password"])
             print ""
-            haproxy_content = generators.generate_haproxy(config, dnat=dnat)
-            util.put_contents(args.haproxy_filename, haproxy_content, base_dir=args.base_dir)
+            haproxy_content = generators.generate_haproxy(config, dnat=dnat, test=args.test)
+            util.put_contents(args.haproxy_filename, haproxy_content, base_dir=args.output_dir)
             print 'File generated: ' + args.haproxy_filename
         elif output == "dnsmasq":
             print ""
@@ -155,27 +163,27 @@ def main(args):
             print '***********************************************************************************************'
             print ""
 
-            dnsmasq_content = generators.generate_dnsmasq(config, dnat=dnat)
-            util.put_contents(args.dnsmasq_filename, dnsmasq_content, base_dir=args.base_dir)
+            dnsmasq_content = generators.generate_dnsmasq(config, dnat=dnat, test=args.test)
+            util.put_contents(args.dnsmasq_filename, dnsmasq_content, base_dir=args.output_dir)
             print 'File generated: ' + args.dnsmasq_filename
         elif output == "hosts":
-            hosts_content = generators.generate_hosts(config, dnat=dnat)
-            util.put_contents(args.hosts_filename, hosts_content, base_dir=args.base_dir)
+            hosts_content = generators.generate_hosts(config, dnat=dnat, test=args.test)
+            util.put_contents(args.hosts_filename, hosts_content, base_dir=args.output_dir)
             print 'File generated: ' + args.hosts_filename
         elif not dnat:
             print "Output %s cannot be generated" % output
             continue
         elif output == "iptables":
             iptables_content = generators.generate_iptables(config)
-            util.put_contents(args.iptables_filename, iptables_content, base_dir=args.base_dir)
+            util.put_contents(args.iptables_filename, iptables_content, base_dir=args.output_dir)
             print 'File generated: ' + args.iptables_filename
         elif output == "netsh":
             netsh_content = generators.generate_netsh(config)
-            util.put_contents(args.netsh_filename, netsh_content, base_dir=args.base_dir)
+            util.put_contents(args.netsh_filename, netsh_content, base_dir=args.output_dir)
             print 'File generated: ' + args.netsh_filename
         elif output == "rinetd":
             rinetd_content = generators.generate_rinetd(config)
-            util.put_contents(args.rinetd_filename, rinetd_content, base_dir=args.base_dir)
+            util.put_contents(args.rinetd_filename, rinetd_content, base_dir=args.output_dir)
             print 'File generated: ' + args.rinetd_filename
         else:
             print "Output %s cannot be generated" % output
@@ -187,11 +195,15 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], nargs="+", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
     parser.add_argument("-c", "--country", default="us", type=str, help="The country to use for generating the configuration.")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
+    parser.add_argument("--no-test", dest="test", action="store_false", help="Specify to skip generating test configuration. This means that you will not be able to test your setup with the setup tester.")
 
-    parser.add_argument("--ip", type=str, default=None, help="Specify the public ip to use")
-    parser.add_argument("--bind-ip", type=str, default=None, help="Specify the ip that haproxy should bind to")
-    parser.add_argument("--save", action="store_true", help="Specify wether to save the configuration")
-    parser.add_argument("--base-dir", type=str, default="output", help="Specify the output directory")
+    parser.add_argument("--ip", type=str, default=None, help="Specify the public IP to use")
+    parser.add_argument("--bind-ip", type=str, default=None, help="Specify the IP that haproxy should bind to")
+    parser.add_argument("--base-ip", type=str, default=None, help="Specify the base IP from which DNAT should start generating.")
+    parser.add_argument("--base-port", type=str, default=None, help="Specify the base port from which DNAT should start generating.")
+
+    parser.add_argument("--save", action="store_true", help="Specify wether to save the configuration to config.json")
+    parser.add_argument("--output-dir", type=str, default="output", help="Specify the output directory")
 
     parser.add_argument("--only", default=None, nargs="*", help="Specify the proxies to use while generating")
     parser.add_argument("--skip", default=None, nargs="*", help="Specify the proxies to not use while generating")
