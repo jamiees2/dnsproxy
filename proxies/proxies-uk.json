@@ -95,13 +95,13 @@
     "proxies": [
       {
         "alias": "4od-www",
-        "domain": "www.channel4.co.uk",
+        "domain": "www.channel4.com",
         "protocols": ["http", "https"],
         "dnat": false
       },
       {
         "alias": "4od-ais",
-        "domain": "ais.channel4.co.uk",
+        "domain": "ais.channel4.com",
         "protocols": ["http", "https"],
         "dnat": false
       }
