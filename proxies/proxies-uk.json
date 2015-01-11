@@ -90,5 +90,21 @@
         "dnat": false
       }
     ]
+  },
+  "channel4": {
+    "proxies": [
+      {
+        "alias": "4od-www",
+        "domain": "www.channel4.co.uk",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "4od-ais",
+        "domain": "ais.channel4.co.uk",
+        "protocols": ["http", "https"],
+        "dnat": false
+      }
+    ]
   }
 }
