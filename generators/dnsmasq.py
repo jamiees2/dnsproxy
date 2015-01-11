@@ -13,7 +13,7 @@ def generate(config, dnat=True, test=True):
             c = chunks([proxy["domain"] for proxy in group["proxies"] if proxy["dnat"]], 5)
 
         for chunk in c:
-            if dnat:
+            if not dnat:
                 dnsmasq_content += generate_dns(chunk, public_ip)
             else:
                 dnsmasq_content += generate_dns(chunk, current_ip)
