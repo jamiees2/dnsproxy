@@ -7,7 +7,7 @@ def generate(config, dnat=True, test=True):
     server_options = config["server_options"]
     if "base_port" in config:
         current_port = config["base_port"]
-    elif not dnat:
+    elif dnat:
         return
 
     haproxy_content = generate_global()
