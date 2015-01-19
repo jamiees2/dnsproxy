@@ -91,7 +91,7 @@
       },
       {
         "alias": "bbc-secure",
-        "domain": "secure.iplayer.co.uk",
+        "domain": "secure.iplayer.bbc.co.uk",
         "protocols": ["http", "https"],
         "dnat": false
       },
