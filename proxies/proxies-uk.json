@@ -106,7 +106,7 @@
         "domain": "bbcdevice.vo.llnwd.net",
         "protocols": ["http", "https"],
         "dnat": false
-      },
+      }
 
     ]
   },
