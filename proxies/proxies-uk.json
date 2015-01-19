@@ -88,6 +88,18 @@
         "domain": "cp143012-i.akamaihd.net",
         "protocols": ["http", "https"],
         "dnat": false
+      },
+      {
+        "alias": "bbc-secure",
+        "domain": "secure.iplayer.co.uk",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "opera-geo",
+        "domain": "get.geo.opera.com",
+        "protocols": ["http", "https"],
+        "dnat": false
       }
     ]
   },
