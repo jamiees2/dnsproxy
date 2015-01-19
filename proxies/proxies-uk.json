@@ -100,7 +100,14 @@
         "domain": "get.geo.opera.com",
         "protocols": ["http", "https"],
         "dnat": false
-      }
+      },
+      {
+        "alias": "bbcdevice-llnwd",
+        "domain": "bbcdevice.vo.llnwd.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+
     ]
   },
   "channel4": {
