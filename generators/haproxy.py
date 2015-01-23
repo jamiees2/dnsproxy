@@ -2,7 +2,7 @@ from util import fmt, port
 import os
 
 
-def generate(config, dnat=True, test=True):
+def generate(config, dnat=False, test=True):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
     if "base_port" in config:
@@ -40,8 +40,8 @@ def generate(config, dnat=True, test=True):
                         haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
                         haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
     if test:
-        haproxy_catchall_frontend_content += generate_frontend_catchall_entry('proxy-test.trick77.com', 'http')
-        haproxy_catchall_backend_content += generate_backend_catchall_entry('proxy-test.trick77.com', 'http', '80', server_options, 'trick77.com')
+        haproxy_catchall_frontend_content += generate_frontend_catchall_entry('ptest.verdandi.is', 'http')
+        haproxy_catchall_backend_content += generate_backend_catchall_entry('ptest.verdandi.is', 'http', '80', server_options)
 
     haproxy_content += haproxy_catchall_frontend_content + os.linesep
     haproxy_content += haproxy_catchall_backend_content
