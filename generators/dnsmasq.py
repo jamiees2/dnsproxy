@@ -21,8 +21,10 @@ def generate(config, dnat=False, test=True):
     if test:
         if not dnat:
             dnsmasq_content += generate_dns('ptest.verdandi.is', public_ip)
+            dnsmasq_content += generate_dns('ptest2.verdandi.is', public_ip)
         else:
             dnsmasq_content += generate_dns('ptest.verdandi.is', current_ip)
+            dnsmasq_content += generate_dns('ptest2.verdandi.is', current_ip)
 
     if dnat:
         for group in config["groups"].values():
