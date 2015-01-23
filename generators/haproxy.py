@@ -43,6 +43,9 @@ def generate(config, dnat=False, test=True):
         haproxy_catchall_frontend_content += generate_frontend_catchall_entry('ptest.verdandi.is', 'http')
         haproxy_catchall_backend_content += generate_backend_catchall_entry('ptest.verdandi.is', 'http', '80', server_options)
 
+        haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry('ptest.verdandi.is', 'https')
+        haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry('ptest.verdandi.is', 'https', '443', server_options)
+
     haproxy_content += haproxy_catchall_frontend_content + os.linesep
     haproxy_content += haproxy_catchall_backend_content
     haproxy_content += haproxy_catchall_frontend_ssl_content + os.linesep
