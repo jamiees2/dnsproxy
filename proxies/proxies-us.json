@@ -848,6 +848,12 @@
   "roku": {
     "proxies": [
       {
+        "alias": "www.roku.com",
+        "domain": "www.roku.com",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
         "alias": "owner.roku.com",
         "domain": "owner.roku.com",
         "protocols": ["http", "https"],
