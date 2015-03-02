@@ -844,5 +844,15 @@
         "dnat": false
       }
     ]
+  },
+  "roku": {
+    "proxies": [
+      {
+        "alias": "owner.roku.com",
+        "domain": "owner.roku.com",
+        "protocols": ["http", "https"],
+        "dnat": false
+      }
+    ]
   }
 }
