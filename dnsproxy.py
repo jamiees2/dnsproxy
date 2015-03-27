@@ -142,7 +142,12 @@ def main(args):
         dnat = True
         print_ips(config)
 
-    for output in files:
+    # Work around an argparse bug that appends to the default list rather
+    # than replace it.
+    if len(files) > 1:
+        files = files[1:]
+
+    for output in set(files):
         if output == "haproxy":
             print_firewall(config, dnat=dnat)
             if config["stats"]["enabled"] and not config["stats"]["password"]:
@@ -192,7 +197,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate configuration files to setup a tunlr style smart DNS")
 
     parser.add_argument("-m", "--mode", choices=["manual", "sni", "dnat", "local"], default="manual", type=str, help="Presets for configuration file generation.")
-    parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], nargs="+", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
+    parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
     parser.add_argument("-c", "--country", default="us", type=str, help="The country to use for generating the configuration.")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
     parser.add_argument("--no-test", dest="test", action="store_false", help="Specify to skip generating test configuration. This means that you will not be able to test your setup with the setup tester.")
