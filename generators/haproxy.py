@@ -98,7 +98,7 @@ def generate_global():
     result += fmt('user haproxy')
     result += fmt('group haproxy')
     result += fmt('stats socket /var/run/haproxy.sock mode 0600 level admin')
-    result += fmt('log /dev/log local0 debug')
+    result += fmt('log 127.0.0.1 local1 notice')
     result += fmt('pidfile /var/run/haproxy.pid')
     result += fmt('spread-checks 5')
     result += os.linesep
