@@ -202,7 +202,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-m", "--mode", choices=["manual", "sni", "dnat", "local"], default="manual", type=str, help="Presets for configuration file generation.")
     parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
-    parser.add_argument("-c", "--country", default="us", type=str, nargs="+", help="The country/-ies to use for generating the configuration (comma-separated).")
+    parser.add_argument("-c", "--country", default="us", type=str, nargs="+", help="The country/-ies to use for generating the configuration (space-separated, e.g. -c us uk).")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
     parser.add_argument("--no-test", dest="test", action="store_false", help="Specify to skip generating test configuration. This means that you will not be able to test your setup with the setup tester.")
 
