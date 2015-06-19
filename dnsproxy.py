@@ -57,7 +57,7 @@ def read_config(args):
     if not os.path.isfile("config.json"):
         print "config.json does not exist! Please copy config-sample.json to config.json and edit to your liking, then run the script."
         sys.exit(1)
-    countries = [country.lower().strip() for country in args.country.split(",")]
+    countries = [country.lower().strip() for country in args.country]
     for country in countries:
         if not os.path.isfile("proxies/proxies-%s.json" % country):
             print "The proxy configuration file proxies-%s.json does not exist! Exiting." % country
@@ -202,7 +202,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-m", "--mode", choices=["manual", "sni", "dnat", "local"], default="manual", type=str, help="Presets for configuration file generation.")
     parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
-    parser.add_argument("-c", "--country", default="us", type=str, help="The country/-ies to use for generating the configuration (comma-separated).")
+    parser.add_argument("-c", "--country", default="us", type=str, nargs="+", help="The country/-ies to use for generating the configuration (comma-separated).")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
     parser.add_argument("--no-test", dest="test", action="store_false", help="Specify to skip generating test configuration. This means that you will not be able to test your setup with the setup tester.")
 
