@@ -57,9 +57,11 @@ def read_config(args):
     if not os.path.isfile("config.json"):
         print "config.json does not exist! Please copy config-sample.json to config.json and edit to your liking, then run the script."
         sys.exit(1)
-    if not os.path.isfile("proxies/proxies-%s.json" % args.country.lower()):
-        print "The proxy configuration file proxies-%s.json does not exist! Exiting." % args.country.lower()
-        sys.exit(1)
+    countries = [country.lower().strip() for country in args.country]
+    for country in countries:
+        if not os.path.isfile("proxies/proxies-%s.json" % country):
+            print "The proxy configuration file proxies-%s.json does not exist! Exiting." % country
+            sys.exit(1)
     content = util.get_contents("config.json")
     config = util.json_decode(content)
     if args.ip:
@@ -85,7 +87,9 @@ def read_config(args):
     if args.save:
         util.put_contents('config.json', util.json_encode(config))
 
-    groups = util.json_decode(util.get_contents("proxies/proxies-%s.json" % args.country.lower()))
+    groups = {}
+    for country in countries:
+        groups.update(util.json_decode(util.get_contents("proxies/proxies-%s.json" % country)))
 
     if args.only:
         only = set(args.only)
@@ -198,7 +202,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-m", "--mode", choices=["manual", "sni", "dnat", "local"], default="manual", type=str, help="Presets for configuration file generation.")
     parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
-    parser.add_argument("-c", "--country", default="us", type=str, help="The country to use for generating the configuration.")
+    parser.add_argument("-c", "--country", default="us", type=str, nargs="+", help="The country/-ies to use for generating the configuration (space-separated, e.g. -c us uk).")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
     parser.add_argument("--no-test", dest="test", action="store_false", help="Specify to skip generating test configuration. This means that you will not be able to test your setup with the setup tester.")
 
