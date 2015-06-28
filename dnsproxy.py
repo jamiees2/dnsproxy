@@ -121,13 +121,13 @@ def main(args):
         os.mkdir(args.output_dir)
 
     # Choose from the available modes
-    if args.mode is "sni":
+    if args.mode == "sni":
         files = ["haproxy", "dnsmasq", "hosts"]
         dnat = False
-    elif args.mode is "dnat":
+    elif args.mode == "dnat":
         files = ["haproxy", "dnsmasq", "hosts", "iptables"]
         dnat = True
-    elif args.mode is "local":
+    elif args.mode == "local":
         files = ["haproxy", "hosts", "rinetd", "netsh"]
         dnat = True
     else:
