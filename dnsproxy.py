@@ -57,7 +57,12 @@ def read_config(args):
     if not os.path.isfile("config.json"):
         print "config.json does not exist! Please copy config-sample.json to config.json and edit to your liking, then run the script."
         sys.exit(1)
-    countries = [country.lower().strip() for country in args.country]
+    
+    countries = args.country
+    if isinstance(countries, basestring):
+        countries = [countries]
+    countries = [country.lower().strip() for country in countries]
+
     for country in countries:
         if not os.path.isfile("proxies/proxies-%s.json" % country):
             print "The proxy configuration file proxies-%s.json does not exist! Exiting." % country
