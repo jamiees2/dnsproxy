@@ -133,6 +133,10 @@ def main(args):
     else:
         files = args.output
         dnat = args.dnat
+        # Work around an argparse bug that appends to the default list rather
+        # than replace it.
+        if len(files) > 1:
+            files = files[1:]
 
     # Set dnat specific options, make sure required configuration is present
     if dnat:
@@ -145,11 +149,6 @@ def main(args):
             sys.exit(1)
         dnat = True
         print_ips(config)
-
-    # Work around an argparse bug that appends to the default list rather
-    # than replace it.
-    if len(files) > 1:
-        files = files[1:]
 
     for output in set(files):
         if output == "haproxy":
