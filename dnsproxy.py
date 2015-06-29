@@ -57,7 +57,12 @@ def read_config(args):
     if not os.path.isfile("config.json"):
         print "config.json does not exist! Please copy config-sample.json to config.json and edit to your liking, then run the script."
         sys.exit(1)
-    countries = [country.lower().strip() for country in args.country]
+    
+    countries = args.country
+    if isinstance(countries, basestring):
+        countries = [countries]
+    countries = [country.lower().strip() for country in countries]
+
     for country in countries:
         if not os.path.isfile("proxies/proxies-%s.json" % country):
             print "The proxy configuration file proxies-%s.json does not exist! Exiting." % country
@@ -121,18 +126,22 @@ def main(args):
         os.mkdir(args.output_dir)
 
     # Choose from the available modes
-    if args.mode is "sni":
+    if args.mode == "sni":
         files = ["haproxy", "dnsmasq", "hosts"]
         dnat = False
-    elif args.mode is "dnat":
+    elif args.mode == "dnat":
         files = ["haproxy", "dnsmasq", "hosts", "iptables"]
         dnat = True
-    elif args.mode is "local":
+    elif args.mode == "local":
         files = ["haproxy", "hosts", "rinetd", "netsh"]
         dnat = True
     else:
         files = args.output
         dnat = args.dnat
+        # Work around an argparse bug that appends to the default list rather
+        # than replace it.
+        if len(files) > 1:
+            files = files[1:]
 
     # Set dnat specific options, make sure required configuration is present
     if dnat:
@@ -145,11 +154,6 @@ def main(args):
             sys.exit(1)
         dnat = True
         print_ips(config)
-
-    # Work around an argparse bug that appends to the default list rather
-    # than replace it.
-    if len(files) > 1:
-        files = files[1:]
 
     for output in set(files):
         if output == "haproxy":
