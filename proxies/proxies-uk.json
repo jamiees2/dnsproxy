@@ -115,7 +115,7 @@
       },
       {
         "alias": "bbc-vod-llnwd",
-        "domain": "vod-hds-uk-live.bbcfmt.vo.llwnd.net",
+        "domain": "vod-hds-uk-live.bbcfmt.vo.llnwd.net",
         "protocols": ["http", "https"],
         "dnat": false
       },
