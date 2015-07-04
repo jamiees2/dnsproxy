@@ -106,6 +106,24 @@
         "domain": "bbcdevice.vo.llnwd.net",
         "protocols": ["http", "https"],
         "dnat": false
+      },
+      {
+        "alias": "bbc-akamai2",
+        "domain": "a18.w5.akamai.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "bbc-vod-llnwd",
+        "domain": "vod-hds-uk-live.bbcfmt.vo.llwnd.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "bbc-vod-edgesuite",
+        "domain": "vod-hds-uk-live.edgesuite.net",
+        "protocols": ["http", "https"],
+        "dnat": false
       }
 
     ]
