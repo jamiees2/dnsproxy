@@ -81,7 +81,7 @@ def read_config(args):
     if not config["public_ip"]:
         try:
             print("Autodetecting public IP address...")
-            public_ip = urllib2.urlopen("http://curlmyip.com/").read().strip()
+            public_ip = urllib2.urlopen("http://l2.io/ip").read().strip()
             print("Detected public IP as %s. If it's wrong, please cancel the script now and set it in config.json or specify with --ip" % public_ip)
             time.sleep(1)
             config["public_ip"] = public_ip
