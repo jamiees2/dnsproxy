@@ -1,0 +1,24 @@
+{
+  "amazon": {
+    "proxies": [
+      {
+        "alias":"amazon_atv-ps-eu",
+        "domain":"atv-ps-eu.amazon.com",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"amazon_atv-ext-eu",
+        "domain":"atv-ext-eu.amazon.com",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias":"amazon_atv-eu",
+        "domain":"atv-eu.amazon.com",
+        "protocols": ["http", "https"],
+        "dnat": true
+      }
+    ]
+  }
+}
