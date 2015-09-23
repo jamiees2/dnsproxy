@@ -23,7 +23,7 @@ def print_ips(config):
     current_iplong = ip2long(current_ip)
     for group in config["groups"].values():
         for proxy in group["proxies"]:
-            if not proxy["dnat"]:
+            if proxy["dnat"]:
                 current_iplong += 1
                 print long2ip(current_iplong)
 
@@ -50,14 +50,14 @@ def port_range(config):
         for proxy in group["proxies"]:
             if proxy["dnat"]:
                 end += len(proxy["protocols"])
-    return start, end - 1
+    return end - 1
 
 
 def read_config(args):
     if not os.path.isfile("config.json"):
         print "config.json does not exist! Please copy config-sample.json to config.json and edit to your liking, then run the script."
         sys.exit(1)
-    
+
     countries = args.country
     if isinstance(countries, basestring):
         countries = [countries]
@@ -130,7 +130,7 @@ def main(args):
         files = ["haproxy", "dnsmasq", "hosts"]
         dnat = False
     elif args.mode == "dnat":
-        files = ["haproxy", "dnsmasq", "hosts", "iptables"]
+        files = ["haproxy", "dnsmasq", "hosts", "iptables", "iproute2"]
         dnat = True
     elif args.mode == "local":
         files = ["haproxy", "hosts", "rinetd", "netsh"]
@@ -190,6 +190,13 @@ def main(args):
             iptables_content = generators.generate_iptables(config)
             util.put_contents(args.iptables_filename, iptables_content, base_dir=args.output_dir)
             print 'File generated: ' + args.iptables_filename
+        elif output == "iproute2":
+            if not config.get("local_subnet", False) or not config.get("local_device", False):
+                print 'Output iproute2 cannot be generated: Missing local_subnet and/or local_device in config.json'
+            else:
+                iproute2_content = generators.generate_iproute2(config)
+                util.put_contents(args.iproute2_filename, iproute2_content, base_dir=args.output_dir)
+                print 'File generated: ' + args.iproute2_filename
         elif output == "netsh":
             netsh_content = generators.generate_netsh(config)
             util.put_contents(args.netsh_filename, netsh_content, base_dir=args.output_dir)
@@ -205,7 +212,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate configuration files to setup a tunlr style smart DNS")
 
     parser.add_argument("-m", "--mode", choices=["manual", "sni", "dnat", "local"], default="manual", type=str, help="Presets for configuration file generation.")
-    parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables"], default=["haproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
+    parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables", "iproute2"], default=["haproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
     parser.add_argument("-c", "--country", default="us", type=str, nargs="+", help="The country/-ies to use for generating the configuration (space-separated, e.g. -c us uk).")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
     parser.add_argument("--no-test", dest="test", action="store_false", help="Specify to skip generating test configuration. This means that you will not be able to test your setup with the setup tester.")
@@ -224,6 +231,7 @@ if __name__ == "__main__":
     parser.add_argument("--dnsmasq-filename", type=str, default="dnsmasq-haproxy.conf", help="Specify the DNS configuration file name")
     parser.add_argument("--haproxy-filename", type=str, default="haproxy.conf", help="Specify the haproxy configuration file name")
     parser.add_argument("--iptables-filename", type=str, default="iptables-haproxy.sh", help="Specify the iptables configuration file name")
+    parser.add_argument("--iproute2-filename", type=str, default="iproute2-haproxy.sh", help="Specify the iproute2 configuration file name")
     parser.add_argument("--netsh-filename", type=str, default="netsh-haproxy.cmd", help="Specify the netsh configuration file name")
     parser.add_argument("--hosts-filename", type=str, default="hosts-haproxy.txt", help="Specify the hosts configuration file name")
     parser.add_argument("--rinetd-filename", type=str, default="rinetd-haproxy.conf", help="Specify the rinetd configuration file name")
