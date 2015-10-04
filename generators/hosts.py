@@ -10,7 +10,7 @@ def generate(config, dnat=False, test=True):
         for proxy in group["proxies"]:
             if not dnat:
                 add_hosts(hosts, proxy["domain"], public_ip)
-            elif proxy["dnat"]:
+            elif not proxy["dnat"]:
                 add_hosts(hosts, proxy["domain"], current_ip)
 
     if test:
@@ -23,7 +23,7 @@ def generate(config, dnat=False, test=True):
     if dnat:
         for group in config["groups"].values():
             for proxy in group["proxies"]:
-                if not proxy["dnat"]:
+                if proxy["dnat"]:
                     current_ip = long2ip(ip2long(current_ip) + 1)
                     add_hosts(hosts, proxy["domain"], current_ip)
 

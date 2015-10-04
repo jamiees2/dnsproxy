@@ -24,5 +24,4 @@ def generate(config):
 
 def generate_iptables(port, public_ip, current_dnat_ip, current_dnat_port, iptables_location):
     result = iptables_location + ' -t nat -A PREROUTING -p tcp --dport ' + str(port) + ' -d ' + current_dnat_ip + ' -j DNAT --to-destination ' + public_ip + ':' + str(current_dnat_port) + os.linesep
-    result += iptables_location + ' -t nat -A POSTROUTING -p tcp --dport ' + str(current_dnat_port) + ' -j MASQUERADE' + os.linesep
     return result

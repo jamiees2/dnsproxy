@@ -1,11 +1,13 @@
 {
-  "iptables_location": "iptables", // Required to generate iptables rules
+  "iptables_location": "iptables", // Required to generate iptables rules in mode "dnat"
   "bind_ip": "*", // The IP address to bind to
   "public_ip": "", // IP address of your remote server, required for every mode
   "base_ip": "",
-  // "base_ip": "x.x.x.x", // Only required for modes "non-sni" and "local"
+  // "base_ip": "x.x.x.x", // Only required for modes "dnat" and "local"
   // "base_ip": "127.0.0.51", // For local
-  "base_port": 27200, // Only required for mode "non-sni"
+  "base_port": 27200, // Only required for mode "dnat"
+  // "local_subnet": 24, // Only required for mode "dnat"
+  // "local_device": "eth1", // Only required for mode "dnat"
   "server_options": "check inter 10s fastinter 2s downinter 2s fall 1800", // Don't touch unless you know what you're doing
   "stats": {
     "enabled": true, // Set to true to enable HAProxy stats web page

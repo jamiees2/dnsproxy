@@ -10,7 +10,7 @@ def generate(config, dnat=False, test=True):
         if not dnat:
             c = chunks([proxy["domain"] for proxy in group["proxies"]], 5)
         else:
-            c = chunks([proxy["domain"] for proxy in group["proxies"] if proxy["dnat"]], 5)
+            c = chunks([proxy["domain"] for proxy in group["proxies"] if not proxy["dnat"]], 5)
 
         for chunk in c:
             if not dnat:
@@ -29,7 +29,7 @@ def generate(config, dnat=False, test=True):
     if dnat:
         for group in config["groups"].values():
             for proxy in group["proxies"]:
-                if not proxy["dnat"]:
+                if proxy["dnat"]:
                     current_ip = long2ip(ip2long(current_ip) + 1)
                     dnsmasq_content += generate_dns(proxy["domain"], current_ip)
 

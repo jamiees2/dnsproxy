@@ -31,7 +31,7 @@ def generate(config, dnat=False, test=True):
 
     for group in config["groups"].values():
         for proxy in group["proxies"]:
-            if not dnat or (dnat and proxy["dnat"]):
+            if not dnat or (dnat and not proxy["dnat"]):
                 for protocol in proxy["protocols"]:
                     if protocol == 'http':
                         haproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
