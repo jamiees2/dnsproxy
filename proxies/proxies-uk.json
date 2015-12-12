@@ -124,8 +124,13 @@
         "domain": "vod-hds-uk-live.edgesuite.net",
         "protocols": ["http", "https"],
         "dnat": false
+      },
+      {
+        "alias": "bbc-fig",
+        "domain": "fig.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "dnat": false
       }
-
     ]
   },
   "channel4": {
