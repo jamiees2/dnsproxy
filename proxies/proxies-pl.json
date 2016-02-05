@@ -1,0 +1,12 @@
+{
+  "ipla.tv": {
+    "proxies": [
+      {
+        "alias":"redefine-getmedia",
+        "domain":"getmedia.redefine.pl",
+        "protocols": ["http", "https"],
+        "dnat": false
+      }
+    ]
+  }
+}
