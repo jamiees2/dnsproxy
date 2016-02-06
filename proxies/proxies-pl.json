@@ -8,5 +8,21 @@
         "dnat": false
       }
     ]
+  },
+  "tvp": {
+    "proxies": [
+      {
+        "alias":"tvp-vod",
+        "domain":"vod.tvp.pl",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias":"tvp-stream",
+        "domain":"tvpstream.tvp.pl",
+        "protocols": ["http", "https"],
+        "dnat": false
+      }
+    ]
   }
 }
