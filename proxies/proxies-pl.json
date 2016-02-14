@@ -1,0 +1,28 @@
+{
+  "ipla.tv": {
+    "proxies": [
+      {
+        "alias":"redefine-getmedia",
+        "domain":"getmedia.redefine.pl",
+        "protocols": ["http", "https"],
+        "dnat": false
+      }
+    ]
+  },
+  "tvp": {
+    "proxies": [
+      {
+        "alias":"tvp-vod",
+        "domain":"vod.tvp.pl",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias":"tvp-stream",
+        "domain":"tvpstream.tvp.pl",
+        "protocols": ["http", "https"],
+        "dnat": false
+      }
+    ]
+  }
+}
