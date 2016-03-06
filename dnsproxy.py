@@ -164,7 +164,7 @@ def main(args):
                 config["stats"]["password"] = ''.join(random.choice(string.ascii_letters + string.digits) for _ in xrange(10))
                 print("HAProxy stats password is %s, please make a note of it." % config["stats"]["password"])
             print ""
-            haproxy_content = generators.generate_haproxy(config, dnat=dnat, test=args.test)
+            haproxy_content = generators.generate_haproxy(config, dnat=dnat)
             util.put_contents(args.haproxy_filename, haproxy_content, base_dir=args.output_dir)
             print 'File generated: ' + args.haproxy_filename
         elif output == "dnsmasq":
@@ -176,11 +176,11 @@ def main(args):
             print '***********************************************************************************************'
             print ""
 
-            dnsmasq_content = generators.generate_dnsmasq(config, dnat=dnat, test=args.test)
+            dnsmasq_content = generators.generate_dnsmasq(config, dnat=dnat)
             util.put_contents(args.dnsmasq_filename, dnsmasq_content, base_dir=args.output_dir)
             print 'File generated: ' + args.dnsmasq_filename
         elif output == "hosts":
-            hosts_content = generators.generate_hosts(config, dnat=dnat, test=args.test)
+            hosts_content = generators.generate_hosts(config, dnat=dnat)
             util.put_contents(args.hosts_filename, hosts_content, base_dir=args.output_dir)
             print 'File generated: ' + args.hosts_filename
         elif not dnat:
@@ -215,7 +215,6 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables", "iproute2"], default=["haproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
     parser.add_argument("-c", "--country", default="us", type=str, nargs="+", help="The country/-ies to use for generating the configuration (space-separated, e.g. -c us uk).")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
-    parser.add_argument("--no-test", dest="test", action="store_false", help="Specify to skip generating test configuration. This means that you will not be able to test your setup with the setup tester.")
 
     parser.add_argument("--ip", type=str, default=None, help="Specify the public IP to use")
     parser.add_argument("--bind-ip", type=str, default=None, help="Specify the IP that haproxy should bind to")

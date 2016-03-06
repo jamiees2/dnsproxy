@@ -2,7 +2,7 @@ from util import long2ip, ip2long, chunks
 import os
 
 
-def generate(config, dnat=False, test=True):
+def generate(config, dnat=False):
     public_ip = config["public_ip"]
     current_ip = config["base_ip"]
     dnsmasq_content = ""
@@ -17,14 +17,6 @@ def generate(config, dnat=False, test=True):
                 dnsmasq_content += generate_dns(chunk, public_ip)
             else:
                 dnsmasq_content += generate_dns(chunk, current_ip)
-
-    if test:
-        if not dnat:
-            dnsmasq_content += generate_dns('ptest.verdandi.is', public_ip)
-            dnsmasq_content += generate_dns('ptest2.verdandi.is', public_ip)
-        else:
-            dnsmasq_content += generate_dns('ptest.verdandi.is', current_ip)
-            dnsmasq_content += generate_dns('ptest2.verdandi.is', current_ip)
 
     if dnat:
         for group in config["groups"].values():

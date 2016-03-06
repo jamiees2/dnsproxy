@@ -2,7 +2,7 @@ from util import long2ip, ip2long
 import os
 
 
-def generate(config, dnat=False, test=True):
+def generate(config, dnat=False):
     public_ip = config["public_ip"]
     current_ip = config["base_ip"]
     hosts = dict()
@@ -12,14 +12,6 @@ def generate(config, dnat=False, test=True):
                 add_hosts(hosts, proxy["domain"], public_ip)
             elif not proxy["dnat"]:
                 add_hosts(hosts, proxy["domain"], current_ip)
-
-    if test:
-        if not dnat:
-            add_hosts(hosts, 'ptest.verdandi.is', public_ip)
-            add_hosts(hosts, 'ptest2.verdandi.is', public_ip)
-        else:
-            add_hosts(hosts, 'ptest.verdandi.is', current_ip)
-            add_hosts(hosts, 'ptest2.verdandi.is', current_ip)
     if dnat:
         for group in config["groups"].values():
             for proxy in group["proxies"]:
