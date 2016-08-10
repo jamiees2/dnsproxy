@@ -54,6 +54,12 @@
         "dnat": false
       },
       {
+        "alias":"bbc-vod-hls",
+        "domain":"vod-hls-uk-live.edgesuite.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
         "alias":"bbc-livestream-llnwd",
         "domain":"vs-hds-uk-live.bbcfmt.vo.llnwd.net",
         "protocols": ["http", "https"],
@@ -72,20 +78,8 @@
         "dnat": false
       },
       {
-        "alias": "bbc-ingest-rum",
-        "domain": "ingest.rum.bbc.co.uk",
-        "protocols": ["http", "https"],
-        "dnat": false
-      },
-      {
         "alias": "ibl-api",
         "domain": "ibl.api.bbci.co.uk",
-        "protocols": ["http", "https"],
-        "dnat": false
-      },
-      {
-        "alias": "bbc-akamai",
-        "domain": "cp143012-i.akamaihd.net",
         "protocols": ["http", "https"],
         "dnat": false
       },
@@ -107,15 +101,51 @@
         "protocols": ["http", "https"],
         "dnat": false
       },
-      {
+       {
+        "alias": "bbc-akamai",
+        "domain": "cp143012-i.akamaihd.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+     {
         "alias": "bbc-akamai2",
         "domain": "a18.w5.akamai.net",
         "protocols": ["http", "https"],
         "dnat": false
       },
       {
+        "alias": "bbc-akamai3",
+        "domain": "e3891.g.akamaiedge.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+        {
+        "alias": "bbc-akamai4",
+        "domain": "e6428.e9.akamaiedge.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+       {
+        "alias": "bbc-akamai-5",
+        "domain": "a1507.b.akamai.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
         "alias": "bbc-vod-llnwd",
         "domain": "vod-hds-uk-live.bbcfmt.vo.llnwd.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "bbc-vod-llnwd-hls",
+        "domain": "vod-hls-uk-live.bbcfmt.vo.llnwd.net",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "bbc-ic.b23e03f1.0ccf6d.vod-hls-uk-live.bbcfmt.vo.llnwi.net",
+        "domain": "ic.b23e03f1.0ccf6d.vod-hls-uk-live.bbcfmt.vo.llnwi.net",
         "protocols": ["http", "https"],
         "dnat": false
       },
@@ -130,7 +160,31 @@
         "domain": "fig.bbc.co.uk",
         "protocols": ["http", "https"],
         "dnat": false
-      }
+      },
+      {
+        "alias": "bbc-ichef",
+        "domain": "ichef.bbci.co.uk",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "bbc-ichef-net",
+        "domain": "ichef-bbci.bbc.net.uk",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "bbc-appletv-iplayer",
+        "domain": "appletv.iplayer.api.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "dnat": false
+      },
+      {
+        "alias": "bbc-sa",
+        "domain": "sa.bbc.co.uk",
+        "protocols": ["http", "https"],
+        "dnat": false
+	  }
     ]
   },
   "channel4": {
