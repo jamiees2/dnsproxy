@@ -170,12 +170,6 @@
         "dnat": true
       },
       {
-        "alias":"netflix-htmltvui-api",
-        "domain":"htmltvui-api.netflix.com",
-        "protocols": ["http", "https"],
-        "dnat": true
-      },
-      {
         "alias":"bivl-netflix-com",
         "domain":"bivl.netflix.com",
         "protocols": ["https"],
@@ -438,12 +432,6 @@
         "dnat": false
       },
       {
-        "alias":"yahoo-mvid",
-        "domain":"mvid.yql.yahoo.com",
-        "protocols": ["http", "https"],
-        "dnat": false
-      },
-      {
         "alias":"yahoo-hls",
         "domain":"hls.video.query.yahoo.com",
         "protocols": ["http", "https"],
@@ -504,12 +492,6 @@
         "domain":"sb.vevo.com",
         "protocols": ["http", "https"],
         "dnat": false
-      },
-      {
-        "alias":"vevo-videoplayer",
-        "domain":"videoplayer.vevo.com",
-        "protocols": ["http", "https"],
-        "dnat": false
       }
     ]
   },
@@ -564,6 +546,12 @@
       {
         "alias":"bravia-e-dl-playstation-net",
         "domain":"bravia-e.dl.playstation.net",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"sentv-user-auth-totsuko-tv",
+        "domain":"sentv-user-auth.totsuko.tv",
         "protocols": ["http", "https"],
         "dnat": true
       }
@@ -672,12 +660,6 @@
       {
         "alias":"dramafever-www",
         "domain":"www.dramafever.com",
-        "protocols": ["http", "https"],
-        "dnat": false
-      },
-      {
-        "alias":"dramafever-token",
-        "domain":"token.dramafever.com",
         "protocols": ["http", "https"],
         "dnat": false
       }
@@ -856,6 +838,29 @@
       {
         "alias": "owner.roku.com",
         "domain": "owner.roku.com",
+        "protocols": ["http", "https"],
+        "dnat": false
+      }
+    ]
+  },
+  "amazon": {
+    "proxies": [
+      {
+        "alias":"amazon_atv-ps",
+        "domain":"atv-ps.amazon.com",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"amazon_atv-ext",
+        "domain":"atv-ext.amazon.com",
+        "protocols": ["http", "https"],
+        "dnat": false
+      }
+    ]
+  }
+}
+"domain": "owner.roku.com",
         "protocols": ["http", "https"],
         "dnat": false
       }
