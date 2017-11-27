@@ -860,26 +860,3 @@
     ]
   }
 }
-"domain": "owner.roku.com",
-        "protocols": ["http", "https"],
-        "dnat": false
-      }
-    ]
-  },
-  "amazon": {
-    "proxies": [
-      {
-        "alias":"amazon_atv-ps",
-        "domain":"atv-ps.amazon.com",
-        "protocols": ["http", "https"],
-        "dnat": true
-      },
-      {
-        "alias":"amazon_atv-ext",
-        "domain":"atv-ext.amazon.com",
-        "protocols": ["http", "https"],
-        "dnat": false
-      }
-    ]
-  }
-}
