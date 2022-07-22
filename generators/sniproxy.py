@@ -18,7 +18,7 @@ def generate_mydns():
     result += fmt('nameserver 8.8.8.8')
     result += fmt('nameserver 8.8.4.4')
     result += fmt('mode ipv4_only')
-    result = fmt('}', indent=None)
+    result += fmt('}', indent=None)
     result += os.linesep
     return result
 
