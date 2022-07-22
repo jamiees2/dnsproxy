@@ -5,7 +5,7 @@ def generate_startconfig01():
     result = fmt('# sniproxy example configuration file', indent=None)
     result += fmt('# lines that start with # are comments', indent=None)
     result += fmt('# lines with only white space are ignored', indent=None)
-    result += fmt(', indent=None')
+    result += fmt('', indent=None)
     result += fmt('user daemon', indent=None)
     result += os.linesep
     return result
