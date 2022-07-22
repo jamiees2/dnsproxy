@@ -25,6 +25,7 @@ def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
 
+    sniproxy_content = generate_startconfig01()
     sniproxy_content = generate_mydns()
     sniproxy_content += generate_global()
     sniproxy_content += generate_defaults()
