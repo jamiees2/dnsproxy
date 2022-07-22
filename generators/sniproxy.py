@@ -20,11 +20,11 @@ def generate(config, dnat=False):
         http_port = current_port
         https_port = current_port + 1
 
-    haproxy_catchall_frontend_content = generate_frontend('catchall', 'http', bind_ip, http_port, True)
-    haproxy_catchall_backend_content = generate_backend('catchall', 'http', None, None, None, True)
+    sniproxy_catchall_frontend_content = generate_frontend('catchall', 'http', bind_ip, http_port, True)
+    sniproxy_catchall_backend_content = generate_backend('catchall', 'http', None, None, None, True)
 
-    haproxy_catchall_frontend_ssl_content = generate_frontend('catchall', 'https', bind_ip, https_port, True)
-    haproxy_catchall_backend_ssl_content = generate_backend('catchall', 'https', None, None, None, True)
+    sniproxy_catchall_frontend_ssl_content = generate_frontend('catchall', 'https', bind_ip, https_port, True)
+    sniproxy_catchall_backend_ssl_content = generate_backend('catchall', 'https', None, None, None, True)
 
     if config["stats"]["enabled"]:
         sniproxy_content += generate_stats(config["stats"], bind_ip)
@@ -34,16 +34,16 @@ def generate(config, dnat=False):
             if not dnat or (dnat and not proxy["dnat"]):
                 for protocol in proxy["protocols"]:
                     if protocol == 'http':
-                        haproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
-                        haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
+                        sniproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
+                        sniproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
                     elif protocol == 'https':
-                        haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
-                        haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
+                        sniproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
+                        sniproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
 
-    sniproxy_content += haproxy_catchall_frontend_content + os.linesep
-    sniproxy_content += haproxy_catchall_backend_content
-    sniproxy_content += haproxy_catchall_frontend_ssl_content + os.linesep
-    sniproxy_content += haproxy_catchall_backend_ssl_content
+    sniproxy_content += sniproxy_catchall_frontend_content + os.linesep
+    sniproxy_content += sniproxy_catchall_backend_content
+    sniproxy_content += sniproxy_catchall_frontend_ssl_content + os.linesep
+    sniproxy_content += sniproxy_catchall_backend_ssl_content
 
     if dnat:
         current_port += 2
