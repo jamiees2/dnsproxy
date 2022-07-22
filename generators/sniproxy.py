@@ -13,7 +13,6 @@ def generate_startconfig01():
     result += os.linesep
     return result
 
-
 def generate_mydns():
     result = fmt('resolver', indent=None)
     result += fmt('nameserver 8.8.8.8')
@@ -22,6 +21,19 @@ def generate_mydns():
     result += os.linesep
     return result
 
+def generate_error():
+    result = fmt('error_log {', indent=None)
+    result += fmt('# Log to the daemon syslog facility')
+    result += fmt('syslog daemon')
+    result += fmt('', indent=None)
+    result += fmt('# Alternatively we could log to file')
+    result += fmt('#filename /var/log/sniproxy/sniproxy.log')
+    result += fmt('', indent=None)    
+    result += fmt('# Control the verbosity of the log')
+    result += fmt('priority notice')
+    result += fmt('}', indent=None)     
+    result += os.linesep
+    return result
    
     
 def generate(config, dnat=False):
@@ -30,6 +42,7 @@ def generate(config, dnat=False):
 
     sniproxy_content = generate_startconfig01()
     sniproxy_content += generate_mydns()
+    sniproxy_content += generate_error()
     sniproxy_content += generate_global()
     sniproxy_content += generate_defaults()
 
