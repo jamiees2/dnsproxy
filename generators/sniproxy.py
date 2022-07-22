@@ -34,7 +34,22 @@ def generate_error():
     result += fmt('}', indent=None)     
     result += os.linesep
     return result
-   
+ 
+def generate_listen80():
+    result = fmt('# blocks are delimited with {...}', indent=None)
+    result += fmt('listen 80 {', indent=None)
+    result += fmt('proto http')
+    result += fmt('table hosts')
+    result += fmt('# Fallback backend server to use if we can not parse the client request')
+    result += fmt('fallback localhost:8080')
+    result += fmt('', indent=None)    
+    result += fmt('access_log {')
+    result += fmt('filename /var/log/sniproxy/http_access.log')
+    result += fmt('priority notice')
+    result += fmt('}')
+    result += fmt('}', indent=None)    
+    result += os.linesep
+    return result
     
 def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
@@ -43,6 +58,7 @@ def generate(config, dnat=False):
     sniproxy_content = generate_startconfig01()
     sniproxy_content += generate_mydns()
     sniproxy_content += generate_error()
+    sniproxy_content += generate_listen80()
     sniproxy_content += generate_global()
     sniproxy_content += generate_defaults()
 
