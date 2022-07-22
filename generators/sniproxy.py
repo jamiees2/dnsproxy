@@ -1,6 +1,16 @@
 from util import fmt, port
 import os
 
+def generate_startconfig01():
+    result = fmt('# sniproxy example configuration file')
+    result += fmt('# lines that start with # are comments')
+    result += fmt('# lines with only white space are ignored')
+    result += fmt('')
+    result += fmt('user daemon')
+    result += os.linesep
+    return result
+
+
 def generate_mydns():
     result = fmt('resolver', indent=None)
     result += fmt('nameserver 8.8.8.8')
@@ -8,25 +18,19 @@ def generate_mydns():
     result += fmt('mode ipv4_only')
     result += os.linesep
     return result
-    
+
+   
     
 def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
-    if "base_port" in config:
-        current_port = config["base_port"]
-    elif dnat:
-        return
+
     sniproxy_content = generate_mydns()
     sniproxy_content += generate_global()
     sniproxy_content += generate_defaults()
 
-    if not dnat:
-        http_port = 80
-        https_port = 443
-    else:
-        http_port = current_port
-        https_port = current_port + 1
+    http_port = 80
+    https_port = 443
 
     sniproxy_catchall_frontend_content = generate_frontend('catchall', 'http', bind_ip, http_port, True)
     sniproxy_catchall_backend_content = generate_backend('catchall', 'http', None, None, None, True)
