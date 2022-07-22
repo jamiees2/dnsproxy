@@ -9,9 +9,9 @@ def generate(config, dnat=False):
         current_port = config["base_port"]
     elif dnat:
         return
-    haproxy_content = generate_mydns()
-    haproxy_content += generate_global()
-    haproxy_content += generate_defaults()
+    sniproxy_content = generate_mydns()
+    sniproxy_content += generate_global()
+    sniproxy_content += generate_defaults()
 
     if not dnat:
         http_port = 80
@@ -27,7 +27,7 @@ def generate(config, dnat=False):
     haproxy_catchall_backend_ssl_content = generate_backend('catchall', 'https', None, None, None, True)
 
     if config["stats"]["enabled"]:
-        haproxy_content += generate_stats(config["stats"], bind_ip)
+        sniproxy_content += generate_stats(config["stats"], bind_ip)
 
     for group in config["groups"].values():
         for proxy in group["proxies"]:
@@ -40,10 +40,10 @@ def generate(config, dnat=False):
                         haproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
                         haproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
 
-    haproxy_content += haproxy_catchall_frontend_content + os.linesep
-    haproxy_content += haproxy_catchall_backend_content
-    haproxy_content += haproxy_catchall_frontend_ssl_content + os.linesep
-    haproxy_content += haproxy_catchall_backend_ssl_content
+    sniproxy_content += haproxy_catchall_frontend_content + os.linesep
+    sniproxy_content += haproxy_catchall_backend_content
+    sniproxy_content += haproxy_catchall_frontend_ssl_content + os.linesep
+    sniproxy_content += haproxy_catchall_backend_ssl_content
 
     if dnat:
         current_port += 2
@@ -51,14 +51,14 @@ def generate(config, dnat=False):
             for proxy in group["proxies"]:
                 if proxy["dnat"]:
                     for protocol in proxy["protocols"]:
-                        haproxy_content += generate_frontend(proxy["alias"], protocol, bind_ip, current_port, False)
-                        haproxy_content += generate_backend(proxy["alias"], protocol, proxy["domain"], port(protocol), server_options, False)
+                        sniproxy_content += generate_frontend(proxy["alias"], protocol, bind_ip, current_port, False)
+                        sniproxy_content += generate_backend(proxy["alias"], protocol, proxy["domain"], port(protocol), server_options, False)
                         current_port += 1
 
-    haproxy_content += generate_deadend('http')
-    haproxy_content += generate_deadend('https')
+    sniproxy_content += generate_deadend('http')
+    sniproxy_content += generate_deadend('https')
 
-    return haproxy_content
+    return sniproxy_content
 
 
 def generate_frontend_catchall_entry(domain, mode):

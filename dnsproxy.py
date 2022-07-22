@@ -156,6 +156,12 @@ def main(args):
         print_ips(config)
 
     for output in set(files):
+        if output == "sniproxy":
+            print_firewall(config, dnat=dnat)
+            print ""
+            sniproxy_content = generators.generate_sniproxy(config, dnat=dnat)
+            util.put_contents(args.sniproxy_filename, sniproxy_content, base_dir=args.output_dir)
+            print 'File generated: ' + args.sniproxy_filename
         if output == "haproxy":
             print_firewall(config, dnat=dnat)
             if config["stats"]["enabled"] and not config["stats"]["password"]:
