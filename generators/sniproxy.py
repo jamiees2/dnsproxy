@@ -64,7 +64,18 @@ def generate_listentls():
     result += fmt('}', indent=None)    
     result += os.linesep
     return result 
-    
+
+def generate_hosts():
+    result = fmt('table hosts{', indent=None)
+    result += fmt('.*\.wieistmeineip\.de$ *')
+    result += fmt('.*\.speedtest\.net$ *')
+    result += fmt('wieistmeineip.de wieistmeineip.de')
+    result += fmt('speedtest.net speedtest.net')    
+    result += fmt('#    .* *')
+    result += fmt('}', indent=None)    
+    result += os.linesep
+    return result 
+  
 def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
@@ -74,8 +85,9 @@ def generate(config, dnat=False):
     sniproxy_content += generate_error()
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
-    sniproxy_content += generate_global()
-    sniproxy_content += generate_defaults()
+    sniproxy_content += generate_hosts()
+    #sniproxy_content += generate_global()
+    #sniproxy_content += generate_defaults()
 
     http_port = 80
     https_port = 443
