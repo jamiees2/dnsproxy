@@ -35,7 +35,7 @@ def generate_error():
     result += os.linesep
     return result
  
-def generate_listen80():
+def generate_listenhttp():
     result = fmt('# blocks are delimited with {...}', indent=None)
     result += fmt('listen 80 {', indent=None)
     result += fmt('proto http')
@@ -50,6 +50,20 @@ def generate_listen80():
     result += fmt('}', indent=None)    
     result += os.linesep
     return result
+
+def generate_listentls():
+    result = fmt('# blocks are delimited with {...}', indent=None)
+    result += fmt('listen 443 {', indent=None)
+    result += fmt('proto tls')
+    result += fmt('table hosts')
+    result += fmt('', indent=None)    
+    result += fmt('access_log {')
+    result += fmt('filename /var/log/sniproxy/https_access.log')
+    result += fmt('priority notice')
+    result += fmt('}')
+    result += fmt('}', indent=None)    
+    result += os.linesep
+    return result 
     
 def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
@@ -58,7 +72,8 @@ def generate(config, dnat=False):
     sniproxy_content = generate_startconfig01()
     sniproxy_content += generate_mydns()
     sniproxy_content += generate_error()
-    sniproxy_content += generate_listen80()
+    sniproxy_content += generate_listenhttp()
+    sniproxy_content += generate_listentls()
     sniproxy_content += generate_global()
     sniproxy_content += generate_defaults()
 
