@@ -1,7 +1,15 @@
 from util import fmt, port
 import os
 
-
+def generate_mydns():
+    result = fmt('resolver', indent=None)
+    result += fmt('nameserver 8.8.8.8')
+    result += fmt('nameserver 8.8.4.4')
+    result += fmt('mode ipv4_only')
+    result += os.linesep
+    return result
+    
+    
 def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
@@ -25,9 +33,6 @@ def generate(config, dnat=False):
 
     sniproxy_catchall_frontend_ssl_content = generate_frontend('catchall', 'https', bind_ip, https_port, True)
     sniproxy_catchall_backend_ssl_content = generate_backend('catchall', 'https', None, None, None, True)
-
-    if config["stats"]["enabled"]:
-        sniproxy_content += generate_stats(config["stats"], bind_ip)
 
     for group in config["groups"].values():
         for proxy in group["proxies"]:
@@ -85,12 +90,6 @@ def generate_backend_catchall_entry(domain, mode, port, server_options, override
     return result
 
 
-def generate_mydns():
-    result = fmt('resolvers mydns', indent=None)
-    result += fmt('nameserver dns1 8.8.8.8:53')
-    result += fmt('nameserver dns2 8.8.4.4:53')
-    result += os.linesep
-    return result
 
 
 def generate_global():
@@ -138,18 +137,6 @@ def generate_deadend(mode):
         result += fmt('mode tcp')
         result += fmt('option tcplog')
 
-    result += os.linesep
-    return result
-
-
-def generate_stats(stats, bind_ip):
-    result = fmt('listen stats', indent=None)
-    result += fmt('bind ' + bind_ip + ':' + str(stats["port"]))
-    result += fmt('mode http')
-    result += fmt('stats enable')
-    result += fmt('stats realm Protected\\ Area')
-    result += fmt('stats uri /')
-    result += fmt('stats auth ' + stats["user"] + ':' + stats["password"])
     result += os.linesep
     return result
 
