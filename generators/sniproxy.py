@@ -87,45 +87,6 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
     sniproxy_content += generate_hosts()
-    #sniproxy_content += generate_global()
-    #sniproxy_content += generate_defaults()
 
-    http_port = 80
-    https_port = 443
-
-    sniproxy_catchall_frontend_content = generate_frontend('catchall', 'http', bind_ip, http_port, True)
-    sniproxy_catchall_backend_content = generate_backend('catchall', 'http', None, None, None, True)
-
-    sniproxy_catchall_frontend_ssl_content = generate_frontend('catchall', 'https', bind_ip, https_port, True)
-    sniproxy_catchall_backend_ssl_content = generate_backend('catchall', 'https', None, None, None, True)
-
-    for group in config["groups"].values():
-        for proxy in group["proxies"]:
-            if not dnat or (dnat and not proxy["dnat"]):
-                for protocol in proxy["protocols"]:
-                    if protocol == 'http':
-                        sniproxy_catchall_frontend_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
-                        sniproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
-                    elif protocol == 'https':
-                        sniproxy_catchall_frontend_ssl_content += generate_frontend_catchall_entry(proxy["domain"], protocol)
-                        sniproxy_catchall_backend_ssl_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
-
-    sniproxy_content += sniproxy_catchall_frontend_content + os.linesep
-    sniproxy_content += sniproxy_catchall_backend_content
-    sniproxy_content += sniproxy_catchall_frontend_ssl_content + os.linesep
-    sniproxy_content += sniproxy_catchall_backend_ssl_content
-
-    if dnat:
-        current_port += 2
-        for group in config["groups"].values():
-            for proxy in group["proxies"]:
-                if proxy["dnat"]:
-                    for protocol in proxy["protocols"]:
-                        sniproxy_content += generate_frontend(proxy["alias"], protocol, bind_ip, current_port, False)
-                        sniproxy_content += generate_backend(proxy["alias"], protocol, proxy["domain"], port(protocol), server_options, False)
-                        current_port += 1
-
-    sniproxy_content += generate_deadend('http')
-    sniproxy_content += generate_deadend('https')
 
     return sniproxy_content
