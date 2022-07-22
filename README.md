@@ -39,14 +39,16 @@ Check the wiki for additional information, along with these links by @trick77:
 Output of `dnsproxy.py -h`:
 ```
 usage: dnsproxy.py [-h] [-m {manual,sni,dnat,local}]
-                   [-o {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...]]
-                   [-c COUNTRY] [-d] [--no-test] [--ip IP] [--bind-ip BIND_IP]
-                   [--base-ip BASE_IP] [--base-port BASE_PORT] [--save]
-                   [--output-dir OUTPUT_DIR] [--only [ONLY [ONLY ...]]]
-                   [--skip [SKIP [SKIP ...]]]
+                   [-o {dnsmasq,haproxy,netsh,hosts,rinetd,iptables,iproute2,sniproxy}]
+                   [-c COUNTRY [COUNTRY ...]] [-d] [--ip IP]
+                   [--bind-ip BIND_IP] [--base-ip BASE_IP]
+                   [--base-port BASE_PORT] [--save] [--output-dir OUTPUT_DIR]
+                   [--only [ONLY [ONLY ...]]] [--skip [SKIP [SKIP ...]]]
                    [--dnsmasq-filename DNSMASQ_FILENAME]
                    [--haproxy-filename HAPROXY_FILENAME]
+                   [--sniproxy-filename SNIPROXY_FILENAME]
                    [--iptables-filename IPTABLES_FILENAME]
+                   [--iproute2-filename IPROUTE2_FILENAME]
                    [--netsh-filename NETSH_FILENAME]
                    [--hosts-filename HOSTS_FILENAME]
                    [--rinetd-filename RINETD_FILENAME]
@@ -57,16 +59,14 @@ optional arguments:
   -h, --help            show this help message and exit
   -m {manual,sni,dnat,local}, --mode {manual,sni,dnat,local}
                         Presets for configuration file generation.
-  -o {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...], --output {dnsmasq,haproxy,netsh,hosts,rinetd,iptables} [{dnsmasq,haproxy,netsh,hosts,rinetd,iptables} ...]
+  -o {dnsmasq,haproxy,netsh,hosts,rinetd,iptables,iproute2,sniproxy}, --output {dnsmasq,haproxy,netsh,hosts,rinetd,iptables,iproute2,sniproxy}
                         Which configuration file(s) to generate. This is
                         ignored when not in manual mode.
-  -c COUNTRY, --country COUNTRY
-                        The country to use for generating the configuration.
+  -c COUNTRY [COUNTRY ...], --country COUNTRY [COUNTRY ...]
+                        The country/-ies to use for generating the
+                        configuration (space-separated, e.g. -c us uk).
   -d, --dnat            Specify to use DNAT instead of SNI (Advanced). This is
                         ignored when not in manual mode.
-  --no-test             Specify to skip generating test configuration. This
-                        means that you will not be able to test your setup
-                        with the setup tester.
   --ip IP               Specify the public IP to use
   --bind-ip BIND_IP     Specify the IP that haproxy should bind to
   --base-ip BASE_IP     Specify the base IP from which DNAT should start
@@ -86,8 +86,12 @@ optional arguments:
                         Specify the DNS configuration file name
   --haproxy-filename HAPROXY_FILENAME
                         Specify the haproxy configuration file name
+  --sniproxy-filename SNIPROXY_FILENAME
+                        Specify the sniproxy configuration file name
   --iptables-filename IPTABLES_FILENAME
                         Specify the iptables configuration file name
+  --iproute2-filename IPROUTE2_FILENAME
+                        Specify the iproute2 configuration file name
   --netsh-filename NETSH_FILENAME
                         Specify the netsh configuration file name
   --hosts-filename HOSTS_FILENAME
