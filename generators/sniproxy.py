@@ -94,7 +94,9 @@ def generate(config, dnat=False):
     sniproxy_content += generate_hosts01()    
 
     for group in config["groups"].values():
-        sniproxy_content += generate_dns(group[domain])
+        sniproxy_content += generate_dns(group)
+     
+    print(generate_dns)
 
             
 
