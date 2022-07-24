@@ -82,7 +82,7 @@ def generate_hosts01():
     return result 
     
 def generate_hosts02(): 
-    result += fmt('#    .* *')
+    result = fmt('#    .* *')
     result += fmt('}', indent=None)    
     result += os.linesep
     return result 
