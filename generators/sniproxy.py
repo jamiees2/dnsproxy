@@ -69,7 +69,6 @@ def generate_listentls():
 
 def generate_hosts01():
     result = fmt('table hosts{', indent=None)  
-    result += os.linesep
     return result 
     
 def generate_hosts02(): 
