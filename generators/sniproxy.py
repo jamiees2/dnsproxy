@@ -67,11 +67,11 @@ def generate_listentls():
     return result 
 
 
-def generate_dns(dest_addrs, current_ip):
+def generate_dns(dest_addrs):
     if isinstance(dest_addrs, list):
-        result = 'address=/' + "/".join(dest_addrs) + '/' + current_ip
+        result = 'address=/' + "/".join(dest_addrs) + '/'
     else:
-        result = 'address=/' + dest_addrs + '/' + current_ip
+        result = 'address=/' + dest_addrs + '/'
     return result + os.linesep
 
 
@@ -104,9 +104,9 @@ def generate(config, dnat=False):
 
         for chunk in c:
             if not dnat:
-                sniproxy_content += generate_dns(chunk, public_ip)
+                sniproxy_content += generate_dns(chunk)
             else:
-                sniproxy_content += generate_dns(chunk, current_ip)
+                sniproxy_content += generate_dns(chunk)
 
 
 
