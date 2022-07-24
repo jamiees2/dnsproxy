@@ -93,7 +93,11 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listentls()
     sniproxy_content += generate_hosts01()    
 
-    sniproxy_content += generate_dns(chunk)
+    for group in config["groups"].values():
+        c = proxy["domain"]
+
+        for chunk in c:
+            sniproxy_content += generate_dns(chunk)
 
     sniproxy_content += generate_hosts02()  
 
