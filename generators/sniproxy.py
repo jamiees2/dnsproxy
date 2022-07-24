@@ -90,7 +90,7 @@ def generate(config, dnat=False):
     for group in config["groups"].values():
         for proxy in group["proxies"]:
         
-            sniproxy_content += proxy["domain"] + '\n'
+            sniproxy_content += proxy["domain"] + '\n', indent=None
      
 
 
