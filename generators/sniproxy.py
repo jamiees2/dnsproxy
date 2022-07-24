@@ -77,22 +77,13 @@ def generate_hosts():
     result += os.linesep
     return result 
 
-def generate_backend(proxy_name, mode, domain, port, server_options, is_catchall):
-    result = fmt('backend b_' + proxy_name + '_' + mode, indent=None)
-
+def generate_frontend_catchall_entry(domain, mode):
     if mode == 'http':
-        result += fmt('mode http')
-        result += fmt('option httplog')
-        result += fmt('option accept-invalid-http-response')
-
+        return fmt('use_backend b_catchall_' + mode + ' if { hdr_dom(host) -i ' + domain + ' }')
     elif mode == 'https':
-        result += fmt('mode tcp')
-        result += fmt('option tcplog')
+        return fmt('use_backend b_catchall_' + mode + ' if { req_ssl_sni -i ' + domain + ' }')
 
-    if not is_catchall:
-        result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options)
-
-    return result + os.linesep
+    return None
 
   
 def generate(config, dnat=False):
@@ -105,6 +96,6 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
     sniproxy_content += generate_hosts()
-    sniproxy_content += generate_backend()
+    sniproxy_content += generate_frontend_catchall_entry(domain, mode)
 
     return sniproxy_content
