@@ -114,6 +114,8 @@ def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
     haproxy_catchall_backend_content = generate_backend('catchall', 'http', None, None, None, True)
+    
+    sniproxy_content += haproxy_catchall_backend_content
     sniproxy_content = generate_startconfig01()
     sniproxy_content += generate_mydns()
     sniproxy_content += generate_error()
