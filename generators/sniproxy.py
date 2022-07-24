@@ -98,7 +98,7 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
     sniproxy_content += generate_hosts()
-    sniproxy_content += generate_backend()
+    sniproxy_content += generate_backend(proxy_name, mode, domain, port, server_options, is_catchall)
 
 
     return sniproxy_content
