@@ -92,7 +92,8 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
     sniproxy_content += generate_hosts01()    
-    sniproxy_content += generate_dns(dest_addrs)
+
+    sniproxy_content += generate_dns(chunk)
 
     sniproxy_content += generate_hosts02()  
 
