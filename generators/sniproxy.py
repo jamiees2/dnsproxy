@@ -100,11 +100,12 @@ def generate(config, dnat=False):
         for proxy in group["proxies"]:
             if (proxy["domain"].startswith('*')):
                 proxy["domain2"] = proxy["domain"].replace('*','1234*')
+                sniproxy_content += '    ^' + proxy["domain2"] + ' ' +  '*' + '\n'
             else:
                 proxy["domain2"] = proxy["domain"].replace('.','\.')
- 
+                sniproxy_content += '    ^' + proxy["domain2"] + ' ' +  proxy["domain"] + '\n'
 
-            sniproxy_content += '    ^' + proxy["domain2"] + ' ' +  proxy["domain"] + '\n'
+            
      
 
     sniproxy_content += generate_hosts02()  
