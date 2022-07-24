@@ -72,7 +72,7 @@ def generate_hosts01():
     result += os.linesep
     return result 
 
-def generate_domains():
+def generate_domains(config):
     result = fmt('', indent=None)
     for group in config["groups"].values():
         for proxy in group["proxies"]:
