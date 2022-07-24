@@ -68,24 +68,20 @@ def generate_listentls():
 
 
 def generate_dns(dest_addrs):
-    result = fmt('table hosts{', indent=None)
     if isinstance(dest_addrs, list):
         result = 'address=/' + "/".join(dest_addrs) + '/'
     else:
         result = 'address=/' + dest_addrs + '/'
-    result += fmt('#    .* *')
-    result += fmt('}', indent=None)    
-    result += os.linesep
     return result + os.linesep
 
 
 
-def generate_hosts():
-    result = fmt('table hosts{', indent=None)
-    result += fmt('.*\.wieistmeineip\.de$ *')
-    result += fmt('.*\.speedtest\.net$ *')
-    result += fmt('wieistmeineip.de wieistmeineip.de')
-    result += fmt('speedtest.net speedtest.net')    
+def generate_hosts01():
+    result = fmt('table hosts{', indent=None)  
+    result += os.linesep
+    return result 
+    
+def generate_hosts02(): 
     result += fmt('#    .* *')
     result += fmt('}', indent=None)    
     result += os.linesep
@@ -98,7 +94,7 @@ def generate(config, dnat=False):
     sniproxy_content += generate_error()
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
-    
+    sniproxy_content += generate_hosts01()    
 
     for group in config["groups"].values():
         c = chunks([proxy["domain"] for proxy in group["proxies"]], 5)
@@ -106,6 +102,7 @@ def generate(config, dnat=False):
         for chunk in c:
             sniproxy_content += generate_dns(chunk)
 
+    sniproxy_content += generate_hosts02()  
 
 
 
