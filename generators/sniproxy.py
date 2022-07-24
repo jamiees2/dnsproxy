@@ -68,10 +68,7 @@ def generate_listentls():
 
 
 def generate_dns(dest_addrs):
-    if isinstance(dest_addrs, list):
-        result = 'address=/' + "/".join(dest_addrs) + '/'
-    else:
-        result = 'address=/' + dest_addrs + '/'
+    result = dest_addrs
     return result + os.linesep
 
 
@@ -95,9 +92,6 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
     
-    
-    public_ip = config["public_ip"]
-    current_ip = config["base_ip"]
 
     for group in config["groups"].values():
         c = chunks([proxy["domain"] for proxy in group["proxies"]], 5)
