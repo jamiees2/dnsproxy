@@ -76,6 +76,13 @@ def generate_hosts():
     result += fmt('}', indent=None)    
     result += os.linesep
     return result 
+
+def generate_backend(domain):
+
+        result += fmt(domain + ' ' + domain)
+
+    return result + os.linesep
+
   
 def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
