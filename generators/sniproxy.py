@@ -91,18 +91,29 @@ def generate_backend_catchall_entry(domain, mode, port, server_options, override
 
     return result
 
-def generate_backend(domain):
-    result = fmt('mode http')
-    result += fmt('option httplog')
-    result += fmt('option accept-invalid-http-response')
+def generate_backend(proxy_name, mode, domain, port, server_options, is_catchall):
+    result = fmt('backend b_' + proxy_name + '_' + mode, indent=None)
+
+    if mode == 'http':
+        result += fmt('mode http')
+        result += fmt('option httplog')
+        result += fmt('option accept-invalid-http-response')
+
+    elif mode == 'https':
+        result += fmt('mode tcp')
+        result += fmt('option tcplog')
+
+    if not is_catchall:
+        result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options)
 
     return result + os.linesep
+
 
   
 def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
-
+    haproxy_catchall_backend_content = generate_backend('catchall', 'http', None, None, None, True)
     sniproxy_content = generate_startconfig01()
     sniproxy_content += generate_mydns()
     sniproxy_content += generate_error()
