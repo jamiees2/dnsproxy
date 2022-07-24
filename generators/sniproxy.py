@@ -96,6 +96,6 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
     sniproxy_content += generate_hosts()
-    sniproxy_content += generate_frontend_catchall_entry(domain, mode)
+    sniproxy_content += generate_frontend_catchall_entry()
 
     return sniproxy_content
