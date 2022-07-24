@@ -77,6 +77,20 @@ def generate_hosts():
     result += os.linesep
     return result 
 
+def generate_backend_catchall_entry(domain, mode, port, server_options, override_domain=None):
+    result = None
+    if mode == 'http':
+        result = fmt('use-server ' + domain + ' if { hdr_dom(host) -i ' + domain + ' }')
+        if override_domain is None:
+            result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
+        else:
+            result += fmt('server ' + domain + ' ' + override_domain + ':' + str(port) + ' ' + server_options + os.linesep)
+    elif mode == 'https':
+        result = fmt('use-server ' + domain + ' if { req_ssl_sni -i ' + domain + ' }')
+        result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
+
+    return result
+
 def generate_backend(domain):
     result = fmt('mode http')
     result += fmt('option httplog')
