@@ -67,18 +67,13 @@ def generate_listentls():
     return result 
 
 
-def add_hosts(hosts, domain, current_loopback_ip):
-    if(current_loopback_ip in hosts):
-        hosts[current_loopback_ip].append(domain)
+def generate_dns(dest_addrs, current_ip):
+    if isinstance(dest_addrs, list):
+        result = 'address=/' + "/".join(dest_addrs) + '/' + current_ip
     else:
-        hosts[current_loopback_ip] = [domain]
+        result = 'address=/' + dest_addrs + '/' + current_ip
+    return result + os.linesep
 
-
-def generate_hosts_content(hosts):
-    result = ''
-    for ip, list in hosts.items():
-        result += list
-    return result
 
 
 def generate_hosts():
@@ -93,29 +88,31 @@ def generate_hosts():
     return result 
   
 def generate(config, dnat=False):
-    bind_ip = config["bind_ip"]
-    server_options = config["server_options"]
-
-
     public_ip = config["public_ip"]
     current_ip = config["base_ip"]
-    hosts = dict()
+    sniproxy_content = ""
     for group in config["groups"].values():
-        for proxy in group["proxies"]:
+        if not dnat:
+            c = chunks([proxy["domain"] for proxy in group["proxies"]], 5)
+        else:
+            c = chunks([proxy["domain"] for proxy in group["proxies"] if not proxy["dnat"]], 5)
+
+        for chunk in c:
             if not dnat:
-                add_hosts(hosts, proxy["domain"], public_ip)
-            elif not proxy["dnat"]:
-                add_hosts(hosts, proxy["domain"], current_ip)
-        if dnat:
-            for group in config["groups"].values():
-               for proxy in group["proxies"]:
-                    if proxy["dnat"]:
-                       current_ip = long2ip(ip2long(current_ip) + 1)
-                       add_hosts(hosts, proxy["domain"], current_ip)
+                sniproxy_content += generate_dns(chunk, public_ip)
+            else:
+                sniproxy_content += generate_dns(chunk, current_ip)
+
+    if dnat:
+        for group in config["groups"].values():
+            for proxy in group["proxies"]:
+                if proxy["dnat"]:
+                    current_ip = long2ip(ip2long(current_ip) + 1)
+                    sniproxy_content += generate_dns(proxy["domain"], current_ip)
 
 
 
-    sniproxy_content = generate_startconfig01()
+    sniproxy_content += generate_startconfig01()
     sniproxy_content += generate_mydns()
     sniproxy_content += generate_error()
     sniproxy_content += generate_listenhttp()
