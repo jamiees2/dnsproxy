@@ -98,8 +98,9 @@ def generate(config, dnat=False):
 
     for group in config["groups"].values():
         for proxy in group["proxies"]:
+            proxy["domain2"] = proxy["domain"].replace('.','\.')
         
-            sniproxy_content += '    ' + proxy["domain"] + ' ' +  proxy["domain"] + '\n'
+            sniproxy_content += '    ^' + proxy["domain2"] + ' ' +  proxy["domain"] + '\n'
      
 
     sniproxy_content += generate_hosts02()  
