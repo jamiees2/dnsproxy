@@ -118,9 +118,7 @@ def generate(config, dnat=False):
         for proxy in group["proxies"]:
             if not dnat or (dnat and not proxy["dnat"]):
                 for protocol in proxy["protocols"]:
-                    if protocol == 'http':
-
-                        haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
+                    haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
     
     sniproxy_content = generate_startconfig01()
 
