@@ -116,7 +116,7 @@ def generate(config, dnat=False):
 
     for group in config["groups"].values():
         for proxy in group["proxies"]:
-            haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"])
+            haproxy_catchall_backend_content = generate_backend_catchall_entry(proxy["domain"])
     
     sniproxy_content = generate_startconfig01()
 
