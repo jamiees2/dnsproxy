@@ -66,6 +66,16 @@ def generate_listentls():
     result += os.linesep
     return result 
 
+def generate_hosts():
+    result = fmt('table hosts{', indent=None)
+    result += fmt('.*\.wieistmeineip\.de$ *')
+    result += fmt('.*\.speedtest\.net$ *')
+    result += fmt('wieistmeineip.de wieistmeineip.de')
+    result += fmt('speedtest.net speedtest.net')    
+    result += fmt('#    .* *')
+    result += fmt('}', indent=None)    
+    result += os.linesep
+    return result 
 
 def generate_hosts01():
     result = fmt('table hosts{', indent=None)  
@@ -89,18 +99,10 @@ def generate(config, dnat=False):
     for group in config["groups"].values():
         for proxy in group["proxies"]:
         
-            sniproxy_content += '    ' + proxy["domain"] + '\n'
+            sniproxy_content += '    ' + proxy["domain"] + ' ' + + proxy["domain"] + '\n'
      
-
-
-            
 
     sniproxy_content += generate_hosts02()  
 
-
-
-
-
-    
 
     return sniproxy_content
