@@ -103,10 +103,7 @@ def generate(config, dnat=False):
         c = chunks([proxy["domain"] for proxy in group["proxies"]], 5)
 
         for chunk in c:
-            if not dnat:
-                sniproxy_content += generate_dns(chunk)
-            else:
-                sniproxy_content += generate_dns(chunk)
+            sniproxy_content += generate_dns(chunk)
 
 
 
