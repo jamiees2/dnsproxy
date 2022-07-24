@@ -98,14 +98,14 @@ def generate(config, dnat=False):
 
 
     public_ip = config["public_ip"]
-        current_ip = config["base_ip"]
-        hosts = dict()
-        for group in config["groups"].values():
-            for proxy in group["proxies"]:
-               if not dnat:
-                    add_hosts(hosts, proxy["domain"], public_ip)
-               elif not proxy["dnat"]:
-                    add_hosts(hosts, proxy["domain"], current_ip)
+    current_ip = config["base_ip"]
+    hosts = dict()
+    for group in config["groups"].values():
+        for proxy in group["proxies"]:
+            if not dnat:
+                add_hosts(hosts, proxy["domain"], public_ip)
+            elif not proxy["dnat"]:
+                add_hosts(hosts, proxy["domain"], current_ip)
         if dnat:
             for group in config["groups"].values():
                for proxy in group["proxies"]:
