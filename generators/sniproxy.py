@@ -120,7 +120,7 @@ def generate(config, dnat=False):
     sniproxy_content += generate_error()
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
-    sniproxy_content += add_hosts(hosts, proxy["domain"], current_ip)
+    sniproxy_content += generate_hosts_content(hosts)
 
     
 
