@@ -15,9 +15,10 @@ def generate(config, dnat=False):
         for chunk in c:
             if not dnat:
                 dnsmasq_content += generate_dns(chunk, public_ip)
+                dnsmasq_content.replace("*", "")
             else:
                 dnsmasq_content += generate_dns(chunk, current_ip)
-
+                dnsmasq_content.replace("*", "")
     if dnat:
         for group in config["groups"].values():
             for proxy in group["proxies"]:
@@ -33,6 +34,4 @@ def generate_dns(dest_addrs, current_ip):
         result = 'address=/' + "/".join(dest_addrs) + '/' + current_ip
     else:
         result = 'address=/' + dest_addrs + '/' + current_ip
-    
-    result.replace("*", "")
     return result + os.linesep
