@@ -29,10 +29,10 @@ def generate(config, dnat=False):
 
 
 def generate_dns(dest_addrs, current_ip):
-    if (dest_addrs.startswith('*')):
-        dest_addrs.replace('*','')
     if isinstance(dest_addrs, list):
         result = 'address=/' + "/".join(dest_addrs) + '/' + current_ip
     else:
         result = 'address=/' + dest_addrs + '/' + current_ip
+    
+    result.replace("*", "")
     return result + os.linesep
