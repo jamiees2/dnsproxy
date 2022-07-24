@@ -100,8 +100,7 @@ def generate(config, dnat=False):
         for proxy in group["proxies"]:
             if (proxy["domain"].startswith('*')):
                 proxy["domain2"] = proxy["domain"].replace('.','\.')
-                #proxy["domain2"] = proxy["domain"].replace('*','.*\')
-                sniproxy_content += '    ^' + proxy["domain2"] + ' ' +  '*' + '\n'
+                sniproxy_content += '    .' + proxy["domain2"] + ' ' +  '*' + '\n'
             else:
                 proxy["domain2"] = proxy["domain"].replace('.','\.')
                 sniproxy_content += '    ^' + proxy["domain2"] + ' ' +  proxy["domain"] + '\n'
