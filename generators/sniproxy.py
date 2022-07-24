@@ -77,7 +77,7 @@ def add_hosts(hosts, domain, current_loopback_ip):
 def generate_hosts_content(hosts):
     result = ''
     for ip, list in hosts.items():
-        result += ip + ' ' + " ".join(list) + ' ### GENERATED ' + os.linesep
+        result += list
     return result
 
 
