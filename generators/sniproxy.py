@@ -67,12 +67,6 @@ def generate_listentls():
     return result 
 
 
-def generate_dns(dest_addrs):
-    result = str(dest_addrs)
-    return result + os.linesep
-
-
-
 def generate_hosts01():
     result = fmt('table hosts{', indent=None)  
     result += os.linesep
@@ -95,6 +89,7 @@ def generate(config, dnat=False):
 
     for group in config["groups"].values():
         for proxy in group["proxies"]:
+        
             sniproxy_content += proxy["domain"] + '\n'
      
 
