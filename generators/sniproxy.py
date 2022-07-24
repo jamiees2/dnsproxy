@@ -68,8 +68,14 @@ def generate_listentls():
 
 
 def generate_dns(dest_addrs):
-    .join(dest_addrs) + '/'
-    
+    result = fmt('table hosts{', indent=None)
+    if isinstance(dest_addrs, list):
+        result = 'address=/' + "/".join(dest_addrs) + '/'
+    else:
+        result = 'address=/' + dest_addrs + '/'
+    result += fmt('#    .* *')
+    result += fmt('}', indent=None)    
+    result += os.linesep
     return result + os.linesep
 
 
