@@ -77,9 +77,9 @@ def generate_hosts():
     result += os.linesep
     return result 
 
-def generate_backend(domain):
+def generate_backend(proxy_name, mode, domain, port, server_options, is_catchall):
 
-        result += fmt(domain + ' ' + domain)
+        result = fmt(domain + ' ' + domain )
 
     return result + os.linesep
 
