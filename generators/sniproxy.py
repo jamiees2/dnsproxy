@@ -77,11 +77,8 @@ def generate_hosts():
     result += os.linesep
     return result 
 
-def generate_backend(proxy_name, mode, domain, port, server_options, is_catchall):
-    result = fmt('backend b_' + proxy_name + '_' + mode, indent=None)
-
-
-    result += fmt('mode http')
+def generate_backend(domain):
+    result = fmt('mode http')
     result += fmt('option httplog')
     result += fmt('option accept-invalid-http-response')
 
@@ -98,7 +95,7 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
     sniproxy_content += generate_hosts()
-    sniproxy_content += generate_backend(proxy_name, mode, domain, port, server_options, is_catchall)
+    sniproxy_content += generate_backend(domain)
 
 
     return sniproxy_content
