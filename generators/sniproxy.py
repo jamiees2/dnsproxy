@@ -1,4 +1,4 @@
-from util import fmt, port
+from util import fmt, port, chunks
 import os
 
 def generate_startconfig01():
