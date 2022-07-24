@@ -66,6 +66,21 @@ def generate_listentls():
     result += os.linesep
     return result 
 
+
+def add_hosts(hosts, domain, current_loopback_ip):
+    if(current_loopback_ip in hosts):
+        hosts[current_loopback_ip].append(domain)
+    else:
+        hosts[current_loopback_ip] = [domain]
+
+
+def generate_hosts_content(hosts):
+    result = ''
+    for ip, list in hosts.items():
+        result += ip + ' ' + " ".join(list) + ' ### GENERATED ' + os.linesep
+    return result
+
+
 def generate_hosts():
     result = fmt('table hosts{', indent=None)
     result += fmt('.*\.wieistmeineip\.de$ *')
@@ -76,41 +91,37 @@ def generate_hosts():
     result += fmt('}', indent=None)    
     result += os.linesep
     return result 
-
-def generate_backend_catchall_entry(domain, mode, port, server_options, override_domain=None):
-    result = None
-    if mode == 'http':
-        result = fmt('use-server ' + domain + ' if { hdr_dom(host) -i ' + domain + ' }')
-        if override_domain is None:
-            result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
-        else:
-            result += fmt('server ' + domain + ' ' + override_domain + ':' + str(port) + ' ' + server_options + os.linesep)
-    elif mode == 'https':
-        result = fmt('use-server ' + domain + ' if { req_ssl_sni -i ' + domain + ' }')
-        result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
-
-    return result
-
-
   
 def generate(config, dnat=False):
     bind_ip = config["bind_ip"]
     server_options = config["server_options"]
-    haproxy_catchall_backend_content = generate_backend('catchall', 'http', None, None, None, True)
-    for group in config["groups"].values():
-        for proxy in group["proxies"]:
-            if not dnat or (dnat and not proxy["dnat"]):
-                for protocol in proxy["protocols"]:
-                    haproxy_catchall_backend_content += generate_backend_catchall_entry(proxy["domain"], protocol, port(protocol), server_options)
-    
-    sniproxy_content = generate_startconfig01()
 
-    sniproxy_content += haproxy_catchall_backend_content
+
+    public_ip = config["public_ip"]
+        current_ip = config["base_ip"]
+        hosts = dict()
+        for group in config["groups"].values():
+            for proxy in group["proxies"]:
+               if not dnat:
+                    add_hosts(hosts, proxy["domain"], public_ip)
+               elif not proxy["dnat"]:
+                    add_hosts(hosts, proxy["domain"], current_ip)
+        if dnat:
+            for group in config["groups"].values():
+               for proxy in group["proxies"]:
+                    if proxy["dnat"]:
+                       current_ip = long2ip(ip2long(current_ip) + 1)
+                       add_hosts(hosts, proxy["domain"], current_ip)
+
+
+
+    sniproxy_content = generate_startconfig01()
     sniproxy_content += generate_mydns()
     sniproxy_content += generate_error()
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
-    sniproxy_content += generate_hosts()
+    sniproxy_content += add_hosts(hosts, proxy["domain"], current_ip)
 
+    
 
     return sniproxy_content
