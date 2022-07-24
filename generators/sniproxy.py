@@ -68,10 +68,7 @@ def generate_listentls():
 
 
 def generate_dns(dest_addrs, current_ip):
-    if isinstance(dest_addrs, list):
-        result = 'address=/' + "/".join(dest_addrs) + '/' + current_ip
-    else:
-        result = 'address=/' + dest_addrs + '/' + current_ip
+    result = 'address=/' + dest_addrs + '/' + current_ip
     return result + os.linesep
 
 
