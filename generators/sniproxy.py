@@ -71,6 +71,12 @@ def generate_hosts01():
     result = fmt('table hosts{', indent=None)  
     result += os.linesep
     return result 
+
+def generate_domains():
+    result = fmt('', indent=None)
+    for group in config["groups"].values():
+        for proxy in group["proxies"]:
+            result += fmt(proxy["domain"] + '\n', indent=None)
     
 def generate_hosts02(): 
     result = fmt('#    .* *')
@@ -86,11 +92,8 @@ def generate(config, dnat=False):
     sniproxy_content += generate_listenhttp()
     sniproxy_content += generate_listentls()
     sniproxy_content += generate_hosts01()    
+    sniproxy_content += generate_domains()
 
-    for group in config["groups"].values():
-        for proxy in group["proxies"]:
-        
-            sniproxy_content += proxy["domain"] + '\n', indent=None
      
 
 
