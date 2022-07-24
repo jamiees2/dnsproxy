@@ -98,7 +98,7 @@ def generate(config, dnat=False):
 
     for group in config["groups"].values():
         for proxy in group["proxies"]:
-            if (proxy["domain"].startswith('*'))):
+            if (proxy["domain"].startswith('*')):
                 proxy["domain2"] = proxy["domain"].replace('*','1234*')
             else:
                 proxy["domain2"] = proxy["domain"].replace('.','\.')
