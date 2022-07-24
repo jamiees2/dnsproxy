@@ -68,7 +68,8 @@ def generate_listentls():
 
 
 def generate_dns(dest_addrs):
-    join(dest_addrs)
+    .join(dest_addrs) + '/'
+    
     return result + os.linesep
 
 
