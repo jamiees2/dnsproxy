@@ -68,10 +68,7 @@ def generate_listentls():
 
 
 def generate_dns(dest_addrs, current_ip):
-    if isinstance(dest_addrs, list):
-        result = 'address=/' + "/".join(dest_addrs) + '/' + current_ip
-    else:
-        result = 'address=/' + dest_addrs + '/' + current_ip
+    result = 'address=/' + dest_addrs
     return result + os.linesep
 
 
@@ -88,9 +85,17 @@ def generate_hosts():
     return result 
   
 def generate(config, dnat=False):
+    sniproxy_content = ""
+    sniproxy_content += generate_startconfig01()
+    sniproxy_content += generate_mydns()
+    sniproxy_content += generate_error()
+    sniproxy_content += generate_listenhttp()
+    sniproxy_content += generate_listentls()
+    
+    
     public_ip = config["public_ip"]
     current_ip = config["base_ip"]
-    sniproxy_content = ""
+
     for group in config["groups"].values():
         if not dnat:
             c = chunks([proxy["domain"] for proxy in group["proxies"]], 5)
@@ -112,11 +117,7 @@ def generate(config, dnat=False):
 
 
 
-    sniproxy_content += generate_startconfig01()
-    sniproxy_content += generate_mydns()
-    sniproxy_content += generate_error()
-    sniproxy_content += generate_listenhttp()
-    sniproxy_content += generate_listentls()
+
 
 
     
