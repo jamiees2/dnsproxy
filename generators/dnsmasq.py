@@ -14,11 +14,13 @@ def generate(config, dnat=False):
 
         for chunk in c:
             if not dnat:
-                dnsmasq_content += generate_dns(chunk, public_ip)
-                dnsmasq_content.replace("*", "")
+                
+                dnsmasq_contentwld = generate_dns(chunk, public_ip)
+                dnsmasq_content += dnsmasq_contentwld.replace("*", "")
+                
             else:
-                dnsmasq_content += generate_dns(chunk, current_ip)
-                dnsmasq_content.replace("*", "")
+                dnsmasq_contentwld += generate_dns(chunk, current_ip)
+                dnsmasq_content = dnsmasq_contentwld.replace("*", "")
     if dnat:
         for group in config["groups"].values():
             for proxy in group["proxies"]:
