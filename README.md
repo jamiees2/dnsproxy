@@ -18,6 +18,7 @@ The configuration generator (dnsproxy.py) offers works with sniproxy with the fo
 
 
 You can generate each configuration file separately with `-o`. Example:
+
 ```python dnsproxy.py -o sniproxy```
 
 ```python dnsproxy.py -o dnsmasq```
