@@ -25,7 +25,7 @@ Prerequisites:
 
 
 The configuration generator (dnsproxy.py) offers works with sniproxy with the following Setup:
-- [sni (Simple Setup)](https://github.com/jamiees2/dnsproxy/wiki/SNI-Setup)
+- [sni (Simple Setup)](https://github.com/jamiees2/dnsproxy/wiki/SNI-Setup) (You dont need HAProxy, as we use sniproxy in our project Fork)
 
 
 You can generate each configuration file separately with `-o`. Example:
