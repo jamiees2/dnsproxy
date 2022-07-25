@@ -35,6 +35,7 @@ You can generate each configuration file separately with `-o`. Example:
 ```python dnsproxy.py -o dnsmasq```
 
 You can also generate a Hosts file for your Client, then you can skip dnsmasq. 
+
 ```python dnsproxy.py -o hosts```
 
 
