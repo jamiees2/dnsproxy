@@ -3,7 +3,14 @@ dnsproxy
 
 Project Based on https://github.com/jamiees2/dnsproxy
 
-Added sniproxy and domain list route specific Domains to the proxy.
+Added sniproxy and domain list to route specific Domains to the proxy.
+
+Unblock:
+Zattoo
+Wilmaa
+Teleboy
+Blue TV (Swisscom)
+....and many more.
 
 Prerequisites:
 - A VPS based in the country you want, preferrably running Ubuntu 20.04. A 128MB server is enough.
