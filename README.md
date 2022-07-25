@@ -1,9 +1,9 @@
 dnsproxy
 ========
 
-This project is still in beta! It currently works well, but some changes may be expected.
+Project Based on https://github.com/jamiees2/dnsproxy
 
-This is based on @trick77's original work on [tunlr-style-dns-unblocking](https://github.com/trick77/tunlr-style-dns-unblocking/)
+Added sniproxy and domain list route specific Domains to the proxy.
 
 The purpose for this project is to make it easy to set up a fast smart DNS service on your own. It is possible to get a US VPS for 1$/mo which is well under the current 4$/mo for most smart DNS services. It is also potentially alot faster, as you then have a whole proxy server to yourself.
 
@@ -12,23 +12,19 @@ Another purpose is privacy. By changing your DNS servers, you allow whoever is o
 Prerequisites:
 - A VPS based in the country you want, preferrably running Ubuntu 14.04. A 128MB server is enough.
 - python
-- haproxy
-
-For `sni` and `dnat` setup:
+- sniproxy
 - dnsmasq
 
 
-The configuration generator (dnsproxy.py) offers three different possibilities for setup:
+The configuration generator (dnsproxy.py) offers works with sniproxy with the following Setup:
 - [sni (Simple Setup)](https://github.com/jamiees2/dnsproxy/wiki/SNI-Setup)
-- [dnat (Advanced Setup)](https://github.com/jamiees2/dnsproxy/wiki/DNAT-Setup)
-- [local (Advanced Setup)](https://github.com/jamiees2/dnsproxy/wiki/Local-Setup)
-- manual (Default)
 
 
-You can generate each configuration file separately with `-m manual`. Example:
-```python dnsproxy.py -m manual -o haproxy```. `-m manual` is also default, so this can be simplified to ```python dnsproxy.py -o haproxy```.
+You can generate each configuration file separately with `-o`. Example:
+```python dnsproxy.py -o sniproxy```
+```python dnsproxy.py -o dnsmasq```
 
-It is also possible to specify which proxy list you would like to use, based on country. You can specify that by passing `-c <country>`, where `<country>` is a suffix of any file in the `proxies/` directory. For example, if you wish to generate configuration for a uk based SNI proxy, you can run `python dnsproxy.py -c uk -m sni`. The default country is `us`.
+It is also possible to specify which proxy list you would like to use, based on country. You can specify that by passing `-c <country>`, where `<country>` is a suffix of any file in the `proxies/` directory. For example, if you wish to generate configuration for a uk based SNI proxy, you can run `python dnsproxy.py -c uk -m sni`. The default country is `ch`.
 
 Check the wiki for additional information, along with these links by @trick77:
 - http://trick77.com/2014/03/01/tunlr-style-dns-unblocking-pandora-netflix-hulu-et-al/
