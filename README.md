@@ -37,7 +37,7 @@ You can generate each configuration file separately with `-o`. Example:
 Copy and overwrite the generated configs for sniproxy and dnsmasq.
 Restart the Service and your dns Proxy should be up and running.
 
-Now just point your DNS Records to your VPS and the traffic goes through the Proxy
+Now just point your DNS Records to your VPS and the traffic goes through the Proxy.
 
 It is also possible to specify which proxy list you would like to use, based on country. You can specify that by passing `-c <country>`, where `<country>` is a suffix of any file in the `proxies/` directory. For example, if you wish to generate configuration for a uk based SNI proxy, you can run `python dnsproxy.py -c uk -m sni`. The default country is `ch`.
 
