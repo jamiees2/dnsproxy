@@ -104,6 +104,6 @@ result += ('}\n')
 #    f.write(result)
 
 
-with open('proxies-us.json', 'w') as f:
+with open('proxies-ch.json', 'w') as f:
     f.write(result)
     f.close()

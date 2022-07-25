@@ -10940,6 +10940,60 @@
         "dnat": true
       },
       {
+        "alias":"1und1-fra1902-1-ss-live.zahs.tv",
+        "domain":"1und1-fra1902-1-ss-live.zahs.tv",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"1und1-fra1902-2-ss-live.zahs.tv",
+        "domain":"1und1-fra1902-2-ss-live.zahs.tv",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"blue.ch",
+        "domain":"blue.ch",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"tv.blue.ch",
+        "domain":"tv.blue.ch",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"*.blue.ch",
+        "domain":"*.blue.ch",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"services.sg101.prd.sctv.ch",
+        "domain":"services.sg101.prd.sctv.ch",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"tvhosa-pez0315.sctv.ch",
+        "domain":"tvhosa-pez0315.sctv.ch",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"sctv.ch",
+        "domain":"sctv.ch",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
+        "alias":"*.sctv.ch",
+        "domain":"*.sctv.ch",
+        "protocols": ["http", "https"],
+        "dnat": true
+      },
+      {
         "alias":"zba2-1-hls5-pvr.zahs.tv",
         "domain":"zba2-1-hls5-pvr.zahs.tv",
         "protocols": ["http", "https"],
