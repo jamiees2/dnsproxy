@@ -7,9 +7,13 @@ Added sniproxy and domain list to route specific Domains to the proxy.
 
 Unblock:
 Zattoo
+
 Wilmaa
+
 Teleboy
+
 Blue TV (Swisscom)
+
 ....and many more.
 
 Prerequisites:
