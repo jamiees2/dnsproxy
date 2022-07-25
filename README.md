@@ -4,7 +4,6 @@ dnsproxy
 Project Based on https://github.com/jamiees2/dnsproxy
 
 Added sniproxy and domain list route specific Domains to the proxy.
-.
 
 Prerequisites:
 - A VPS based in the country you want, preferrably running Ubuntu 20.04. A 128MB server is enough.
