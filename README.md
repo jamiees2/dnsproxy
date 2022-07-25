@@ -26,9 +26,6 @@ You can generate each configuration file separately with `-o`. Example:
 
 It is also possible to specify which proxy list you would like to use, based on country. You can specify that by passing `-c <country>`, where `<country>` is a suffix of any file in the `proxies/` directory. For example, if you wish to generate configuration for a uk based SNI proxy, you can run `python dnsproxy.py -c uk -m sni`. The default country is `ch`.
 
-Check the wiki for additional information, along with these links by @trick77:
-- http://trick77.com/2014/03/01/tunlr-style-dns-unblocking-pandora-netflix-hulu-et-al/
-- http://trick77.com/2014/03/02/dns-unblocking-using-dnsmasq-haproxy/
 
 *If you would like to add a service, please send a pull request.*
 
