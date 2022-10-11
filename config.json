@@ -13,6 +13,6 @@
     "enabled": true, // Set to true to enable HAProxy stats web page
     "port": 27199,
     "user": "haproxy",
-    "password": ""
+    "password": "123456"
   }
 }

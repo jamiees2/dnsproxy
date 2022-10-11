@@ -1,5 +1,6 @@
 
 from haproxy import generate as generate_haproxy
+from sniproxy import generate as generate_sniproxy
 from dnsmasq import generate as generate_dnsmasq
 from iptables import generate as generate_iptables
 from iproute2 import generate as generate_iproute2

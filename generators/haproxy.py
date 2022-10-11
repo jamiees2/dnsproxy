@@ -9,8 +9,8 @@ def generate(config, dnat=False):
         current_port = config["base_port"]
     elif dnat:
         return
-
-    haproxy_content = generate_global()
+    haproxy_content = generate_mydns()
+    haproxy_content += generate_global()
     haproxy_content += generate_defaults()
 
     if not dnat:
@@ -82,6 +82,14 @@ def generate_backend_catchall_entry(domain, mode, port, server_options, override
         result = fmt('use-server ' + domain + ' if { req_ssl_sni -i ' + domain + ' }')
         result += fmt('server ' + domain + ' ' + domain + ':' + str(port) + ' ' + server_options + os.linesep)
 
+    return result
+
+
+def generate_mydns():
+    result = fmt('resolvers mydns', indent=None)
+    result += fmt('nameserver dns1 8.8.8.8:53')
+    result += fmt('nameserver dns2 8.8.4.4:53')
+    result += os.linesep
     return result
 
 

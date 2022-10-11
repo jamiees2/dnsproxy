@@ -127,7 +127,7 @@ def main(args):
 
     # Choose from the available modes
     if args.mode == "sni":
-        files = ["haproxy", "dnsmasq", "hosts"]
+        files = ["haproxy", "dnsmasq", "hosts", "sniproxy"]
         dnat = False
     elif args.mode == "dnat":
         files = ["haproxy", "dnsmasq", "hosts", "iptables", "iproute2"]
@@ -156,7 +156,13 @@ def main(args):
         print_ips(config)
 
     for output in set(files):
-        if output == "haproxy":
+        if output == "sniproxy":
+            print_firewall(config, dnat=dnat)
+            print ""
+            sniproxy_content = generators.generate_sniproxy(config, dnat=dnat)
+            util.put_contents(args.sniproxy_filename, sniproxy_content, base_dir=args.output_dir)
+            print 'File generated: ' + args.sniproxy_filename
+        elif output == "haproxy":
             print_firewall(config, dnat=dnat)
             if config["stats"]["enabled"] and not config["stats"]["password"]:
                 print ""
@@ -212,8 +218,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate configuration files to setup a tunlr style smart DNS")
 
     parser.add_argument("-m", "--mode", choices=["manual", "sni", "dnat", "local"], default="manual", type=str, help="Presets for configuration file generation.")
-    parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables", "iproute2"], default=["haproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
-    parser.add_argument("-c", "--country", default="us", type=str, nargs="+", help="The country/-ies to use for generating the configuration (space-separated, e.g. -c us uk).")
+    parser.add_argument("-o", "--output", choices=["dnsmasq", "haproxy", "netsh", "hosts", "rinetd", "iptables", "iproute2", "sniproxy"], default=["sniproxy"], action="append", help="Which configuration file(s) to generate. This is ignored when not in manual mode.")
+    parser.add_argument("-c", "--country", default="ch", type=str, nargs="+", help="The country/-ies to use for generating the configuration (space-separated, e.g. -c us uk).")
     parser.add_argument("-d", "--dnat", action="store_true", help="Specify to use DNAT instead of SNI (Advanced). This is ignored when not in manual mode.")
 
     parser.add_argument("--ip", type=str, default=None, help="Specify the public IP to use")
@@ -229,6 +235,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--dnsmasq-filename", type=str, default="dnsmasq-haproxy.conf", help="Specify the DNS configuration file name")
     parser.add_argument("--haproxy-filename", type=str, default="haproxy.conf", help="Specify the haproxy configuration file name")
+    parser.add_argument("--sniproxy-filename", type=str, default="sniproxy.conf", help="Specify the sniproxy configuration file name")
     parser.add_argument("--iptables-filename", type=str, default="iptables-haproxy.sh", help="Specify the iptables configuration file name")
     parser.add_argument("--iproute2-filename", type=str, default="iproute2-haproxy.sh", help="Specify the iproute2 configuration file name")
     parser.add_argument("--netsh-filename", type=str, default="netsh-haproxy.cmd", help="Specify the netsh configuration file name")
